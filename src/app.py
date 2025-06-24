@@ -23,6 +23,14 @@ app = Flask(__name__)
 CORS(app)
 app.url_map.strict_slashes = False
 
+@app.after_request
+def add_header(response):
+    print(response)
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'HEAD, GET, OPTIONS, POST, PUT'
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Content-Range, Content-Disposition, Content-Description'
+    return response
+
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
 if db_url is not None:
@@ -83,7 +91,7 @@ def create_token():
     password = request.json.get("password", None)
 
     # Query your database for username and password
-    user = User.query.filter_by(username=username, password=password).first()
+    user = User.query.filter_by(email=username, password=password).first()
 
     if user is None:
         # The user was not found on the database
