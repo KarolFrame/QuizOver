@@ -1,5 +1,6 @@
 import { login } from '../services/authServices.js';
 import { useState } from 'react';
+import { SubmitButton } from './SubmitButton.jsx';
 
 const LoginForm = () => {
 	const [email, setEmail] = useState('');
@@ -16,11 +17,15 @@ const LoginForm = () => {
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<input type="email" placeholder='email' required value={email} onChange={e => setEmail(e.target.value)} />
-			<input type="password" placeholder='password' required value={password} onChange={e => setPassword(e.target.value)} />
-			<button type="submit">submit</button>
-		</form>
+		<>
+			<div className='flex justify-center'>
+				<form className='flex flex-col bg-primary' onSubmit={handleSubmit}>
+					<input type="email" placeholder='Type your email' required value={email} onChange={e => setEmail(e.target.value)} />
+					<input type="password" placeholder='Type your password' required value={password} onChange={e => setPassword(e.target.value)} />
+					<SubmitButton />
+				</form>
+			</div>
+		</>
 	)
 };
 

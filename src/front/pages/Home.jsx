@@ -36,10 +36,6 @@ export const Home = () => {
 	return (
 		<div className="text-center mt-5">
 			<LoginForm />
-			<h1 className="display-4">Hellosdasd Rigo!!</h1>
-			<p className="lead">
-				<img src={rigoImageUrl} className="img-fluid rounded-circle mb-3" alt="Rigo Baby" />
-			</p>
 			<div className="alert alert-info">
 				{store.message ? (
 					<span>{store.message}</span>
