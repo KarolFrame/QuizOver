@@ -13,6 +13,7 @@ from api.commands import setup_commands
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from api.models import User
 from flask_cors import CORS
+from api.ai_agent import generate_question_and_answers
 
 # from models import Person
 
@@ -112,6 +113,15 @@ def protected():
     user = User.query.get(current_user_id)
 
     return jsonify({"id": user.id, "username": user.username}), 200
+
+
+@app.route('/api/trivia-question', methods=['GET'])
+def trivia_question():
+    try:
+        resultado = generate_question_and_answers()
+        return jsonify(resultado), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 # this only runs if `$ python src/main.py` is executed
