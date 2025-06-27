@@ -25,6 +25,7 @@ huggingface-hub = "*"
 langchain = "*"
 langchain-community = "*"
 langchain-huggingface = "*"
+openai = "*"
 
 [requires]
 python_version = "3.13"
