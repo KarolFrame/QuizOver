@@ -1,7 +1,8 @@
 import React, { useEffect } from "react"
-import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
-import LoginForm from "../components/LoginForm.jsx";
+import { Link } from "react-router-dom";
+
+
 
 export const Home = () => {
 
@@ -35,7 +36,12 @@ export const Home = () => {
 
 	return (
 		<div className="text-center mt-5">
-			<LoginForm />
+			<Link to="/login">
+				<button>Login</button>
+			</Link>
+			<Link to="/register">
+				<button>Register</button>
+			</Link>
 			<div className="alert alert-info">
 				{store.message ? (
 					<span>{store.message}</span>
