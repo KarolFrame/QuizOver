@@ -1,4 +1,4 @@
-import { Login } from '../services/Login.js';
+import { Login } from '../services/LoginService.js';
 import { useState } from 'react';
 import { Button } from './Button.jsx';
 import { useNavigate } from 'react-router-dom';
@@ -17,8 +17,6 @@ export const LoginForm = () => {
 			console.log("login:", data);
 
 			navigate("/game_selector");
-
-			//redireccion despues del login, poner aqui
 
 		} catch (error) {
 			console.error("error login:", error.message);
