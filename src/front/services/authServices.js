@@ -3,9 +3,6 @@ export const getCurrentUser = () => ({
   email: localStorage.getItem("user-email"),
 });
 
-
-
-
 export const logout = () => {
   localStorage.removeItem("jwt-token");
   localStorage.removeItem("user-email");
