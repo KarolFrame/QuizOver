@@ -134,10 +134,12 @@ def register():
     db.session.add(new_user)
     db.session.commit()
 
+    access_token = create_access_token(identity=new_user.id)
+
     return jsonify({
         "token": access_token,
-        "user_id": user.id,
-        "email": user.email
+        "user_id": new_user.id,
+        "email": new_user.email
     })
 
 
