@@ -1,6 +1,9 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
+from flask import request, jsonify
+from werkzeug.security import generate_password_hash
+from api.models import User, db
 import os
 from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
@@ -113,6 +116,29 @@ def protected():
     user = User.query.get(current_user_id)
 
     return jsonify({"id": user.id, "username": user.username}), 200
+
+
+@app.route("/register", methods=["POST"])
+def register():
+    data = request.get_json()
+    email = data.get("email")
+    password = data.get("password")
+
+    if not email or not password:
+        return jsonify({"msg": "Email and password are required"}), 400
+
+    if User.query.filter_by(email=email).first():
+        return jsonify({"msg": "User already exists"}), 409
+
+    new_user = User(email=email, password=password, is_active=True)
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify({
+        "token": access_token,
+        "user_id": user.id,
+        "email": user.email
+    })
 
 
 @app.route('/api/trivia-question', methods=['GET'])
