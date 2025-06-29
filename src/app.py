@@ -2,21 +2,20 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import request, jsonify
-from werkzeug.security import generate_password_hash
 from api.models import User, db
 import os
 from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from api.utils import APIException, generate_sitemap
-from api.models import db
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
-from api.models import User
 from flask_cors import CORS
 from api.ai_agent import generate_question_and_answers
+from werkzeug.security import generate_password_hash, check_password_hash
+
 
 # from models import Person
 
@@ -37,7 +36,7 @@ def add_header(response):
     return response
 
 
-# database condiguration
+# database configuration
 db_url = os.getenv("DATABASE_URL")
 if db_url is not None:
     app.config['SQLALCHEMY_DATABASE_URI'] = db_url.replace(
@@ -97,15 +96,17 @@ def create_token():
     password = request.json.get("password", None)
 
     # Query your database for username and password
-    user = User.query.filter_by(email=email, password=password).first()
+    user = User.query.filter_by(email=email).first()
 
     if user is None:
         # The user was not found on the database
         return jsonify({"msg": "Bad username or password"}), 401
 
-    # Create a new token with the user id inside
-    access_token = create_access_token(identity=user.id)
-    return jsonify({"token": access_token, "user_id": user.id})
+    if check_password_hash(user.password, password):
+        access_token = create_access_token(identity=user.id)
+        return jsonify({"token": access_token, "user_id": user.id})
+    else:
+        return jsonify({"msg": "Bad username or password"}), 401
 
 
 @app.route("/protected", methods=["GET"])
@@ -124,21 +125,27 @@ def register():
     email = data.get("email")
     password = data.get("password")
 
+    hashed_password = generate_password_hash(password)
+
+
     if not email or not password:
         return jsonify({"msg": "Email and password are required"}), 400
 
     if User.query.filter_by(email=email).first():
         return jsonify({"msg": "User already exists"}), 409
 
-    new_user = User(email=email, password=password, is_active=True)
+    new_user = User(email=email, password=hashed_password,is_active=True)
     db.session.add(new_user)
     db.session.commit()
 
+    access_token = create_access_token(identity=new_user.id)
+
     return jsonify({
+        "msg": "User created successfully",
         "token": access_token,
-        "user_id": user.id,
-        "email": user.email
-    })
+        "user_id": new_user.id,
+        "email": new_user.email
+    }),200
 
 
 @app.route('/api/trivia-question', methods=['GET'])

@@ -7,12 +7,11 @@ from openai import OpenAI
 
 load_dotenv()
 
-HUGGING_TOKEN = os.getenv("HUGGINGFACEHUB_API_TOKEN")
-RAWG_API_KEY = os.getenv("RAWG_API_KEY")
-TOGETHER_API_KEY = os.getenv("TOGETHER_AI_API_KEY")
+HUGGING_TOKEN = os.environ.get("HUGGINGFACEHUB_API_TOKEN")
+RAWG_API_KEY = os.environ.get("RAWG_API_KEY")
+TOGETHER_API_KEY = os.environ.get("TOGETHER_AI_API_KEY", "")
 
 client = OpenAI(api_key=TOGETHER_API_KEY)
-
 
 def set_type_question():
     question_types = [

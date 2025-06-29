@@ -1,22 +1,22 @@
-import { login } from '../services/authServices.js';
+import { Login } from '../services/LoginService.js';
 import { useState } from 'react';
 import { Button } from './Button.jsx';
-import { getCurrentUser } from '../services/authServices.js';
+import { useNavigate } from 'react-router-dom';
 
-const LoginForm = () => {
+
+
+export const LoginForm = () => {
 	const [email, setEmail] = useState(localStorage.getItem("user-email") || "");
 	const [password, setPassword] = useState("");
+	const navigate = useNavigate()
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		try {
-			const data = await login(email, password);
+			const data = await Login(email, password);
 			console.log("login:", data);
 
-			localStorage.setItem("jwt-token", data.token);
-			localStorage.setItem("user-email", email);
-
-			//redireccion despues del login, poner aqui
+			navigate("/game_selector");
 
 		} catch (error) {
 			console.error("error login:", error.message);
@@ -47,5 +47,3 @@ const LoginForm = () => {
 		</>
 	);
 };
-
-export default LoginForm;

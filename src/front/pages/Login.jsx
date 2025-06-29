@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
-import LoginForm from "../components/LoginForm.jsx";
+import { LoginForm } from "../components/LoginForm.jsx";
 
 export const Login = () => {
 
