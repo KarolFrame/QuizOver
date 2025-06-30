@@ -1,66 +1,64 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #232748;        /* Dark pills, dark buttons*/
-  --color-secondary: #353965ff; 
-  --color-bg-light: #3b4172;        /* - inputs */
-  --color-accent: #d259a1;         /*  accent buttons */
-  --color-info: #3f9ffe;               /* accent-card-bg- textlinks*/
-  --color-white: #ede9f1;              /* text*/
+  --color-primary: #353965ff; /* Dark pills, dark buttons*/
+  --color-secondary: #232748;
+  --color-bg-light: #3b4172; /* - inputs */
+  --color-accent: #d259a1; /*  accent buttons */
+  --color-info: #3f9ffe; /* accent-card-bg- textlinks*/
+  --color-white: #ede9f1; /* text*/
+  --color-background: #232748;
 }
 
-body{
-    background-color: #353965ff;
-    width: 100vw;
-    height: 100vw;
+body {
+  background-color: var(--color-background);
+  width: 100vw;
+  height: 100vw;
 }
 
-.card{
-    background-color:#3b4172;
+.card {
+  background-color: #3b4172;
 }
 
-input{
-    background-color: #353965ff;
-    width: fit-content;
-    height: 56px;
-    padding: 16px;
-    padding-bottom: 8px;
-    padding-top: 8px;
-    border-radius: 16px;
-    color:#ede9f1;
-    margin: 8px;
+input {
+  background-color: #353965ff;
+  width: fit-content;
+  height: 56px;
+  padding: 16px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  border-radius: 16px;
+  color: #ede9f1;
+  margin: 8px;
 }
 
-input:checked{
-    accent-color: #d259a1;
+input:checked {
+  accent-color: #d259a1;
 }
 
-
-form{
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
-    border-radius: 30px;
-    margin: 12px;
-    background-color: #232748 ;
+form {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: 30px;
+  margin: 12px;
+  background-color: #232748;
 }
 
 footer {
-    position:absolute;
-    bottom:0;
-    width:100%;
-    height:60px;   /* Height of the footer */
-    background:#3b4172;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px; /* Height of the footer */
+  background: #3b4172;
 }
 
-button{
-    height: 56px;
-    padding-left: 16px;
-    padding-right: 16px;
-    margin-bottom: 24px;
-    border-radius: 16px;
-    margin: 8px;
-    color: #ede9f1;
+button {
+  height: 56px;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-bottom: 24px;
+  border-radius: 16px;
+  margin: 8px;
+  color: #ede9f1;
 }
-
-
