@@ -7,13 +7,8 @@ export const Navbar = () => {
 		<nav className="navbar navbar-light bg-light">
 			<div className="container flex">
 				<Link to="/">
-					<span className="navbar-brand mb-0 h1">React Boilerplate</span>
+					<img src="/logo.png" className="h-16 mt-2" />
 				</Link>
-				<div className="ml-auto">
-					<Link to="/demo">
-						<button className="btn btn-primary">Check the Context in action</button>
-					</Link>
-				</div>
 			</div>
 		</nav>
 	);

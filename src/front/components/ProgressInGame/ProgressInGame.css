@@ -1,0 +1,24 @@
+.progress {
+  background: var(--color-bg-light);
+  border-radius: 100px;
+  height: 30px;
+  width: 310px;
+}
+
+.progress-value {
+  animation: load 30s normal forwards;
+  box-shadow: 0 10px 40px -10px var(--color-accent);
+  border-radius: 100px;
+  background: var(--color-accent);
+  height: 30px;
+  width: 0;
+}
+
+@keyframes load {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
