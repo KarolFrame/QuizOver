@@ -17,7 +17,7 @@ export const AboutUs = () => {
                 />
                 <AboutUsCard
                     name={"Genesis"}
-                    description={"Hi, I’m Génesis, a motivated web developer in training with a strong interest in full-stack development, transitioning into tech from a design background and bringing a creative eye for building functional, user-friendly websites and applications."}
+                    description={"Hi, I’m Génesis, a motivated web developer in training passionate about full-stack development, blending creativity and technical skills to build user-friendly websites."}
                     image={"https://avatars.githubusercontent.com/u/95757215?v=4"}
                     github={"https://github.com/chamitachama"}
                     linkedin={"https://www.linkedin.com/in/geniabichino/"}

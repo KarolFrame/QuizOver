@@ -48,6 +48,9 @@ export const Home = () => {
 			<Link to="/about-us">
 				<button>About Us</button>
 			</Link>
+			<Link to="/game/clasic-mode">
+				<button>Classic Game</button>
+			</Link>
 			<div className="alert alert-info">
 				{store.message ? (
 					<span>{store.message}</span>
