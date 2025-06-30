@@ -45,6 +45,9 @@ export const Home = () => {
 			<Link to="/game_selector">
 				<button>Game Selector</button>
 			</Link>
+			<Link to="/about-us">
+				<button>About Us</button>
+			</Link>
 			<div className="alert alert-info">
 				{store.message ? (
 					<span>{store.message}</span>
