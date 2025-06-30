@@ -1,5 +1,3 @@
-import React, { useEffect } from "react"
-import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { AboutUsCard } from "../components/AboutUsCard.jsx";
 
 export const AboutUs = () => {
@@ -9,7 +7,7 @@ export const AboutUs = () => {
             <h2 className="text-center align-middle text-white uppercase font-extrabold text-2xl">
                 OUR TEAM
             </h2>
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center md:flex-row md:items-start items-center justify-center gap-4">
                 <AboutUsCard
                     name={"Karol Frame"}
                     description={"Hi, I'm Carolina, a Frontend Developer and Game Programmer passionate about crafting intuitive interfaces and interactive digital experiences, both on the web and in games."}
