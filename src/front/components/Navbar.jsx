@@ -7,7 +7,7 @@ export const Navbar = () => {
 		<nav className="navbar navbar-light bg-light">
 			<div className="container flex">
 				<Link to="/">
-					<img src="/logo.png" className="h-16 mt-2" />
+					<img src="/logo.png" className="h-8 mt-2" />
 				</Link>
 			</div>
 		</nav>
