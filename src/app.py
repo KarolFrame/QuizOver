@@ -29,7 +29,6 @@ app.url_map.strict_slashes = False
 
 @app.after_request
 def add_header(response):
-    print(response)
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Access-Control-Allow-Methods'] = 'HEAD, GET, OPTIONS, POST, PUT'
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Content-Range, Content-Disposition, Content-Description'
@@ -116,7 +115,7 @@ def protected():
     current_user_id = get_jwt_identity()
     user = User.query.get(current_user_id)
 
-    return jsonify({"id": user.id, "username": user.username}), 200
+    return jsonify({"id": user.id, "email": user.email}), 200
 
 
 @app.route("/register", methods=["POST"])

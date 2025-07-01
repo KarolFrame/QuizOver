@@ -17,12 +17,17 @@ class User(db.Model):
     email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
     password: Mapped[str] = mapped_column(nullable=False)
     rank: Mapped[int] = mapped_column(default=0)
-    is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
-
+    is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False, default=True)
 
     scores = db.relationship('Score', back_populates='user', cascade='all, delete-orphan')
     games_won = db.relationship('Game', back_populates='winner', foreign_keys='Game.winner_id')
-    friends = db.relationship( 'User', secondary=friends, backref='friend_of')
+    friends = db.relationship(
+        'User',
+        secondary=friends,
+        primaryjoin=(id == friends.c.user_id),
+        secondaryjoin=(id == friends.c.friend_id),
+        backref='friend_of'
+    )
 
     def serialize(self):
         return {
