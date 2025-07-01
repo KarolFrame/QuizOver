@@ -17,7 +17,7 @@ from api.ai_agent import generate_question_and_answers
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-# from models import Person
+
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
 static_file_dir = os.path.join(os.path.dirname(
