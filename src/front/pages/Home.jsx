@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link } from "react-router-dom";
-
+import { VideoPet } from "../components/VideoPet.jsx";
 
 
 export const Home = () => {
@@ -37,6 +37,8 @@ export const Home = () => {
 	return (
 
 		<div className="text-center mt-5">
+			<VideoPet />
+
 			<Link to="/login">
 				<button>Login</button>
 			</Link>

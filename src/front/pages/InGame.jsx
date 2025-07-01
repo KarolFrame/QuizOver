@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { ProgressInGame } from "../components/ProgressInGame/ProgressInGame.jsx";
 import { QuestionAndAnswers } from "../components/QuestionAndAnswers.jsx";
@@ -11,8 +11,10 @@ export const InGame = () => {
         incorrect_answer: "",
         question: ""
     });
+    const called = useRef(false);
 
     const newQuestionAndAnswers = async () => {
+        console.log("ayuda");
         try {
             const data = await getQuestionAndAnswer();
             setQuestionAndAnswers(data);
@@ -21,6 +23,8 @@ export const InGame = () => {
         }
     }
     useEffect(() => {
+        if (called.current) return;
+        called.current = true;
         newQuestionAndAnswers();
     }, []);
 
