@@ -31,8 +31,8 @@ export const AboutUs = () => {
                     />
                     <AboutUsCard
                         name={"Antonino Morana"}
-                        description={""}
-                        image={"https://avatars.githubusercontent.com/u/196092384?v=4"}
+                        description={"Hi, I’m Nino, a Full-Stack Developer in training who loves turning ideas into intuitive, user-friendly digital experiences through code and collaboration."}
+                        image={"/images/nino.png"}
                         github={"https://github.com/Nino1508"}
                         linkedin={""}
                     />
