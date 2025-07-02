@@ -1,12 +1,13 @@
+/* index.css */
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #353965ff; /* Dark pills, dark buttons*/
+  --color-primary: #353965ff;
   --color-secondary: #232748;
-  --color-bg-light: #3b4172; /* - inputs */
-  --color-accent: #d259a1; /*  accent buttons */
-  --color-info: #3f9ffe; /* accent-card-bg- textlinks*/
-  --color-white: #ede9f1; /* text*/
+  --color-bg-light: #3b4172;
+  --color-accent: #d259a1;
+  --color-info: #3f9ffe;
+  --color-white: #ede9f1;
   --color-background: #232748;
 }
 
@@ -23,9 +24,7 @@ input {
   background-color: #353965ff;
   width: fit-content;
   height: 56px;
-  padding: 16px;
-  padding-bottom: 8px;
-  padding-top: 8px;
+  padding: 8px 16px;
   border-radius: 16px;
   color: #ede9f1;
   margin: 8px;
@@ -73,12 +72,11 @@ nav {
 }
 
 button {
+  /* regla global de botones genéricos de la app */
   height: 56px;
-  padding-left: 16px;
-  padding-right: 16px;
-  margin-bottom: 24px;
+  padding: 0 16px;
+  margin: 8px 0;
   border-radius: 16px;
-  margin: 8px;
   color: #ede9f1;
 }
 
@@ -99,4 +97,40 @@ button {
   100% {
     box-shadow: 48px 0 var(--color-accent) inset;
   }
+}
+
+#classic-button-container {
+  height: 112px !important;
+  display: flex;
+  align-items: stretch;
+}
+
+/* Override sólo para GameModeButton por defecto */
+.game-mode-button-default {
+  height: 56px;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 9999px;
+  box-sizing: border-box;
+}
+
+/* Override específico para el botón Classic */
+.game-mode-button-classic {
+  height: 100%;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 9999px;
+  box-sizing: border-box;
+}
+
+/* ==========================
+   Override para botón Classic
+   ========================== */
+#classic-button-container .game-mode-button-classic {
+  /* Que llene TODO el alto del contenedor */
+  height: 100% !important;
+  /* Padding interno como los demás */
+  padding: 0.5rem 1rem !important;
+  /* Que incluya el padding en el cálculo de height */
+  box-sizing: border-box;
 }
