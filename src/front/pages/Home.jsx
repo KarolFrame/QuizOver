@@ -5,7 +5,6 @@ import { VideoPet } from "../components/VideoPet.jsx";
 
 
 export const Home = () => {
-
 	const { store, dispatch } = useGlobalReducer()
 
 	const loadMessage = async () => {
@@ -27,7 +26,6 @@ export const Home = () => {
 				Please check if the backend is running and the backend port is public.`
 			);
 		}
-
 	}
 
 	useEffect(() => {
