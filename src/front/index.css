@@ -118,7 +118,7 @@ button {
 .game-mode-button-classic {
   height: 100%;
   padding: 0.5rem 1rem;
-  margin: 0.5rem 0;
+  margin: 0;
   border-radius: 9999px;
   box-sizing: border-box;
 }

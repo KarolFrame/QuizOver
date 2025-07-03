@@ -5,7 +5,10 @@ export const GameSelector = () => {
   const navigate = useNavigate();
 
   // Estilos base para los botones: 56px de alto, padding horizontal, borde redondeado
-  const baseStyles = "h-14 px-4 rounded-full font-medium transition-colors duration-200";
+  // después
+// text-sm para pantallas pequeñas, text-base a partir de sm (≥640px)
+const baseStyles = "h-14 px-4 rounded-full font-medium transition-colors duration-200 text-sm sm:text-base";
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-secondary px-4">
@@ -15,20 +18,17 @@ export const GameSelector = () => {
         </h2>
 
         {/* Fila 1: botón grande */}
-        <div
-          id="classic-button-container"
-          className="game-selector-button-classic flex"
-        >
+        <div id="classic-button-container" className="flex">
           <GameModeButton
             label="Classic"
             onClick={() => navigate("/classic")}
             icon="/icons/classic.png"
-            className={baseStyles}
+            className={`${baseStyles} game-mode-button-classic`}
           />
         </div>
 
         {/* Fila 2: dos botones iguales */}
-        <div className="flex gap-4">
+        <div className="flex gap-2">
           <div className="flex-1">
             <GameModeButton
               label="Guess the Music"
