@@ -14,6 +14,7 @@ import { Register } from "./pages/Register";
 import { GameSelector } from "./pages/GameSelector";
 import { AboutUs } from "./pages/AboutUs";
 import { InGame } from "./pages/InGame";
+import { RankingPage } from "./pages/RankingPage";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -35,6 +36,7 @@ export const router = createBrowserRouter(
       <Route path="/game_selector" element={<GameSelector />} />
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/game/clasic-mode" element={<InGame />} />
+      <Route path='/ranking/global' element={<RankingPage />} />
     </Route>
   )
 );
