@@ -1,0 +1,17 @@
+.podium {
+  height: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+
+  .bar {
+    width: 5rem;              
+    border-radius: 4px 4px 0 0;
+    transition: height 0.5s ease;
+
+    &.first  { background: var(--color-info);   }
+    &.second { background: var(--color-accent); }
+    &.third  { background: var(--color-white);  }
+  }
+}
