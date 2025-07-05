@@ -193,7 +193,23 @@ def generate_incorrect_answer(question, correct_answer, question_type):
         clean_answer = clean_generated_answer(raw_answer, correct_answer)
 
         if not clean_answer:
-            return "N/A"
+            if question_type == "release_year":
+                return correct_answer - 2
+            if question_type == "genre":
+                if correct_answer != "Platform":
+                    return "Platform"
+                else:
+                    return "Puzzle"
+            if question_type == "developer":
+                if correct_answer != "Electronic Arts":
+                    return "Electronic Arts"
+                else:
+                    return "Tencent"
+            if question_type == "screenshot":
+                if correct_answer != "Minecraft":
+                    return "Minecraft"
+                else:
+                    return "Roblox"
         return clean_answer
 
     except requests.exceptions.RequestException as e:
