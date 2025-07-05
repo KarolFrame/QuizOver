@@ -14,6 +14,7 @@ from api.commands import setup_commands
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_cors import CORS
 from api.ai_agent import generate_question_and_answers
+from sqlalchemy import desc
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -126,7 +127,6 @@ def register():
 
     hashed_password = generate_password_hash(password)
 
-
     if not email or not password:
         return jsonify({"msg": "Email and password are required"}), 400
 
@@ -148,10 +148,38 @@ def register():
 
 
 @app.route('/api/trivia-question', methods=['GET'])
+# @jwt_required()
 def trivia_question():
     try:
         resultado = generate_question_and_answers()
         return jsonify(resultado), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route('/ranking/global', methods=['GET'])
+def global_ranking():
+    try:
+        results = db.session.query(User).order_by(desc(User.experience_points)).all()
+        serialized_results = [result.serialize() for result in results]
+        return jsonify(serialized_results), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/ranking/friends', methods=['GET'])
+#@jwt_required()
+def friends_ranking():
+    try:
+        #current_user_id = get_jwt_identity()
+        current_user_id = 1
+        user = User.query.get(current_user_id)
+
+        friend_ids = [friend.id for friend in user.friends]
+        all_friend_ranking_user_ids = friend_ids + [current_user_id]
+
+        results = db.session.query(User).filter(User.id.in_(all_friend_ranking_user_ids)).order_by(desc(User.experience_points)).all()
+        serialized_results = [result.serialize() for result in results]
+        return jsonify(serialized_results), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
