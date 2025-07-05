@@ -5,12 +5,7 @@ import { QuestionAndAnswers } from "../components/QuestionAndAnswers.jsx";
 import { getQuestionAndAnswer } from "../services/questionsAnsAnswersService.js";
 
 export const InGame = () => {
-    const [questionAndAnswers, setQuestionAndAnswers] = useState({
-        correct_answer: "",
-        image_url: "",
-        incorrect_answer: "",
-        question: ""
-    });
+    const [questionAndAnswers, setQuestionAndAnswers] = useState(null);
     const called = useRef(false);
 
     const newQuestionAndAnswers = async () => {
@@ -31,12 +26,13 @@ export const InGame = () => {
     return (
         <div className="text-center flex flex-col mt-5 justify-center items-center gap-3 " >
             <ProgressInGame />
-            <QuestionAndAnswers
-                question={questionAndAnswers.question}
-                option1={questionAndAnswers.correct_answer}
-                option2={questionAndAnswers.incorrect_answer}
-                image={questionAndAnswers.image_url} />
+            {questionAndAnswers ?
+                <QuestionAndAnswers
+                    question={questionAndAnswers.question}
+                    option1={questionAndAnswers.correct_answer}
+                    option2={questionAndAnswers.incorrect_answer}
+                    image={questionAndAnswers.image_url} /> :
+                <p className="text-(--color-white)">Cargando pregunta...</p>}
         </div>
     );
-
 }
