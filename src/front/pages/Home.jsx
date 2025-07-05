@@ -2,6 +2,8 @@ import React, { useEffect } from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link } from "react-router-dom";
 import { VideoPet } from "../components/VideoPet.jsx";
+import { Button } from "../components/Button.jsx";
+import { LoopingRewindVideo, HeaderVideo } from "../components/HeaderVideo.jsx";
 
 
 export const Home = () => {
@@ -36,33 +38,15 @@ export const Home = () => {
 
 	return (
 
-		<div className="text-center mt-5">
-			<VideoPet />
+		<>
+			<div className=" d-flex flex-column gap-0 text-center">
+				{/* <VideoPet /> */}
 
-			<Link to="/login">
-				<button>Login</button>
-			</Link>
-			<Link to="/register">
-				<button>Register</button>
-			</Link>
-			<Link to="/game_selector">
-				<button>Game Selector</button>
-			</Link>
-			<Link to="/about-us">
-				<button>About Us</button>
-			</Link>
-			<Link to="/game/clasic-mode">
-				<button>Classic Game</button>
-			</Link>
-			<div className="alert alert-info">
-				{store.message ? (
-					<span>{store.message}</span>
-				) : (
-					<span className="text-danger">
-						Loading message from the backend (make sure your python 🐍 backend is running)...
-					</span>
-				)}
+				<div className="flex justify-center h-300">
+					<LoopingRewindVideo videoSrc="/video/header_video2.mp4" />
+				</div>
 			</div>
-		</div>
+
+		</>
 	);
 }; 
