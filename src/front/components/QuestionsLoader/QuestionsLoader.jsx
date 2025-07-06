@@ -1,7 +1,7 @@
 import "./QuestionsLoader.css"
-export const QuestionsLoader = () =>{
-    return(<>
-        <main id="container">   
+export const QuestionsLoader = () => {
+    return (<>
+        <main id="container">
             <div className="dots">
                 <div className="dot"></div>
                 <div className="dot"></div>
@@ -10,7 +10,7 @@ export const QuestionsLoader = () =>{
                 <div className="dot"></div>
                 <div className="dot"></div>
                 <div className="dot"></div>
-                <div clclassNameass="dot"></div>
+                <div className="dot"></div>
                 <div className="dot"></div>
                 <div className="dot"></div>
             </div>
