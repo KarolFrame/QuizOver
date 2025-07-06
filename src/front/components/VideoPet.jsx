@@ -1,27 +1,29 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 
 export const VideoPet = () => {
     const [isIdle, setIsIdle] = useState(false);
+    const [hasMounted, setHasMounted] = useState(false);
     const [moveToTop, setMoveToTop] = useState(false);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setMoveToTop(true);
-        }, 50);
+        const fadeTimer = setTimeout(() => setHasMounted(true), 10);
+        const moveTimer = setTimeout(() => setMoveToTop(true), 50);
 
-        return () => clearTimeout(timer);
+        return () => {
+            clearTimeout(fadeTimer);
+            clearTimeout(moveTimer);
+        };
     }, []);
 
     return (
         <div
-            style={{
-                position: "absolute",
-                height: isIdle ? "150px" : "200px",
-                transition: "height 1s ease",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: moveToTop ? "flex-start" : "center",
-            }}
+            className={`
+                absolute flex justify-center w-full
+                transition-all duration-700
+                ${hasMounted ? 'opacity-100' : 'opacity-0'}
+                ${moveToTop ? 'items-start' : 'items-center'}
+                ${isIdle ? 'h-[150px]' : 'h-[200px]'}
+            `}
         >
             <video
                 src={isIdle ? "/video/v_idle.webm" : "/video/v_hello.webm"}
@@ -30,13 +32,11 @@ export const VideoPet = () => {
                 playsInline
                 loop={isIdle}
                 onEnded={() => setIsIdle(true)}
-                style={{
-                    width: isIdle ? "20%" : "50%",
-                    height: "auto",
-                    transition: "width 0.5s ease",
-                    pointerEvents: "none",
-                    background: "none",
-                }}
+                className={`
+                    pointer-events-none bg-transparent
+                    transition-all duration-500
+                    ${isIdle ? 'w-1/5' : 'w-1/2'}
+                `}
             />
         </div>
     );

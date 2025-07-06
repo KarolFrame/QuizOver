@@ -1,13 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { GameModeButton } from "../components/GameModeButton";
+
 
 export const GameSelector = () => {
   const navigate = useNavigate();
 
-  // Estilos base para los botones: 56px de alto, padding horizontal, borde redondeado
-  // después
-// text-sm para pantallas pequeñas, text-base a partir de sm (≥640px)
-const baseStyles = "h-14 px-4 rounded-full font-medium transition-colors duration-200 text-sm sm:text-base";
+  const baseStyles = "h-14 px-4 rounded-full font-medium transition-colors duration-200 text-sm sm:text-base";
 
 
   return (
@@ -17,7 +15,12 @@ const baseStyles = "h-14 px-4 rounded-full font-medium transition-colors duratio
           Choose Your Game Mode
         </h2>
 
-        {/* Fila 1: botón grande */}
+        <Link to="/game/classic-mode" >
+          <div className="bg-[url(/images/classic-button.png)"></div>
+        </Link>
+
+
+
         <div id="classic-button-container" className="flex">
           <GameModeButton
             label="Classic"

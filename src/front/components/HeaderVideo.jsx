@@ -1,30 +1,20 @@
-
 import React, { useRef, useEffect, useState } from 'react';
 import { VideoPet } from './VideoPet.jsx';
 
-
-export const HeaderVideo = () => {
-    return (
-        <video
-            className="mx-auto"
-            src="/video/header_video2.mp4"
-            autoPlay
-            muted
-            playsInline
-            style={{
-                width: "100%",
-                height: "auto",
-                pointerEvents: "none",
-            }}
-        />
-    );
-};
+export const HeaderVideo = () => (
+    <video
+        className="mx-auto w-full h-auto pointer-events-none"
+        src="/video/header_video2.mp4"
+        autoPlay
+        muted
+        playsInline
+    />
+);
 
 export const LoopingRewindVideo = ({ videoSrc }) => {
     const videoRef = useRef(null);
     const [fadeOut, setFadeOut] = useState(false);
-    const [showOtherVideo, setShowOtherVideo] = useState(false);
-    const [hasFaded, setHasFaded] = useState(false);
+    const [showVideoPet, setShowVideoPet] = useState(false);
 
     useEffect(() => {
         const video = videoRef.current;
@@ -33,57 +23,38 @@ export const LoopingRewindVideo = ({ videoSrc }) => {
         video.play();
 
         const handleTimeUpdate = () => {
-            if (!hasFaded && video.duration - video.currentTime <= 0.6) {
+            const remaining = video.duration - video.currentTime;
+            if (!fadeOut && remaining <= 0.6) {
                 setFadeOut(true);
-                setHasFaded(true);
-
-                setTimeout(() => {
-                    setShowOtherVideo(true);
-                }, 600);
+                setTimeout(() => setShowVideoPet(true), 600);
             }
         };
 
         video.addEventListener('timeupdate', handleTimeUpdate);
-        return () => {
-            video.removeEventListener('timeupdate', handleTimeUpdate);
-        };
-    }, [hasFaded]);
+        return () => video.removeEventListener('timeupdate', handleTimeUpdate);
+    }, [fadeOut]);
 
-    if (showOtherVideo) {
-        return <VideoPet />;
-    }
+    if (showVideoPet) return <VideoPet />;
 
     return (
-        <div style={{ position: 'relative', width: '70%', height: '70%', overflow: 'hidden' }}>
-            {/* SOLO el video se desvanece */}
+        <div className="relative w-[70%] h-[70%] overflow-hidden">
             <video
                 ref={videoRef}
                 src={videoSrc}
                 muted
                 playsInline
-                style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    objectPosition: 'center',
-                    opacity: fadeOut ? 0 : 1,
-                    transition: 'opacity 0.6s ease',
-                }}
+                className={`w-full h-full object-cover object-center transition-opacity duration-700 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}
             />
-            {/* El overlay NO hace fade */}
             <div
+                className="absolute inset-0 pointer-events-none z-10"
                 style={{
-                    position: 'absolute',
-                    inset: 0,
                     background: `
-                        radial-gradient(
-                            rgba(35, 39, 72, 0) 40%,
-                            rgba(35, 39, 72, 1) 70%,
-                            rgba(35, 39, 72, 1) 100%
-                        )
-                    `,
-                    pointerEvents: 'none',
-                    zIndex: 1, // Asegura que esté por encima del video
+            radial-gradient(
+              rgba(35, 39, 72, 0) 40%,
+              rgba(35, 39, 72, 1) 70%,
+              rgba(35, 39, 72, 1) 100%
+            )
+          `,
                 }}
             />
         </div>
