@@ -1,4 +1,7 @@
+
 import React, { useRef, useEffect, useState } from 'react';
+import { VideoPet } from './VideoPet.jsx';
+
 
 export const HeaderVideo = () => {
     return (
@@ -12,52 +15,47 @@ export const HeaderVideo = () => {
                 width: "100%",
                 height: "auto",
                 pointerEvents: "none",
-            }}></video>
+            }}
+        />
+    );
+};
 
-
-    )
-}
-
-
-export const LoopingRewindVideo = ({ videoSrc, overlayColor = 'rgba(35, 39, 72, 0.1)' }) => {
+export const LoopingRewindVideo = ({ videoSrc }) => {
     const videoRef = useRef(null);
-    const [reversing, setReversing] = useState(false);
+    const [fadeOut, setFadeOut] = useState(false);
+    const [showOtherVideo, setShowOtherVideo] = useState(false);
+    const [hasFaded, setHasFaded] = useState(false);
 
     useEffect(() => {
         const video = videoRef.current;
         if (!video) return;
 
-        video.playbackRate = 1.5;
         video.play();
 
         const handleTimeUpdate = () => {
-            if (!reversing && video.currentTime >= video.duration) {
-                setReversing(true);
-                rewindVideo();
+            if (!hasFaded && video.duration - video.currentTime <= 0.6) {
+                setFadeOut(true);
+                setHasFaded(true);
+
+                setTimeout(() => {
+                    setShowOtherVideo(true);
+                }, 600);
             }
         };
 
-        const rewindVideo = () => {
-            const rewind = setInterval(() => {
-                if (video.currentTime > 0.1) {
-                    video.currentTime -= 0.1;
-                } else {
-                    clearInterval(rewind);
-                    setReversing(false);
-                    video.play();
-                }
-            }, 10);
-        };
-
         video.addEventListener('timeupdate', handleTimeUpdate);
-
         return () => {
             video.removeEventListener('timeupdate', handleTimeUpdate);
         };
-    }, [reversing]);
+    }, [hasFaded]);
+
+    if (showOtherVideo) {
+        return <VideoPet />;
+    }
 
     return (
         <div style={{ position: 'relative', width: '70%', height: '70%', overflow: 'hidden' }}>
+            {/* SOLO el video se desvanece */}
             <video
                 ref={videoRef}
                 src={videoSrc}
@@ -67,24 +65,27 @@ export const LoopingRewindVideo = ({ videoSrc, overlayColor = 'rgba(35, 39, 72, 
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
-                    objectPosition: "center"
+                    objectPosition: 'center',
+                    opacity: fadeOut ? 0 : 1,
+                    transition: 'opacity 0.6s ease',
                 }}
             />
+            {/* El overlay NO hace fade */}
             <div
                 style={{
                     position: 'absolute',
                     inset: 0,
                     background: `
-                    radial-gradient(
-                    rgba(35, 39, 72, 0) 40%,
-                    rgba(35, 39, 72, 1) 70%,
-                    rgba(35, 39, 72, 1) 100%
-                    )
-                `,
+                        radial-gradient(
+                            rgba(35, 39, 72, 0) 40%,
+                            rgba(35, 39, 72, 1) 70%,
+                            rgba(35, 39, 72, 1) 100%
+                        )
+                    `,
                     pointerEvents: 'none',
+                    zIndex: 1, // Asegura que esté por encima del video
                 }}
             />
         </div>
     );
 };
-

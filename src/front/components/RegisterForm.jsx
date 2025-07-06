@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Button } from './Button.jsx';
 import { register } from '../services/RegisterService.js';
+import { Link } from "react-router-dom";
+import { VideoPet } from './VideoPet.jsx';
 
 export const RegisterForm = () => {
     const [email, setEmail] = useState('');
@@ -18,6 +20,7 @@ export const RegisterForm = () => {
 
     return (
         <>
+            <h1 className='text-4xl font-bold text-white'>Create an Account</h1>
             <div className='flex justify-center'>
                 <form className='flex flex-col bg-primary' onSubmit={handleSubmit}>
                     <input type="email" placeholder='Type your email' required value={email} onChange={event => setEmail(event.target.value)} />
@@ -25,6 +28,7 @@ export const RegisterForm = () => {
                     <Button label="Create Account" variant="accent" />
                 </form>
             </div>
+            <Link to="/login"> <span className=' font-normal text-gray-400 underline'>Already have an account? Log in</span></Link>
         </>
     )
 };

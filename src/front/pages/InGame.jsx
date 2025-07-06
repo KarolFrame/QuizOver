@@ -71,3 +71,4 @@ export const InGame = () => {
     </div>
   );
 };
+

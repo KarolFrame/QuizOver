@@ -26,13 +26,17 @@ export const Layout = () => {
 
 
     return (
-        <div className="wrapper">
-            <ScrollToTop>
-                <Navbar />
-                {loading ? <Loader /> : <Outlet />}
-                <Footer />
-            </ScrollToTop>
-        </div>
+        <>
+
+            <div className="wrapper flex justify-center">
+                {loading ? <Loader /> :
+                    <ScrollToTop>
+                        <Navbar />
+                        <Outlet />
+                        <Footer />
+                    </ScrollToTop>}
+            </div>
+        </>
     )
 };
 

@@ -25,6 +25,9 @@ export const LoginForm = () => {
 
 	return (
 		<>
+			<h1 className='text-4xl font-bold text-white'>Welcome back!</h1>
+
+
 			<div className='flex justify-center'>
 				<form className='flex flex-col bg-primary' onSubmit={handleSubmit}>
 					<input
