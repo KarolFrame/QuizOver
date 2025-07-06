@@ -6,7 +6,7 @@ export const initialStore = () => {
       lastAnswerCorrect: false,
       rowCorrectAnswers: 0,
       points: 0,
-      hearts:3
+      hearts: 3,
     },
   };
 };
@@ -43,11 +43,24 @@ export default function storeReducer(store, action = {}) {
             ? store.currentGame.rowCorrectAnswers + 1
             : 0,
           points: isCorrect
-            ? store.currentGame.points + 10 + store.currentGame.rowCorrectAnswers
+            ? store.currentGame.points +
+              10 +
+              store.currentGame.rowCorrectAnswers
             : store.currentGame.points,
           hearts: isCorrect
             ? store.currentGame.hearts
-            : store.currentGame.hearts -1,
+            : store.currentGame.hearts - 1,
+        },
+      };
+    case "SET_DEFAULT_STATS":
+      return {
+        ...store,
+        currentGame: {
+          correctAnswers: 0,
+          lastAnswerCorrect: false,
+          rowCorrectAnswers: 0,
+          points: 0,
+          hearts: 3,
         },
       };
 
