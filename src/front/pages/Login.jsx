@@ -5,7 +5,7 @@ import { LoginForm } from "../components/LoginForm.jsx";
 export const Login = () => {
 
 	return (
-		<div className="text-center mt-5">
+		<div className="min-h-screen flex flex-col items-center justify-center text-center transform -translate-y-30">
 			<LoginForm />
 		</div>
 	);

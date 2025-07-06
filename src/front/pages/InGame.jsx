@@ -32,7 +32,7 @@ export const InGame = () => {
                     option1={questionAndAnswers.correct_answer}
                     option2={questionAndAnswers.incorrect_answer}
                     image={questionAndAnswers.image_url} /> :
-                <p className="text-(--color-white)">Cargando pregunta...</p>}
+                <p className="text-(--color-white)">Loading Questions...</p>}
         </div>
     );
 }
