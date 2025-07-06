@@ -5,7 +5,6 @@ import { VideoPet } from "../components/VideoPet.jsx";
 import { Button } from "../components/Button.jsx";
 import { LoopingRewindVideo, HeaderVideo } from "../components/HeaderVideo.jsx";
 
-
 export const Home = () => {
 
 	const { store, dispatch } = useGlobalReducer()
@@ -49,4 +48,4 @@ export const Home = () => {
 
 		</>
 	);
-}; 
+};
