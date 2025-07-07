@@ -48,7 +48,7 @@ export const RankingPage = () => {
   return (
     <div className="min-h-screen flex flex-col items-center bg-background p-4">
       <header className="w-full max-w-md text-center mb-6">
-        <h1 className="text-white text-xl font-semibold">Final Score</h1>
+        <h1 className="text-white font-semibold text-5xl">GLOBAL RANKING</h1>
       </header>
 
       <Avatars entries={podiumEntries} />
