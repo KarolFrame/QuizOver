@@ -11,8 +11,9 @@ export async function ExperienceService(experiencePoints, token) {
   });
 
   if (!response.ok) {
-    throw new Error("Failed to update experience points");
+    const errorData = await response.json();
+    throw new Error(errorData.msg || "Failed to update experience points");
   }
-
+  
   return await response.json();
 }
