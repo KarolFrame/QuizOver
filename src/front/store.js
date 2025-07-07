@@ -5,6 +5,7 @@ export const initialStore = () => {
       isAuthenticated: false,
       userEmail: null,
     },
+
     user: {
       id: null,
       email: '',
@@ -26,7 +27,7 @@ export const initialStore = () => {
         error: null,
       },
     }
-  };
+  }
 };
 
 export default function storeReducer(store, action, state = {}) {
@@ -125,9 +126,9 @@ export default function storeReducer(store, action, state = {}) {
 					userEmail: null
 				}
 			};
-  
+ 
 
     default:
       throw Error("Unknown action.");
   }
-}
+};

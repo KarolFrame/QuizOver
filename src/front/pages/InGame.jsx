@@ -47,6 +47,7 @@ export const InGame = () => {
         const randomIndex = Math.floor(Math.random() * list.length);
         const randomElement = list[randomIndex];
         return randomElement;
+
     }
 
 
@@ -108,5 +109,6 @@ export const InGame = () => {
 
         </div>
     );
+
 };
 

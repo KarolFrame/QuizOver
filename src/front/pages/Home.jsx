@@ -12,12 +12,10 @@ export const Home = () => {
 
 		<>
 			<div className=" d-flex flex-column gap-0 text-center">
-				<div className="flex justify-center">
+				<div className="flex justify-center items-center">
 					<LoopingRewindVideo videoSrc="/video/header_video2.mp4" />
 				</div>
 			</div>
-			<HomeSelector />
-
 		</>
 	);
 };

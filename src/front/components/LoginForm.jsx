@@ -26,7 +26,7 @@ export const LoginForm = () => {
 				payload: { email }
 			});
 
-			navigate("/game_selector");
+			navigate("/home");
 
 		} catch (error) {
 			console.error("error login:", error.message);
