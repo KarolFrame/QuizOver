@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { VideoPet } from './VideoPet.jsx';
 import { HomeSelector } from './HomeSelector.jsx';
+import { RegisterForm } from './RegisterForm.jsx';
+import { motion } from 'motion/react';
 
 export const HeaderVideo = () => (
     <video
@@ -18,7 +20,7 @@ export const LoopingRewindVideo = ({ videoSrc }) => {
     const [showVideoPet, setShowVideoPet] = useState(false);
     const [showHomeSelector, setShowHomeSelector] = useState(false);
     const [hasFaded, setHasFaded] = useState(false);
-    const [isIdle, setIsIdle] = useState(false); // 🔥 nuevo estado para saber si está en idle
+    const [isIdle, setIsIdle] = useState(false);
 
 
     useEffect(() => {
@@ -46,23 +48,25 @@ export const LoopingRewindVideo = ({ videoSrc }) => {
     }, [hasFaded]);
 
     return (
-        <div className="flex flex-col items-center w-full">
-            {showVideoPet ? (
-                <div
-                    className="flex flex-col items-center w-full transition-all duration-700 ease-in-out"
-                    style={{
-                        marginBottom: isIdle ? "40px" : "0",
-                    }}
-                >
-                    <VideoPet onIdle={() => setIsIdle(true)} />
-                    {isIdle && (
-                        <div className="transition-opacity duration-700 opacity-100">
-                            <HomeSelector />
-                        </div>
-                    )}
+        <div className="flex flex-col items-center w-full ">
+            {showVideoPet && (
+                <div className="justify-center p-4 md:translate-y-50">
+                    <div className="flex flex-col items-center justify-center gap-0 md:flex-row md:items-center md:justify-center w-full max-w-screen-lg lg:max-w-screen-xl ">
+                        <VideoPet onIdle={() => setIsIdle(true)} />
+                        {isIdle && (
+                            <motion.div
+                                initial={{ opacity: 0, x: 500 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 1, delay: .5, ease: "easeOut" }}
+                            >
+                                <RegisterForm />
+                            </motion.div>
+                        )}
+                    </div>
                 </div>
-            ) : (
-                <div className="relative w-[70%] h-[70%] overflow-hidden">
+            )}
+            {!showVideoPet && (
+                <div className="relative w-[40%] h-[40%] overflow-hidden">
                     <video
                         ref={videoRef}
                         src={videoSrc}

@@ -21,6 +21,7 @@ export const AboutUs = () => {
                         image={"https://avatars.githubusercontent.com/u/97622225?v=4"}
                         github={"https://github.com/KarolFrame"}
                         linkedin={"https://www.linkedin.com/in/carolina-pérez-segura/"}
+                        delay={0}
                     />
                     <AboutUsCard
                         name={"Genesis"}
@@ -28,6 +29,7 @@ export const AboutUs = () => {
                         image={"https://avatars.githubusercontent.com/u/95757215?v=4"}
                         github={"https://github.com/chamitachama"}
                         linkedin={"https://www.linkedin.com/in/geniabichino/"}
+                        delay={.4}
                     />
                     <AboutUsCard
                         name={"Antonino Morana"}
@@ -35,6 +37,7 @@ export const AboutUs = () => {
                         image={"/images/nino.png"}
                         github={"https://github.com/Nino1508"}
                         linkedin={""}
+                        delay={.8}
                     />
                 </div>
             </div>

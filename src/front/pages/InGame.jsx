@@ -12,7 +12,7 @@ const ANGRY_FRAMES = [1, 2, 3, 4, 7, 9, 16, 17, 18, 19];
 
 export const InGame = () => {
   const { store, dispatch } = useGlobalReducer();
-  const { hearts } = store.currentGame;
+  const { hearts, points } = store.currentGame;
   const [questionAndAnswers, setQuestionAndAnswers] = useState(null);
   const called = useRef(false);
   const [playIncorrect] = useSound("/audio/s_incorrect.mp3")
@@ -47,7 +47,6 @@ export const InGame = () => {
     const randomElement = list[randomIndex];
     return randomElement;
   }
-
 
   const handleAnswer = (selectedAnswer, correctAnswer) => {
     const isCorrect = selectedAnswer == correctAnswer;
@@ -102,7 +101,8 @@ export const InGame = () => {
 
       {hearts <= 0 &&
         (<>
-          <p>HAS MUERTO</p>
+          <p>You lose</p>
+          <p>Points: {points}</p>
         </>)}
 
     </div>
