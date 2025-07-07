@@ -1,5 +1,5 @@
+import { motion } from 'motion/react';
 import React from 'react';
-
 /**
  * Lista
  *
@@ -18,10 +18,13 @@ export const Lista = ({ entries }) => {
   return (
     <div className="w-full max-w-md mx-auto mb-8">
       <ul className="space-y-2">
-        {list.map(({ position, name, score }) => (
-          <li
+        {list.map(({ position, name, score }, index) => (
+          <motion.li
             key={position}
             className="flex items-center justify-between bg-bg-light p-2 rounded-lg"
+            initial={{ opacity: 0, x: -80 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: .5, delay: (index + 1) / 2, ease: "easeOut" }}
           >
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-sm font-semibold text-white">
@@ -32,7 +35,7 @@ export const Lista = ({ entries }) => {
             <span className="text-white font-bold text-sm">
               {score.toLocaleString()}
             </span>
-          </li>
+          </motion.li>
         ))}
       </ul>
     </div>

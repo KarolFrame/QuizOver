@@ -14,19 +14,19 @@ import { GameSelector } from "./pages/GameSelector";
 import { AboutUs } from "./pages/AboutUs";
 import { InGame } from "./pages/InGame";
 import { RankingPage } from "./pages/RankingPage";
-import MyProfile from "./pages/MyProfile";  // ← Asegúrate de importar
+import MyProfile from "./pages/MyProfile";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />} errorElement={<h1>Not found!</h1>}>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<Register />} />
       <Route path="/single/:theId" element={<Single />} />
       <Route path="/demo" element={<Demo />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/game_selector" element={<GameSelector />} />
+      <Route path="/home" element={<GameSelector />} />
       <Route path="/ranking/global" element={<RankingPage />} />
-      <Route path="/profile" element={<MyProfile />} />    {/* ← Ruta corregida */}
+      <Route path="/profile" element={<MyProfile />} />
       <Route path="/about-us" element={<AboutUs />} />
       <Route path="/game/classic-mode" element={<InGame />} />
     </Route>
