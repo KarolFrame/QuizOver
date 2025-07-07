@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react"
+import React, { useState, useEffect } from "react";
 
-export const VideoPet = () => {
+
+export const VideoPet = ({ onIdle }) => {
     const [isIdle, setIsIdle] = useState(false);
     const [moveToTop, setMoveToTop] = useState(false);
 
@@ -8,20 +9,21 @@ export const VideoPet = () => {
         const timer = setTimeout(() => {
             setMoveToTop(true);
         }, 50);
-
         return () => clearTimeout(timer);
     }, []);
 
+    useEffect(() => {
+        if (isIdle && onIdle) {
+            onIdle();
+        }
+    }, [isIdle]);
+
     return (
         <div
-            style={{
-                position: "absolute",
-                height: isIdle ? "150px" : "200px",
-                transition: "height 1s ease",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: moveToTop ? "flex-start" : "center",
-            }}
+            className={`
+                flex justify-center transition-all duration-700 ease-in-out
+                ${moveToTop ? "items-start" : "items-center"}
+            `}
         >
             <video
                 src={isIdle ? "/video/v_idle.webm" : "/video/v_hello.webm"}
