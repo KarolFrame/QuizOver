@@ -14,7 +14,7 @@ export const HeaderVideo = () => (
     />
 );
 
-export const LoopingRewindVideo = ({ videoSrc }) => {
+export const LoopingRewindVideo = ({ videoSrc, handleRegister }) => {
     const videoRef = useRef(null);
     const [fadeOut, setFadeOut] = useState(false);
     const [showVideoPet, setShowVideoPet] = useState(false);
@@ -59,7 +59,7 @@ export const LoopingRewindVideo = ({ videoSrc }) => {
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 1, delay: .5, ease: "easeOut" }}
                             >
-                                <RegisterForm />
+                                <RegisterForm onSubmit={handleRegister} />
                             </motion.div>
                         )}
                     </div>

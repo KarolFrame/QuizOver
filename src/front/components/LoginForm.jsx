@@ -16,7 +16,7 @@ export const LoginForm = () => {
 			const data = await Login(email, password);
 			console.log("login:", data);
 
-			navigate("/game_selector");
+			navigate("/home");
 
 		} catch (error) {
 			console.error("error login:", error.message);
