@@ -103,7 +103,7 @@ def create_token():
         return jsonify({"msg": "Bad username or password"}), 401
 
     if check_password_hash(user.password, password):
-        access_token = create_access_token(identity=user.id)
+        access_token = create_access_token(identity=str(user.id))
         return jsonify({"token": access_token, "user_id": user.id})
     else:
         return jsonify({"msg": "Bad username or password"}), 401
@@ -137,7 +137,7 @@ def register():
     db.session.add(new_user)
     db.session.commit()
 
-    access_token = create_access_token(identity=new_user.id)
+    access_token = create_access_token(identity=str(new_user.id))
 
     return jsonify({
         "msg": "User created successfully",
@@ -170,7 +170,7 @@ def global_ranking():
 #@jwt_required()
 def friends_ranking():
     try:
-        #current_user_id = get_jwt_identity()
+        current_user_id = get_jwt_identity()
         current_user_id = 1
         user = User.query.get(current_user_id)
 
@@ -184,11 +184,27 @@ def friends_ranking():
         return jsonify({"error": str(e)}), 500
 
 @app.route("/users/experience", methods=["POST"])
+@jwt_required()
 def update_experience():
-    token = request.headers.get("Authorization")
-    data = request.json
+    current_user_id = get_jwt_identity()
+    data = request.get_json()
+    
     experience_points = data.get("experiencePoints")
-    return jsonify({"message": "Experience updated"})
+
+    if experience_points is None:
+        return jsonify({"msg": "Missing experiencePoints"}), 400
+
+    user = User.query.get(current_user_id)
+    if not user:
+        return jsonify({"msg": "User not found"}), 404
+
+    user.experience_points += int(experience_points)
+    db.session.commit()
+
+    return jsonify({
+        "message": "Experience updated",
+        "experience_points": user.experience_points
+    }), 200
 
 
 # this only runs if `$ python src/main.py` is executed
