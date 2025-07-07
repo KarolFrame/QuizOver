@@ -13,7 +13,7 @@ export const Navbar = () => {
 					<Link to="/game_selector">
 						<button>Game Selector</button>
 					</Link>
-					<Link to="/game/clasic-mode">
+					<Link to="/game/classic-mode">
 						<button>Classic Game</button>
 					</Link>
 					<Link to="/ranking/global">
