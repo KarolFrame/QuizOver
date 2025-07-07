@@ -1,6 +1,13 @@
 export const initialStore = () => {
   return {
     message: null,
+    user: {
+      id: null,
+      email: '',
+      is_active: true,
+      experience_points: 0,
+      friends: [],
+    },
     currentGame: {
       correctAnswers: 0,
       lastAnswerCorrect: false,
@@ -8,7 +15,14 @@ export const initialStore = () => {
       points: 0,
       hearts: 3,
     },
-  };
+    ranking: {
+      global: {
+        data: [],
+        loading: false,
+        error: null,
+      },
+    }
+  }
 };
 
 export default function storeReducer(store, action = {}) {
@@ -64,7 +78,47 @@ export default function storeReducer(store, action = {}) {
         },
       };
 
+      case "FETCH_GLOBAL_RANKING_START":
+        return {
+          ...store,
+          ranking: {
+            ...store.ranking,
+            global: {
+              ...store.ranking.global,
+              loading: true,
+              error: null,
+            },
+          },
+        };
+      
+      case "FETCH_GLOBAL_RANKING_SUCCESS":
+        return {
+          ...store,
+          ranking: {
+            ...store.ranking,
+            global: {
+              ...store.ranking.global,
+              data: action.payload,
+              loading: false,
+              error: null,
+            },
+          },
+        };
+      
+      case "FETCH_GLOBAL_RANKING_FAILURE":
+        return {
+          ...store,
+          ranking: {
+            ...store.ranking,
+            global: {
+              ...store.ranking.global,
+              loading: false,
+              error: action.payload,
+            },
+          },
+        };
+
     default:
       throw Error("Unknown action.");
   }
-}
+};
