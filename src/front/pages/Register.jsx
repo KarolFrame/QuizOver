@@ -3,8 +3,7 @@ import { RegisterForm } from "../components/RegisterForm.jsx";
 import { register } from "../services/RegisterService.js";
 import { useNavigate } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
-
-
+import { LoopingRewindVideo } from "../components/HeaderVideo.jsx";
 
 export const Register = () => {
     const { dispatch } = useGlobalReducer();
@@ -20,7 +19,7 @@ export const Register = () => {
             dispatch({ type: "REGISTER_SUCCESS", payload: data });
 
             alert(data.msg);
-            navigate("/");
+            navigate("/home");
 
         } catch (error) {
             alert(error.message);
@@ -28,9 +27,12 @@ export const Register = () => {
         }
     };
 
-    return (
-        <div className="min-h-screen flex flex-col items-center justify-center text-center">
-            <RegisterForm onSubmit={handleRegister} />
+    return (<>
+        <div className=" d-flex flex-column gap-0 text-center">
+            <div className="flex justify-center items-center">
+                <LoopingRewindVideo videoSrc="/video/header_video2.mp4" handleRegister={handleRegister} />
+            </div>
         </div>
+    </>
     );
 };

@@ -7,7 +7,7 @@ export const register = async (email, password) => {
     body: JSON.stringify({ email, password }),
   });
 
-  const data = await resp.json(); 
+  const data = await resp.json();
 
   if (!resp.ok) {
     throw new Error(data.msg || "Registration failed");
