@@ -31,8 +31,8 @@ app.url_map.strict_slashes = False
 @app.after_request
 def add_header(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Access-Control-Allow-Methods'] = 'HEAD, GET, OPTIONS, POST, PUT'
-    response.headers['Access-Control-Allow-Headers'] = 'Content-Type, Content-Range, Content-Disposition, Content-Description'
+    response.headers['Access-Control-Allow-Methods'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = '*'
     return response
 
 
@@ -182,6 +182,13 @@ def friends_ranking():
         return jsonify(serialized_results), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route("/users/experience", methods=["POST"])
+def update_experience():
+    token = request.headers.get("Authorization")
+    data = request.json
+    experience_points = data.get("experiencePoints")
+    return jsonify({"message": "Experience updated"})
 
 
 # this only runs if `$ python src/main.py` is executed

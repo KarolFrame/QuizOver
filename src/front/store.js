@@ -109,9 +109,11 @@ export default function storeReducer(store, action, state = {}) {
             },
           },
         };
+
+      case "REGISTER_SUCCESS":
       case "AUTH_LOGIN_SUCCESS":
         return {
-          ...state,
+          ...store,
           auth: {
             isAuthenticated: true,
             userEmail: action.payload.email
@@ -120,7 +122,7 @@ export default function storeReducer(store, action, state = {}) {
 
 		case "AUTH_LOGOUT":
 			return {
-				...state,
+				...store,
 				auth: {
 					isAuthenticated: false,
 					userEmail: null
@@ -129,6 +131,6 @@ export default function storeReducer(store, action, state = {}) {
  
 
     default:
-      throw Error("Unknown action.");
+      throw Error(`Unknown action. ${action.type}`);
   }
 };

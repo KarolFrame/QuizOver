@@ -7,13 +7,12 @@ export const GameEnd = () => {
     const [status, setStatus] = useState("saving");
 
     const experiencePoints = store.currentGame.correctAnswers * 10;
-    const userId = localStorage.getItem("user-id");
     const token = localStorage.getItem("jwt-token");
 
     useEffect(() => {
         async function saveXP() {
             try {
-                await ExperienceService(userId, experiencePoints, token);
+                await ExperienceService(experiencePoints, token);
                 setStatus("done");
             } catch (error) {
                 console.error("Error updating XP:", error);
