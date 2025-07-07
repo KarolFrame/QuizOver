@@ -12,6 +12,6 @@ export async function ExperienceService (userId, experiencePoints, token) {
       throw new Error("Failed to update experience points");
     }
   
-    return await response.json(); //  msg, experiencePoints 
+    return await response.json(); 
   }
   

@@ -13,7 +13,7 @@ export const GameEnd = () => {
     useEffect(() => {
         async function saveXP() {
             try {
-                await updateExperience(userId, experiencePoints, token);
+                await ExperienceService(userId, experiencePoints, token);
                 setStatus("done");
             } catch (error) {
                 console.error("Error updating XP:", error);
