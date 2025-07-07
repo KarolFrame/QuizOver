@@ -1,7 +1,8 @@
+import { Link } from "react-router-dom";
+
+
 export const Footer = () => (
 	<footer className="footer mt-auto py-3 text-center">
-		<p>
-			Footer credits. Karol, Nino, Gen
-		</p>
+		<Link to="/about-us"> Meet the Team</Link>
 	</footer>
 );

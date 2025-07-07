@@ -1,6 +1,17 @@
 export const initialStore = () => {
   return {
     message: null,
+    auth: {
+      isAuthenticated: false,
+      userEmail: null,
+    },
+    user: {
+      id: null,
+      email: '',
+      is_active: true,
+      experience_points: 0,
+      friends: [],
+    },
     currentGame: {
       correctAnswers: 0,
       lastAnswerCorrect: false,
@@ -8,26 +19,20 @@ export const initialStore = () => {
       points: 0,
       hearts: 3,
     },
+    ranking: {
+      global: {
+        data: [],
+        loading: false,
+        error: null,
+      },
+    }
   };
 };
 
-export default function storeReducer(store, action = {}) {
+export default function storeReducer(store, action, state = {}) {
+  if (!state) throw new Error("Reducer missing state argument");
+
   switch (action.type) {
-    case "set_hello":
-      return {
-        ...store,
-        message: action.payload,
-      };
-
-    case "add_task":
-      const { id, color } = action.payload;
-
-      return {
-        ...store,
-        todos: store.todos.map((todo) =>
-          todo.id === id ? { ...todo, background: color } : todo
-        ),
-      };
 
     case "SET_ANSWER_RESULT":
       const isCorrect = action.payload.isCorrect;
@@ -63,6 +68,64 @@ export default function storeReducer(store, action = {}) {
           hearts: 3,
         },
       };
+
+      case "FETCH_GLOBAL_RANKING_START":
+        return {
+          ...store,
+          ranking: {
+            ...store.ranking,
+            global: {
+              ...store.ranking.global,
+              loading: true,
+              error: null,
+            },
+          },
+        };
+      
+      case "FETCH_GLOBAL_RANKING_SUCCESS":
+        return {
+          ...store,
+          ranking: {
+            ...store.ranking,
+            global: {
+              ...store.ranking.global,
+              data: action.payload,
+              loading: false,
+              error: null,
+            },
+          },
+        };
+      
+      case "FETCH_GLOBAL_RANKING_FAILURE":
+        return {
+          ...store,
+          ranking: {
+            ...store.ranking,
+            global: {
+              ...store.ranking.global,
+              loading: false,
+              error: action.payload,
+            },
+          },
+        };
+      case "AUTH_LOGIN_SUCCESS":
+        return {
+          ...state,
+          auth: {
+            isAuthenticated: true,
+            userEmail: action.payload.email
+          }
+			};
+
+		case "AUTH_LOGOUT":
+			return {
+				...state,
+				auth: {
+					isAuthenticated: false,
+					userEmail: null
+				}
+			};
+  
 
     default:
       throw Error("Unknown action.");
