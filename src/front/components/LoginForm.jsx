@@ -2,6 +2,7 @@ import { Login } from '../services/LoginService.js';
 import { useState } from 'react';
 import { Button } from './Button.jsx';
 import { useNavigate } from 'react-router-dom';
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 
 
@@ -9,12 +10,21 @@ export const LoginForm = () => {
 	const [email, setEmail] = useState(localStorage.getItem("user-email") || "");
 	const [password, setPassword] = useState("");
 	const navigate = useNavigate()
+	const { dispatch } = useGlobalReducer();
+
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		try {
 			const data = await Login(email, password);
-			console.log("login:", data);
+
+			localStorage.setItem("jwt-token", data.token);
+			localStorage.setItem("user-email", email);
+
+			dispatch({
+				type: "AUTH_LOGIN_SUCCESS",
+				payload: { email }
+			});
 
 			navigate("/home");
 

@@ -1,6 +1,11 @@
 export const initialStore = () => {
   return {
     message: null,
+    auth: {
+      isAuthenticated: false,
+      userEmail: null,
+    },
+
     user: {
       id: null,
       email: '',
@@ -25,23 +30,10 @@ export const initialStore = () => {
   }
 };
 
-export default function storeReducer(store, action = {}) {
+export default function storeReducer(store, action, state = {}) {
+  if (!state) throw new Error("Reducer missing state argument");
+
   switch (action.type) {
-    case "set_hello":
-      return {
-        ...store,
-        message: action.payload,
-      };
-
-    case "add_task":
-      const { id, color } = action.payload;
-
-      return {
-        ...store,
-        todos: store.todos.map((todo) =>
-          todo.id === id ? { ...todo, background: color } : todo
-        ),
-      };
 
     case "SET_ANSWER_RESULT":
       const isCorrect = action.payload.isCorrect;
@@ -117,6 +109,24 @@ export default function storeReducer(store, action = {}) {
             },
           },
         };
+      case "AUTH_LOGIN_SUCCESS":
+        return {
+          ...state,
+          auth: {
+            isAuthenticated: true,
+            userEmail: action.payload.email
+          }
+			};
+
+		case "AUTH_LOGOUT":
+			return {
+				...state,
+				auth: {
+					isAuthenticated: false,
+					userEmail: null
+				}
+			};
+ 
 
     default:
       throw Error("Unknown action.");
