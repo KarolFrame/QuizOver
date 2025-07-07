@@ -35,7 +35,7 @@ export const router = createBrowserRouter(
       <Route path="/register" element={<Register />} />
       <Route path="/game_selector" element={<GameSelector />} />
       <Route path="/about-us" element={<AboutUs />} />
-      <Route path="/game/clasic-mode" element={<InGame />} />
+      <Route path="/game/classic-mode" element={<InGame />} />
       <Route path='/ranking/global' element={<RankingPage />} />
     </Route>
   )

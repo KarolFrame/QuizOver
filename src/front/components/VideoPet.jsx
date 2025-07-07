@@ -1,28 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 
-export const VideoPet = () => {
+
+export const VideoPet = ({ onIdle }) => {
     const [isIdle, setIsIdle] = useState(false);
-    const [hasMounted, setHasMounted] = useState(false);
     const [moveToTop, setMoveToTop] = useState(false);
 
     useEffect(() => {
-        const fadeTimer = setTimeout(() => setHasMounted(true), 10);
-        const moveTimer = setTimeout(() => setMoveToTop(true), 50);
-
-        return () => {
-            clearTimeout(fadeTimer);
-            clearTimeout(moveTimer);
-        };
+        const timer = setTimeout(() => {
+            setMoveToTop(true);
+        }, 50);
+        return () => clearTimeout(timer);
     }, []);
+
+    useEffect(() => {
+        if (isIdle && onIdle) {
+            onIdle();
+        }
+    }, [isIdle]);
 
     return (
         <div
             className={`
-                absolute flex justify-center w-full
-                transition-all duration-700
-                ${hasMounted ? 'opacity-100' : 'opacity-0'}
-                ${moveToTop ? 'items-start' : 'items-center'}
-                ${isIdle ? 'h-[150px]' : 'h-[200px]'}
+                flex justify-center transition-all duration-700 ease-in-out
+                ${moveToTop ? "items-start" : "items-center"}
             `}
         >
             <video
@@ -32,11 +32,13 @@ export const VideoPet = () => {
                 playsInline
                 loop={isIdle}
                 onEnded={() => setIsIdle(true)}
-                className={`
-                    pointer-events-none bg-transparent
-                    transition-all duration-500
-                    ${isIdle ? 'w-1/5' : 'w-1/2'}
-                `}
+                style={{
+                    width: isIdle ? "20%" : "50%",
+                    height: "auto",
+                    transition: "width 0.5s ease",
+                    pointerEvents: "none",
+                    background: "none",
+                }}
             />
         </div>
     );
