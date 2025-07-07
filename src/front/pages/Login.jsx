@@ -10,7 +10,7 @@ export const Login = () => {
 	return (<>
 		<div className=" d-flex flex-column gap-0 text-center">
 			<div className="flex justify-center items-center">
-				< div className="justify-center p-4 md:translate-y-50" >
+				< div className="justify-center p-4 ">
 					<div className="flex flex-col items-center justify-center gap-0 md:flex-row md:items-center md:justify-center w-full max-w-screen-lg lg:max-w-screen-xl ">
 						<VideoPet onIdle={() => setIsIdle(true)} />
 						<motion.div

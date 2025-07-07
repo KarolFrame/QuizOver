@@ -50,7 +50,7 @@ export const LoopingRewindVideo = ({ videoSrc, handleRegister }) => {
     return (
         <div className="flex flex-col items-center w-full ">
             {showVideoPet && (
-                <div className="justify-center p-4 md:translate-y-50">
+                <div className="justify-center p-4 ">
                     <div className="flex flex-col items-center justify-center gap-0 md:flex-row md:items-center md:justify-center w-full max-w-screen-lg lg:max-w-screen-xl ">
                         <VideoPet onIdle={() => setIsIdle(true)} />
                         {isIdle && (
