@@ -16,7 +16,7 @@ export const Login = () => {
 						<motion.div
 							initial={{ opacity: 0, x: 500 }}
 							animate={{ opacity: 1, x: 0 }}
-							transition={{ duration: 1, delay: 2, ease: "easeOut" }}
+							transition={{ duration: .5, delay: 1, ease: "easeOut" }}
 						>
 							<LoginForm />
 						</motion.div>

@@ -68,17 +68,17 @@ nav {
 }
 
 button {
-  height: 46px;
-  padding-left: 16px;
+  /* height: 46px; */
+  /* padding-left: 16px;
   padding-right: 16px;
   margin-bottom: 24px;
+  margin: 8px; */
   border-radius: 16px;
-  margin: 8px;
   color: #ede9f1;
 }
 
-.sm {
-  height: 46px;
+.primarysm {
+  height: 30px;
 }
 
 .loader {
