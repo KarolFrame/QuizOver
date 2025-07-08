@@ -10,8 +10,8 @@ export const AboutUs = () => {
                     initial={{ opacity: 0, x: -500 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: .8, ease: "easeOut" }}>
-                    <h2 className="text-center align-middle text-white uppercase font-extrabold text-5xl m-5">
-                        OUR TEAM
+                    <h2 className="text-center align-middle text-white font-bold text-4xl m-5">
+                        Meet the Super Team!
                     </h2>
                 </motion.div>
                 <div className="flex flex-col items-center md:flex-row md:items-start items-center justify-center gap-4">
@@ -24,8 +24,10 @@ export const AboutUs = () => {
                         delay={0}
                     />
                     <AboutUsCard
-                        name={"Genesis"}
-                        description={"Hi, I’m Génesis, a motivated web developer in training passionate about full-stack development, blending creativity and technical skills to build user-friendly websites."}
+                        name={"Gen Iabichino"}
+                        description={"Hi, I’m Génesis, a web developer with a strong interest in full stack development. I’m transitioning into tech from a UX-UI, bringing building functional & user friendly applications. "}
+
+
                         image={"https://avatars.githubusercontent.com/u/95757215?v=4"}
                         github={"https://github.com/chamitachama"}
                         linkedin={"https://www.linkedin.com/in/geniabichino/"}
