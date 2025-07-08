@@ -20,7 +20,7 @@ export const Navbar = () => {
 				transition={{ duration: 0.5, delay: .4, ease: "easeOut" }}
 			>
 				<div className="px-8 flex justify-between">
-					<Link to="/">
+					<Link to={isAuthenticated ? "/home" : "/"}>
 						<img src="/logo.png" className="h-4 md:h-8 mt-2" />
 					</Link>
 
