@@ -10,8 +10,8 @@ import React from 'react';
 export const Avatars = ({ entries }) => {
   const defaultEntries = [
     { position: 2, name: 'Carolina', score: '3,456' },
-    { position: 1, name: 'Sofi', score: '5,676' },
-    { position: 3, name: 'Gen', score: '2,456' },
+    { position: 1, name: 'Sofi',    score: '5,676' },
+    { position: 3, name: 'Gen',     score: '2,456' },
   ];
   const list = (entries ?? defaultEntries).sort((a, b) => {
     const order = [2, 1, 3];
