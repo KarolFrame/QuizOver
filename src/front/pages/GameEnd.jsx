@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { ExperienceService } from "../services/ExperienceService";
 import useGlobalReducer from "../hooks/useGlobalReducer";
+import { motion } from "motion/react";
+import { Link } from "react-router-dom";
+import { Button } from "../components/Button";
+import { QuestionsLoader } from "../components/QuestionsLoader/QuestionsLoader";
 
 export const GameEnd = () => {
     const { store } = useGlobalReducer();
@@ -23,14 +27,32 @@ export const GameEnd = () => {
         saveXP();
     }, []);
 
-    if (status === "saving") return <p>Guardando tus puntos de experiencia...</p>;
     if (status === "error") return <p>Ocurrió un error al guardar tus puntos.</p>;
 
-    return (
-        <div>
-            <h2>Juego terminado</h2>
-            <p>Correctas: {store.currentGame.correctAnswers}</p>
-            <p>Ganaste {experiencePoints} puntos de experiencia!</p>
-        </div>
-    );
+    return (<>
+        {status == "saving" && <QuestionsLoader />}
+        {status == "done" && (
+            <motion.div
+                className="flex flex-col items-center justify-center text-center p-6 rounded-2xl max-w-[90%] md:max-w-[30%] mx-auto backdrop-blur-sm"
+                initial={{ opacity: 0, scale: 0, y: -150 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1, ease: "easeOut" }}
+            >
+                <img src="/images/img_dead.png" />
+                <div className="bg-(--color-primary) p-4 rounded-2xl">
+                    <p className="text-white text-xl mb-1">Finish Game</p>
+                    <p className="text-white text-lg mb-1">
+                        <span className="font-semibold">Correct Answers:</span> {store.currentGame.correctAnswers}
+                    </p>
+                    <p className="text-white text-lg">
+                        You win <span className="text-(--color-accent)">{experiencePoints}</span> points of experience!
+                    </p>
+                    <Link to="/ranking/global">
+                        <Button label="Continue" variant="info" size="sm" />
+                    </Link>
+                </div>
+            </motion.div>
+        )}
+
+    </>);
 };

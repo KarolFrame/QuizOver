@@ -23,6 +23,7 @@ export const Button = ({
 		primary: "bg-primary text-white hover:bg-opacity-90",
 		secondary: "bg-secondary text-white hover:bg-opacity-90",
 		accent: "bg-accent text-white hover:bg-opacity-90",
+		info: "bg-info text-white hover:bg-opacity-90",
 		danger: "bg-red-600 text-white hover:bg-red-700",
 		ghost: "bg-transparent border border-white text-white hover:bg-white hover:text-black",
 

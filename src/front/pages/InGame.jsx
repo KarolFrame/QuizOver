@@ -104,7 +104,7 @@ export const InGame = () => {
 
             {hearts <= 0 &&
                 (<>
-                    <p>HAS MUERTO</p> <GameEnd />
+                    <GameEnd />
                 </>)}
 
         </div>
