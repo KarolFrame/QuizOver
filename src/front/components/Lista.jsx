@@ -1,11 +1,6 @@
 import { motion } from 'motion/react';
 import React from 'react';
-/**
- * Lista
- *
- * Muestra la lista de jugadores en posiciones 4 en adelante.
- * entries: array de { position, name, score }
- */
+
 export const Lista = ({ entries }) => {
   const defaultEntries = [
     { position: 4, name: 'Player4', score: 1000 },
@@ -13,7 +8,7 @@ export const Lista = ({ entries }) => {
     { position: 6, name: 'Player6', score: 800 },
     { position: 7, name: 'Player7', score: 700 },
   ];
-  const list = entries ?? defaultEntries;
+  const list = (entries ?? defaultEntries).slice(0, 7);
 
   return (
     <div className="w-full max-w-md mx-auto mb-8">
@@ -24,7 +19,7 @@ export const Lista = ({ entries }) => {
             className="flex items-center justify-between bg-bg-light p-2 rounded-lg"
             initial={{ opacity: 0, x: -80 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: .5, delay: (index + 1) / 2, ease: "easeOut" }}
+            transition={{ duration: .2, delay: (index + 1) / 4, ease: "easeOut" }}
           >
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-sm font-semibold text-white">
