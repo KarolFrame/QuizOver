@@ -37,7 +37,6 @@ export const GameSelector = () => {
         />
       </Link>
 
-      {/* — Aquí va el widget de Global Ranking — */}
       <div className="w-full max-w-md mt-8">
         <GlobalRankingWidget entries={entries} />
       </div>

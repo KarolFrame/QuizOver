@@ -1,3 +1,5 @@
+// src/front/components/Avatars.jsx
+
 import React from 'react';
 
 /**
@@ -27,7 +29,10 @@ export const Avatars = ({ entries }) => {
             <div className="w-20 h-20 rounded-full bg-accent flex items-center justify-center text-2xl font-bold text-white">
               {position}
             </div>
-            <div className="text-white font-medium text-sm">
+            <div
+              className="text-white font-medium text-xs whitespace-nowrap overflow-hidden text-ellipsis"
+              style={{ maxWidth: '4rem' }}
+            >
               {name}
             </div>
             <div className="px-2 py-1 rounded-full bg-secondary text-white text-xs">

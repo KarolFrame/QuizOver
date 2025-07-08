@@ -1,23 +1,26 @@
+// src/front/components/GlobalRankingWidget.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 import Avatars from "./Avatars";
+// no hace falta importar CSS; index.css ya está incluido en tu bundle
 
 export function GlobalRankingWidget({ entries }) {
   return (
     <div
-      className="p-4 rounded-lg mb-6"
+      className="p-4 rounded-lg mb-6 overflow-hidden"
       style={{
         backgroundColor: "var(--color-info)",
         color: "var(--color-white)",
       }}
     >
-      {/* Título */}
-      <h3 className="text-lg font-semibold mb-4">Global Ranking</h3>
+      <h3 className="text-4xl font-semibold mb-0 text-center">
+        Global Ranking
+      </h3>
 
-      {/* Tres primeros puestos */}
-      <Avatars entries={entries} />
+      <div className="avatar-wrapper">
+        <Avatars entries={entries} />
+      </div>
 
-      {/* Botón “See them all” alineado a la derecha */}
       <div className="flex justify-end mt-4">
         <Link to="/ranking/global">
           <button

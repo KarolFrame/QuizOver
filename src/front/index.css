@@ -118,3 +118,19 @@ button {
 .shake {
   animation: shake 0.5s;
 }
+
+.avatar-wrapper {
+  display: flex;
+  flex-wrap: nowrap;               /* Una sola línea */
+  justify-content: center;         /* Centrado horizontal */
+  align-items: center;
+  margin-top: -1rem;               /* Acerca los círculos al título */
+  gap: 0.25rem;                    /* Espacio muy pequeño entre ellos */
+  overflow-x: auto;                /* Scroll si desbordan */
+  -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+}
+
+.avatar-wrapper > * {
+  margin: 0 !important;            /* Anula márgenes internos */
+  flex-shrink: 1 !important;       /* Se pueden encoger un poco */
+}
