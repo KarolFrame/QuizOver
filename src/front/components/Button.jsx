@@ -11,12 +11,14 @@ export const Button = ({
 
 	...props
 }) => {
-	const baseStyles = "px-4 py-2 rounded font-medium transition-colors duration-200";
+	const baseStyles = "rounded font-medium transition-colors duration-200";
 
 	const sizeStyles = {
-		sm: "h-[46px] px-4",
+		sm: "h-[32px] px-4 text-sm",
 		md: "h-[52px] px-5",
 		lg: "h-[60px] px-6",
+		responsive: "h-[32px] px-4 text-sm md:h-[46px] md:px-5 md:text-base",
+
 	};
 
 	const variants = {
@@ -25,7 +27,9 @@ export const Button = ({
 		accent: "bg-accent text-white hover:bg-opacity-90",
 		info: "bg-info text-white hover:bg-opacity-90",
 		danger: "bg-red-600 text-white hover:bg-red-700",
-		ghost: "bg-transparent border border-white text-white hover:bg-white hover:text-black",
+		linear: "bg-transparent border border-white text-white hover:bg-white hover:text-primary",
+		ghost: "bg-transparent text-white hover:bg-danger hover:text-primary",
+
 
 	};
 
