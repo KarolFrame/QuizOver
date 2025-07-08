@@ -11,17 +11,20 @@ const getSpritePosition = (index) => {
 };
 
 export const AnswerAnimReaction = ({ frameIndex, delay = 0 }) => {
+    const isMobile = window.innerWidth < 768;
+    const targetScale = isMobile ? .5 : 0.8;
+
     return (
         <motion.div
             initial={{
                 opacity: 0,
                 scale: 0,
-                y: 800
+                y: "100vh",
             }}
             animate={{
                 opacity: 1,
-                scale: .8,
-                y: 300
+                scale: targetScale,
+                y: "30vh",
             }}
             transition={{
                 duration: 1,

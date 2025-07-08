@@ -73,11 +73,10 @@ export const LoopingRewindVideo = ({ videoSrc, handleRegister }) => {
                         muted
                         playsInline
                         autoPlay
-                        className={`
-                  w-full h-full object-cover object-center
-                  transition-opacity duration-700
-                  ${fadeOut ? "opacity-0" : "opacity-100"}
-                `}
+                        className={` w-full h-full object-cover object-center transition-opacity duration-700 pointer-events-auto ${fadeOut ? "opacity-0" : "opacity-100"}`}
+                        onClick={() => {
+                            setShowVideoPet(true);
+                        }}
                     />
                     <div className="absolute inset-0 pointer-events-none z-[1] bg-[radial-gradient(rgba(35,39,72,0)_40%,rgba(35,39,72,1)_70%,rgba(35,39,72,1)_100%)]" />
                 </div>
