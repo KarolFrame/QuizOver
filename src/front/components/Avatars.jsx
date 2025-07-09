@@ -1,14 +1,5 @@
-// src/front/components/Avatars.jsx
-
 import React from 'react';
 
-/**
- * Avatars
- *
- * Muestra las posiciones 2, 1 y 3 con nombre y puntuación.
- * Recibe prop `entries`: array de { position, name, score }.
- * Si no recibe entries, usa datos por defecto para demo.
- */
 export const Avatars = ({ entries }) => {
   const defaultEntries = [
     { position: 2, name: 'Carolina', score: '3,456' },
@@ -22,7 +13,6 @@ export const Avatars = ({ entries }) => {
 
   return (
     <div className="w-full max-w-md mx-auto mb-8">
-      {/* Contenedor de altura fija para alinear con el podio */}
       <div className="flex justify-between items-end" style={{ height: '200px' }}>
         {list.map(({ position, name, score }) => (
           <div key={position} className="flex flex-col items-center space-y-2">
