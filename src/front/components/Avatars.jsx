@@ -1,5 +1,4 @@
 import React from 'react';
-
 export const Avatars = ({ entries }) => {
   const defaultEntries = [
     { position: 2, name: 'Carolina', score: '3,456' },
