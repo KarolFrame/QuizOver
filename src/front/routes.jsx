@@ -16,6 +16,7 @@ import { InGame } from "./pages/InGame";
 import { RankingPage } from "./pages/RankingPage";
 import MyProfile from "./pages/MyProfile";
 import PrivateRoute from "./components/PrivateRoute";
+import { CreateAvatar } from "./pages/CreateAvatar";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -58,6 +59,15 @@ export const router = createBrowserRouter(
           </PrivateRoute>
         }
       />
+      <Route
+        path="/avatar-creator"
+        element={
+          <PrivateRoute>
+            <CreateAvatar/>
+          </PrivateRoute>
+        }
+      />
     </Route>
+
   )
 );

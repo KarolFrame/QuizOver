@@ -47,9 +47,7 @@ export const InGame = () => {
         const randomIndex = Math.floor(Math.random() * list.length);
         const randomElement = list[randomIndex];
         return randomElement;
-
     }
-
 
     const handleAnswer = (selectedAnswer, correctAnswer) => {
         const isCorrect = selectedAnswer == correctAnswer;
@@ -82,7 +80,7 @@ export const InGame = () => {
     };
 
     return (
-        <div className={`text-center flex flex-col mt-5 justify-center items-center gap-3 ${shake ? 'shake' : ''}`}>
+        <div className={`text-center flex flex-col justify-center items-center gap-3 ${shake ? 'shake' : ''}`}>
             {reaction &&
                 <AnswerAnimReaction frameIndex={frame} />}
             {hearts > 0 && questionAndAnswers &&

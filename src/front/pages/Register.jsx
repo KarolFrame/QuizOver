@@ -1,9 +1,10 @@
-import React from "react";
 import { RegisterForm } from "../components/RegisterForm.jsx";
 import { register } from "../services/RegisterService.js";
 import { useNavigate } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { LoopingRewindVideo } from "../components/HeaderVideo.jsx";
+import { AvatarCreatorQO } from "../components/AvatarCreatorQO.jsx";
+import { Button } from "../components/Button.jsx";
 
 export const Register = () => {
     const { dispatch } = useGlobalReducer();
