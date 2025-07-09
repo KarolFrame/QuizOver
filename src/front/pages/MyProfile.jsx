@@ -2,26 +2,48 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/Button";
 
+
 export default function MyProfile() {
-  const user = {
+  const [user, setUser] = useState({
     avatarUrl: "/favicon.ico",
     name: "Mr. Explore",
     level: 12,
-    currentXp: 350,
-    xpForNext: 500,
+    currentXp: 0,
+    xpForNext: 1000,
     globalRank: 42,
     friendsCount: 8,
-  };
+  });
+
+  useEffect(() => {
+    const token = localStorage.getItem("jwt-token");
+
+    fetch(import.meta.env.VITE_BACKEND_URL + "/users/experience", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch experience");
+        return res.json();
+      })
+      .then((data) => {
+        setUser((prev) => ({
+          ...prev,
+          currentXp: data.currentXp,
+          xpForNext: data.xpForNext,
+        }));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
   const xpPercent = Math.round((user.currentXp / user.xpForNext) * 100);
 
   return (
     <div
-      className="
-        mx-auto p-4 
-        sm:p-6 md:p-8 
-        max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl
-        text-var(--color-white)
-      "
+      className="mx-auto p-4 sm:p-6 md:p-8 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl"
       style={{ color: "var(--color-white)" }}
     >
       {/* Avatar, nombre y nivel */}
@@ -98,7 +120,7 @@ export default function MyProfile() {
         </div>
       </div>
 
-      {/* Botones de acción: debajo del grid, alineados a la derecha */}
+      {/* Botones de acción */}
       <div className="flex justify-end">
         <div className="flex flex-col items-end space-y-2">
           <button

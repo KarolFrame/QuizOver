@@ -116,7 +116,11 @@ def protected():
     current_user_id = get_jwt_identity()
     user = User.query.get(current_user_id)
 
-    return jsonify({"id": user.id, "email": user.email}), 200
+    return jsonify({
+        "id": user.id, 
+        "email": user.email,
+        "currentExperience": user.experience_points,
+        }), 200
 
 
 @app.route("/register", methods=["POST"])
@@ -205,6 +209,27 @@ def update_experience():
         "message": "Experience updated",
         "experience_points": user.experience_points
     }), 200
+
+@app.route("/users/experience", methods=["GET"])
+@jwt_required()
+def get_experience():
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    
+    if not user:
+        return jsonify({"msg": "User not found"}), 404
+
+   
+    current_xp = user.experience_points
+    xp_for_next = calculate_xp_for_next_level(current_xp)
+
+    return jsonify({
+        "currentXp": current_xp,
+        "xpForNext": xp_for_next
+    }), 200
+
+def calculate_xp_for_next_level(current_xp):
+    return 1000
 
 
 # this only runs if `$ python src/main.py` is executed
