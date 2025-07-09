@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "../components/Button";
+
 
 export default function MyProfile() {
   const [user, setUser] = useState({
@@ -67,6 +70,10 @@ export default function MyProfile() {
           Level {user.level}
         </p>
       </div>
+      {/*Boton crear avatar*/}
+      <Link to="/avatar-creator">
+        <Button label="Edit Avatar" variant="info" size="sm" />
+      </Link>
 
       {/* Barra de experiencia */}
       <div className="mb-6 sm:mb-8">

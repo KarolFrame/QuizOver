@@ -2,7 +2,6 @@ import React, { useEffect } from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { Link } from "react-router-dom";
 import { LoopingRewindVideo, HeaderVideo } from "../components/HeaderVideo.jsx";
-import { HomeSelector } from "../components/HomeSelector.jsx";
 
 export const Home = () => {
 

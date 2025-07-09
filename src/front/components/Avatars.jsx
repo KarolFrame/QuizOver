@@ -13,7 +13,6 @@ export const Avatars = ({ entries, displayOrder = [2, 1, 3] }) => {
 
   return (
     <div className="w-full max-w-md mx-auto mb-8">
-      {/* Contenedor de altura fija para alinear con el podio */}
       <div className="flex justify-between items-end" style={{ height: '200px' }}>
         {list.map(({ position, name, score }) => (
           <div key={position} className="flex flex-col items-center space-y-2">
