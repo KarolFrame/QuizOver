@@ -1,8 +1,6 @@
-// src/front/components/GlobalRankingWidget.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 import Avatars from "./Avatars";
-// no hace falta importar CSS; index.css ya está incluido en tu bundle
 
 export function GlobalRankingWidget({ entries }) {
   return (
