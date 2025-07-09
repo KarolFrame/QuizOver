@@ -1,10 +1,15 @@
 // src/front/components/GlobalRankingWidget.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Avatars from "./Avatars";
-// no hace falta importar CSS; index.css ya está incluido en tu bundle
 
 export function GlobalRankingWidget({ entries }) {
+  const [displayOrder, setDisplayOrder] = useState([1, 2, 3]); 
+
+  useEffect(() => {
+    setDisplayOrder([1, 2, 3]);
+  }, []);
+
   return (
     <div
       className="p-4 rounded-lg mb-6 overflow-hidden"
@@ -18,7 +23,7 @@ export function GlobalRankingWidget({ entries }) {
       </h3>
 
       <div className="avatar-wrapper">
-        <Avatars entries={entries} />
+        <Avatars entries={entries} displayOrder={displayOrder} />
       </div>
 
       <div className="flex justify-end mt-4">

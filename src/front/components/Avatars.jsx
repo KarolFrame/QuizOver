@@ -1,23 +1,14 @@
-// src/front/components/Avatars.jsx
-
 import React from 'react';
 
-/**
- * Avatars
- *
- * Muestra las posiciones 2, 1 y 3 con nombre y puntuación.
- * Recibe prop `entries`: array de { position, name, score }.
- * Si no recibe entries, usa datos por defecto para demo.
- */
-export const Avatars = ({ entries }) => {
+export const Avatars = ({ entries, displayOrder = [2, 1, 3] }) => {
   const defaultEntries = [
     { position: 2, name: 'Carolina', score: '3,456' },
-    { position: 1, name: 'Sofi',    score: '5,676' },
+    { position: 1, name: 'Sofi',    score: '5,589' },
     { position: 3, name: 'Gen',     score: '2,456' },
   ];
+  
   const list = (entries ?? defaultEntries).sort((a, b) => {
-    const order = [2, 1, 3];
-    return order.indexOf(a.position) - order.indexOf(b.position);
+    return displayOrder.indexOf(a.position) - displayOrder.indexOf(b.position);
   });
 
   return (
@@ -26,7 +17,7 @@ export const Avatars = ({ entries }) => {
       <div className="flex justify-between items-end" style={{ height: '200px' }}>
         {list.map(({ position, name, score }) => (
           <div key={position} className="flex flex-col items-center space-y-2">
-            <div className="w-20 h-20 rounded-full bg-accent flex items-center justify-center text-2xl font-bold text-white">
+            <div className="w-20 h-20 rounded-full bg-accent flex items-center justify-center text-2xl font-bold text-color">
               {position}
             </div>
             <div

@@ -16,8 +16,6 @@ export const Home = () => {
           <LoopingRewindVideo videoSrc="/video/header_video2.mp4" />
         </div>
       </div>
-      <HomeSelector />
-
     </>
   );
 };
