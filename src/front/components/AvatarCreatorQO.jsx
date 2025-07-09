@@ -1,4 +1,3 @@
-// src/components/AvatarCreatorQO.jsx
 import React, { useState, useCallback } from 'react';
 import { AvatarCreator } from '@readyplayerme/react-avatar-creator';
 import { Button } from './Button';
