@@ -8,6 +8,8 @@ export const Button = ({
 	disabled = false,
 	className = "",
 	size = "md", // "sm", "md", "lg"
+	icon = null,
+
 
 	...props
 }) => {
@@ -42,9 +44,9 @@ export const Button = ({
 			className={finalClass}
 			{...props}
 			whileHover={{ scale: 1.1 }}
-			transition={{ duration: .5 }}
+			transition={{ duration: 0.5 }}
 		>
-
+			{icon && <span className="mr-2">{icon}</span>}
 			{label}
 		</motion.button>
 	);
