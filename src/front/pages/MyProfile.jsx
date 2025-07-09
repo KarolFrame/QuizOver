@@ -1,45 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/Button";
+import { ExpBar } from "../components/Profile/ExpBar";
+import { Level } from "../components/Profile/Level";
 
 
 export default function MyProfile() {
-  const [user, setUser] = useState({
-    avatarUrl: "/favicon.ico",
-    name: "Mr. Explore",
-    level: 12,
-    currentXp: 0,
-    xpForNext: 1000,
-    globalRank: 42,
-    friendsCount: 8,
-  });
-
-  useEffect(() => {
-    const token = localStorage.getItem("jwt-token");
-
-    fetch(import.meta.env.VITE_BACKEND_URL + "/users/experience", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch experience");
-        return res.json();
-      })
-      .then((data) => {
-        setUser((prev) => ({
-          ...prev,
-          currentXp: data.currentXp,
-          xpForNext: data.xpForNext,
-        }));
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
-
-  const xpPercent = Math.round((user.currentXp / user.xpForNext) * 100);
+  const user = {
+    avatarUrl: "https://placekitten.com/200/200",
+    name: "John Doe",
+    globalRank: 123,
+    friendsCount: 42,
+  };
+  // 
 
   return (
     <div
@@ -63,36 +36,19 @@ export default function MyProfile() {
         >
           {user.name}
         </h2>
-        <p
-          className="text-xs sm:text-sm uppercase tracking-wide"
-          style={{ color: "var(--color-info)" }}
-        >
-          Level {user.level}
-        </p>
+        {/*Nivel*/}
+        <Level />
       </div>
+
       {/*Boton crear avatar*/}
       <Link to="/avatar-creator">
-        <Button label="Edit Avatar" variant="info" size="sm" />
+        <Button label="Edit Avatar" variant="info" size="responsive" />
       </Link>
 
       {/* Barra de experiencia */}
-      <div className="mb-6 sm:mb-8">
-        <p className="mb-1 text-xs sm:text-sm">
-          XP: {user.currentXp} / {user.xpForNext}
-        </p>
-        <div
-          className="w-full h-2 sm:h-3 rounded-full overflow-hidden"
-          style={{ backgroundColor: "var(--color-secondary)" }}
-        >
-          <div
-            className="h-full transition-width duration-500"
-            style={{
-              width: `${xpPercent}%`,
-              backgroundColor: "var(--color-accent)",
-            }}
-          />
-        </div>
-      </div>
+
+      <ExpBar />
+
 
       {/* Estadísticas rápidas */}
       <div className="grid grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
