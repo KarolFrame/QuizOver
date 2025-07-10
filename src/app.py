@@ -256,6 +256,8 @@ def get_experience():
         "currentXp": current_xp,
         "xpForNext": xp_for_next
     }), 200
+def calculate_xp_for_next_level(current_xp):
+    return 1000
 
 
 @app.route("/user/profile", methods=["GET", "PUT"])
@@ -296,8 +298,7 @@ def handle_user_profile():
         return jsonify({"msg": "Profile updated successfully", "user_info": user.user_info.serialize()}), 200
 
 
-def calculate_xp_for_next_level(current_xp):
-    return 1000
+
 
 
 # this only runs if `$ python src/main.py` is executed
