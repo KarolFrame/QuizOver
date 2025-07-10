@@ -1,11 +1,9 @@
-// src/front/routes.jsx
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
 import { Layout } from "./pages/Layout";
-import { Home } from "./pages/Home";
 import { Single } from "./pages/Single";
 import { Demo } from "./pages/Demo";
 import { Login } from "./pages/Login";
@@ -16,7 +14,7 @@ import { InGame } from "./pages/InGame";
 import { RankingPage } from "./pages/RankingPage";
 import MyProfile from "./pages/MyProfile";
 import PrivateRoute from "./components/PrivateRoute";
-import { CreateAvatar } from "./pages/CreateAvatar";
+import { EditProfile } from "./pages/EditProfile";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -60,10 +58,10 @@ export const router = createBrowserRouter(
         }
       />
       <Route
-        path="/avatar-creator"
+        path="/edit-profile"
         element={
           <PrivateRoute>
-            <CreateAvatar/>
+            <EditProfile />
           </PrivateRoute>
         }
       />

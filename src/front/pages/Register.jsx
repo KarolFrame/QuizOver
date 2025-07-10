@@ -10,12 +10,19 @@ export const Register = () => {
     const { dispatch } = useGlobalReducer();
     const navigate = useNavigate();
 
-    const handleRegister = async (email, password) => {
+    const handleRegister = async (username, email, password) => {
+        console.log("handleRegister en el padre recibió:", { username, email, password });
+
         try {
-            const data = await register(email, password);
+            const data = await register(username, email, password);
 
             localStorage.setItem("jwt-token", data.token);
             localStorage.setItem("user-email", data.email);
+            localStorage.setItem("user-id", data.user_id);
+            localStorage.setItem("user-username", data.user_info.userName || "");
+            localStorage.setItem("user-avatar", data.user_info.avatar || "");
+            localStorage.setItem("user-genre", data.user_info.genre || "");
+            localStorage.setItem("user-birthday", data.user_info.birthday || "");
 
             dispatch({ type: "REGISTER_SUCCESS", payload: data });
 

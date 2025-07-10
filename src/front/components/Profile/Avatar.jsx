@@ -1,21 +1,27 @@
-export const Avatar = () => {
+import React from "react";
+import useGlobalReducer from "../../hooks/useGlobalReducer.jsx";
+import { getAvatarUrl } from "../../services/avatarService.js";
+export const Avatar = ({ avatarUrl: propAvatarUrl }) => {
+    const { store } = useGlobalReducer();
+    const { user } = store;
 
-    const user = {
-        avatarUrl: "https://preview.redd.it/2ujdyrayf4681.png?width=640&crop=smart&auto=webp&s=bf6569ac16525273d5b44895210f13204c3461ea",
-    };
+    const defaultAvatarUrl = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
+    const avatarFileNameFromStore = user?.user_info?.avatar;
+    const finalAvatarToRender = propAvatarUrl
+        ? propAvatarUrl
+        : getAvatarUrl(avatarFileNameFromStore);
+
+    const userName = user?.user_info?.userName;
 
     return (
-
         <img
-            src={user.avatarUrl}
-            alt="Avatar"
+            src={finalAvatarToRender || defaultAvatarUrl}
+            alt={userName ? `${userName}'s avatar` : "Avatar de usuario"}
             className="h-20 w-20 sm:h-24 sm:w-24 rounded-full mb-3"
             style={{
                 border: "3px solid var(--color-info)",
                 backgroundColor: "var(--color-background)",
             }}
         />
-    )
-}
-
-
+    );
+};

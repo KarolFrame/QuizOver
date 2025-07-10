@@ -1,5 +1,6 @@
 import click
-from api.models import db, User
+from api.models import db, User, UserInfo
+import datetime
 
 """
 In this file, you can add as many commands as you want using the @app.cli.command decorator
@@ -32,3 +33,25 @@ def setup_commands(app):
     @app.cli.command("insert-test-data")
     def insert_test_data():
         pass
+
+    @app.cli.command("create-missing-userinfos")
+    def create_missing_userinfos():
+        print("Checking for users without UserInfo...")
+        users = User.query.all()
+        created_count = 0
+
+        for user in users:
+            if not user.user_info:
+                info = UserInfo(
+                    user_id=user.id,
+                    userName=f"user{user.id}",
+                    avatar="/favicon.ico",
+                    genre="unspecified",
+                    birthday=datetime.date(2000, 1, 1)
+                )
+                db.session.add(info)
+                created_count += 1
+                print(f"Created UserInfo for user ID {user.id}.")
+
+        db.session.commit()
+        print(f"Created {created_count} UserInfo records.")

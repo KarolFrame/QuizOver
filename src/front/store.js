@@ -4,14 +4,16 @@ export const initialStore = () => {
     auth: {
       isAuthenticated: false,
       userEmail: null,
+      token: null,
     },
 
     user: {
       id: null,
-      email: '',
+      email: "",
       is_active: true,
       experience_points: 0,
       friends: [],
+      user_info: null,
     },
     currentGame: {
       correctAnswers: 0,
@@ -26,15 +28,12 @@ export const initialStore = () => {
         loading: false,
         error: null,
       },
-    }
-  }
+    },
+  };
 };
 
-export default function storeReducer(store, action, state = {}) {
-  if (!state) throw new Error("Reducer missing state argument");
-
+export const storeReducer = (store, action) => {
   switch (action.type) {
-
     case "SET_ANSWER_RESULT":
       const isCorrect = action.payload.isCorrect;
       return {
@@ -70,67 +69,123 @@ export default function storeReducer(store, action, state = {}) {
         },
       };
 
-      case "FETCH_GLOBAL_RANKING_START":
-        return {
-          ...store,
-          ranking: {
-            ...store.ranking,
-            global: {
-              ...store.ranking.global,
-              loading: true,
-              error: null,
-            },
+    case "FETCH_GLOBAL_RANKING_START":
+      return {
+        ...store,
+        ranking: {
+          ...store.ranking,
+          global: {
+            ...store.ranking.global,
+            loading: true,
+            error: null,
           },
-        };
-      
-      case "FETCH_GLOBAL_RANKING_SUCCESS":
-        return {
-          ...store,
-          ranking: {
-            ...store.ranking,
-            global: {
-              ...store.ranking.global,
-              data: action.payload,
-              loading: false,
-              error: null,
-            },
-          },
-        };
-      
-      case "FETCH_GLOBAL_RANKING_FAILURE":
-        return {
-          ...store,
-          ranking: {
-            ...store.ranking,
-            global: {
-              ...store.ranking.global,
-              loading: false,
-              error: action.payload,
-            },
-          },
-        };
+        },
+      };
 
-      case "REGISTER_SUCCESS":
-      case "AUTH_LOGIN_SUCCESS":
-        return {
-          ...store,
-          auth: {
-            isAuthenticated: true,
-            userEmail: action.payload.email
-          }
-			};
+    case "FETCH_GLOBAL_RANKING_SUCCESS":
+      return {
+        ...store,
+        ranking: {
+          ...store.ranking,
+          global: {
+            ...store.ranking.global,
+            data: action.payload,
+            loading: false,
+            error: null,
+          },
+        },
+      };
 
-		case "AUTH_LOGOUT":
-			return {
-				...store,
-				auth: {
-					isAuthenticated: false,
-					userEmail: null
-				}
-			};
- 
+    case "FETCH_GLOBAL_RANKING_FAILURE":
+      return {
+        ...store,
+        ranking: {
+          ...store.ranking,
+          global: {
+            ...store.ranking.global,
+            loading: false,
+            error: action.payload,
+          },
+        },
+      };
+
+    case "REGISTER_SUCCESS":
+      return {
+        ...store,
+        auth: {
+          isAuthenticated: true,
+          userEmail: action.payload.email,
+          token: action.payload.token,
+        },
+        user: {
+          ...store.user,
+          id: action.payload.user_id,
+          email: action.payload.email,
+          user_info: action.payload.user_info,
+        },
+      };
+    case "SET_USER_INFO":
+      return {
+        ...store,
+        user: {
+          ...store.user,
+          user_info: { ...action.payload },
+        },
+      };
+    case "LOGIN_SUCCESS":
+      return {
+        ...store,
+        auth: {
+          isAuthenticated: true,
+          userEmail: action.payload.email,
+          token: action.payload.token,
+        },
+        user: {
+          ...store.user,
+          id: action.payload.user_id,
+          email: action.payload.email,
+          user_info: action.payload.user_info,
+          experience_points: action.payload.experience_points || 0,
+          friends: action.payload.friends || [],
+        },
+        message: null,
+      };
+
+    case "LOAD_AUTH_FROM_LOCALSTORAGE":
+      return {
+        ...store,
+        auth: {
+          isAuthenticated: true,
+          token: action.payload.token,
+          userEmail: action.payload.email,
+        },
+        user: {
+          ...store.user,
+          email: action.payload.email,
+          user_info: action.payload.user_info,
+          id: action.payload.user_id,
+          experience_points: action.payload.experience_points || 0,
+          friends: action.payload.friends || [],
+        },
+      };
+
+    case "AUTH_LOGOUT":
+      return {
+        ...initialStore(),
+        message: "Sesión cerrada correctamente.",
+      };
+
+    case "UPDATE_USER_INFO":
+      return {
+        ...store,
+        user: {
+          ...store.user,
+          user_info: action.payload,
+        },
+      };
 
     default:
-      throw Error(`Unknown action. ${action.type}`);
+      console.warn(`Acción desconocida: ${action.type}`);
+      return store;
   }
 };
