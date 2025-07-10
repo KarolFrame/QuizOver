@@ -14,32 +14,36 @@ export const GameSelector = () => {
   useEffect(() => {
     getGlobalRanking()
       .then(data => {
-        const top3 = data.slice(0, 3).map((u, i) => ({
+        const transformedData = data.map((u, i) => ({
           position: i + 1,
           name: u.user_info.userName,
           score: u.experience_points.toLocaleString(),
           avatar: u.user_info.avatar
         }));
-        setEntries(top3);
+        setEntries(transformedData);
       })
       .catch(() => setEntries(null));
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center bg-secondary px-4 gap-13">
+    <div className="flex flex-col items-center justify-center px-4 gap-13">
       <VideoPet />
       <Link to="/game/classic-mode">
         <motion.img
           src="/images/classic-button.png"
-          whileHover={{ scale: 1.1 }}
-          transition={{ duration: .5 }}
+          whileHover={{ scale: 1.05 }}
+          transition={{ duration: .2 }}
         />
       </Link>
-      <div className="w-full max-w-md mt-8">
-        <GlobalRankingWidget entries={entries} />
+      <div className="flex flex-col flex-wrap">
       </div>
-      <div className="w-full max-w-md">
-        <MyFriendsWidget />
+      <div className="flex flex-wrap justify-center">
+        <div className="w-full max-w-md" >
+          <GlobalRankingWidget entries={entries} />
+        </div>
+        <div className="w-full max-w-md">
+          <MyFriendsWidget />
+        </div>
       </div>
     </div>
   );

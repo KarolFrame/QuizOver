@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Avatars from "./Avatars";
+import { Button } from "../components/Button.jsx"
 
 export function GlobalRankingWidget({ entries }) {
-  const [displayOrder, setDisplayOrder] = useState([1, 2, 3]); 
+  const [displayOrder, setDisplayOrder] = useState([1, 2, 3]);
 
   useEffect(() => {
     setDisplayOrder([1, 2, 3]);
@@ -11,31 +12,14 @@ export function GlobalRankingWidget({ entries }) {
 
   return (
     <div
-      className="p-4 rounded-lg mb-6 overflow-hidden"
-      style={{
-        backgroundColor: "var(--color-info)",
-        color: "var(--color-white)",
-      }}
-    >
-      <h3 className="text-4xl font-semibold mb-0 text-center">
-        Global Ranking
-      </h3>
-
-      <div className="avatar-wrapper">
-        <Avatars entries={entries} displayOrder={displayOrder} />
+      className=" bg-primary rounded-lg mb-6 p-4 overflow-hidden">
+      <h3 className="text-4xl mt-2 mb-2 text-white font-semibold text-center"> Global Ranking</h3>
+      <div>
+        <Avatars entries={entries} displayOrder={false} showDecorations={false} scrollable={true} height="200px" />
       </div>
-
       <div className="flex justify-end mt-4">
         <Link to="/ranking/global">
-          <button
-            className="px-4 py-2 rounded-lg font-medium"
-            style={{
-              backgroundColor: "var(--color-accent)",
-              color: "var(--color-white)",
-            }}
-          >
-            See them all
-          </button>
+          <Button label="See more!" size="responsive" variant="info" />
         </Link>
       </div>
     </div>
