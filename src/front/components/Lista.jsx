@@ -13,7 +13,7 @@ export const Lista = ({ entries }) => {
   return (
     <div className="w-full max-w-md mx-auto mb-8">
       <ul className="space-y-2">
-        {list.map(({ position, name, score }, index) => (
+        {list.map(({ position, name, score, avatar }, index) => (
           <motion.li
             key={position}
             className="flex items-center justify-between bg-bg-light p-2 rounded-lg"
@@ -22,8 +22,9 @@ export const Lista = ({ entries }) => {
             transition={{ duration: .2, delay: (index + 1) / 4, ease: "easeOut" }}
           >
             <div className="flex items-center gap-2">
+              <span className='text-(--color-white)'>{position}</span>
               <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-sm font-semibold text-white">
-                {position}
+                <img src={avatar} />
               </div>
               <span className="text-white font-medium text-sm">{name}</span>
             </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import useGlobalReducer from "../../hooks/useGlobalReducer.jsx";
 import { getAvatarUrl } from "../../services/avatarService.js";
-export const Avatar = ({ avatarUrl: propAvatarUrl }) => {
+export const Avatar = ({ avatarUrl: propAvatarUrl, className: additionalClassName }) => {
     const { store } = useGlobalReducer();
     const { user } = store;
 
@@ -13,11 +13,13 @@ export const Avatar = ({ avatarUrl: propAvatarUrl }) => {
 
     const userName = user?.user_info?.userName;
 
+    const baseClasses = "rounded-full mb-3";
+    const combinedClasses = `${baseClasses} ${additionalClassName || "h-20 w-20 sm:h-24 sm:w-24"}`;
     return (
         <img
             src={finalAvatarToRender || defaultAvatarUrl}
             alt={userName ? `${userName}'s avatar` : "Avatar de usuario"}
-            className="h-20 w-20 sm:h-24 sm:w-24 rounded-full mb-3"
+            className={combinedClasses}
             style={{
                 border: "3px solid var(--color-info)",
                 backgroundColor: "var(--color-background)",

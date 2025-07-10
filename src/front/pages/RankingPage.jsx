@@ -33,16 +33,18 @@ export const RankingPage = () => {
 
   const podiumEntries = ranking.slice(0, 3).map((user, index) => ({
     position: index + 1,
-    name: user.email,
+    name: user.user_info.userName,
     score: user.experience_points,
     heightPercentage: Math.round((user.experience_points / maxPoints) * 100),
+    avatar: user.user_info.avatar,
   }));
 
 
   const listRest = ranking.slice(3).map((user, index) => ({
     position: index + 4,
-    name: user.email,
+    name: user.user_info?.userName,
     score: user.experience_points,
+    avatar: user.user_info?.avatar,
   }));
 
   return (

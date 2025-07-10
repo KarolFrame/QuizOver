@@ -1,7 +1,7 @@
 import { AvalancheFreeIcons } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { UserAdd02Icon } from "@hugeicons/core-free-icons";
-
+import { LogoutButton } from "../components/LogoutButton";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "../components/Button";
@@ -73,6 +73,7 @@ export default function MyProfile() {
         <Button label="Add Friend" size="responsive" variant="accent"
           icon={<HugeiconsIcon icon={UserAdd02Icon} />}
         />
+        <LogoutButton />
       </div>
     </div>
   );
