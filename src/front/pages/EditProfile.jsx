@@ -46,13 +46,12 @@ export const EditProfile = () => {
     const handleAvatarExportedFromCreator = (avatarUrl) => {
         setFormData(prevData => ({
             ...prevData,
-            avatar: avatarUrl // Actualiza el campo 'avatar' en formData
+            avatar: avatarUrl
         }));
-        setIsCreatingAvatar(false); // Oculta el creador de avatares
+        setIsCreatingAvatar(false);
         setSuccessMessage("Avatar created! Remember to click 'Save Changes' to update your profile.");
     };
 
-    // Manejar el envío del formulario
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
