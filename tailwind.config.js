@@ -12,6 +12,7 @@ export default {
         info: "var(--color-info)",
         white: "var(--color-white)",
         background: "var(--color-background)",
+        yellow: "var(--color-yellow)",
       },
     },
   },
