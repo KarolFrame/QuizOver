@@ -15,8 +15,9 @@ export const GameSelector = () => {
       .then(data => {
         const top3 = data.slice(0, 3).map((u, i) => ({
           position: i + 1,
-          name: u.email,
-          score: u.experience_points.toLocaleString()
+          name: u.user_info.userName,
+          score: u.experience_points.toLocaleString(),
+          avatar: u.user_info.avatar
         }));
         setEntries(top3);
       })

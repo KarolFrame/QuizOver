@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from './Button.jsx';
 import { motion } from "motion/react";
 import useGlobalReducer from "../hooks/useGlobalReducer";
-import { LogoutButton } from "./LogoutButton";
+import { Avatar } from "./Profile/Avatar.jsx";
 
 
 export const Navbar = () => {
@@ -27,10 +27,9 @@ export const Navbar = () => {
 					{isAuthenticated ? (
 						<>
 							<div>
-								{/* <span className="text-gray-300">{userEmail}</span> 	Username later */}
-
-								<LogoutButton />
-
+								<Link to="/profile">
+									<Avatar className="h-10 w-10 sm:h-12 sm:w-12" />
+								</Link>
 							</div>
 						</>
 					) : (
