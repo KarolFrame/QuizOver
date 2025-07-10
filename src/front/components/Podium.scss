@@ -7,11 +7,12 @@
   margin-bottom: 2rem;
 
   .bar {
-    width: 5rem;              
-    border-radius: 4px 4px 0 0;
+    width: 7rem;              
+    border-radius: 16px 16px 0 0;
     transition: height 0.5s ease;
+    // box-shadow: 10px 10px 0px 0px rgba(0, 0, 0, 0.5); 
 
-    &.first  { background: var(--color-info);   }
+    &.first  { background: var(--color-yellow);   }
     &.second { background: var(--color-accent); }
     &.third  { background: var(--color-white);  }
   }

@@ -9,6 +9,7 @@ export const Lista = ({ entries }) => {
     { position: 7, name: 'Player7', score: 700 },
   ];
   const list = (entries ?? defaultEntries).slice(0, 7);
+  const star = "/images/star.png"
 
   return (
     <div className="w-full max-w-md mx-auto mb-8">
@@ -22,15 +23,16 @@ export const Lista = ({ entries }) => {
             transition={{ duration: .2, delay: (index + 1) / 4, ease: "easeOut" }}
           >
             <div className="flex items-center gap-2">
-              <span className='text-(--color-white)'>{position}</span>
+              <span className='text-(--color-white) w-[20px]'>{position}</span>
               <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-sm font-semibold text-white">
                 <img src={avatar} />
               </div>
-              <span className="text-white font-medium text-sm">{name}</span>
+              <span className="text-white font-medium text-medium">{name}</span>
             </div>
-            <span className="text-white font-bold text-sm">
+            <div className="text-white flex gap-1 items-center font-bold text-sm">
               {score.toLocaleString()}
-            </span>
+              <img src={star} className="w-[25px] m-1" />
+            </div>
           </motion.li>
         ))}
       </ul>
