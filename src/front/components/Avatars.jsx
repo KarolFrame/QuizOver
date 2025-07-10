@@ -2,9 +2,9 @@ import React from 'react';
 
 export const Avatars = ({ entries, displayOrder = [2, 1, 3] }) => {
   const defaultEntries = [
-    { position: 2, name: 'Carolina', score: '3,456', avatar: "/faviocon.ico" },
-    { position: 1, name: 'Sofi', score: '5,589', avatar: "/faviocon.ico" },
-    { position: 3, name: 'Gen', score: '2,456', avatar: "/faviocon.ico" },
+    { position: 2, name: 'Carolina', score: '3,456', avatar: "/favicon.ico" },
+    { position: 1, name: 'Sofi', score: '5,589', avatar: "/favicon.ico" },
+    { position: 3, name: 'Gen', score: '2,456', avatar: "/favicon.ico" },
   ];
 
   const list = (entries ?? defaultEntries).sort((a, b) => {
