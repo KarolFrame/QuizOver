@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { VideoPet } from "../components/VideoPet";
 import { GlobalRankingWidget } from "../components/GlobalRankingWidget";
+import { MyFriendsWidget } from "../components/MyFriendsWidget";
 import { getGlobalRanking } from "../services/rankingService";
 
 export const GameSelector = () => {
@@ -36,6 +37,9 @@ export const GameSelector = () => {
       </Link>
       <div className="w-full max-w-md mt-8">
         <GlobalRankingWidget entries={entries} />
+      </div>
+      <div className="w-full max-w-md">
+        <MyFriendsWidget />
       </div>
     </div>
   );
