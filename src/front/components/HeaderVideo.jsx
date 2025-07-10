@@ -59,7 +59,7 @@ export const LoopingRewindVideo = ({ videoSrc, handleRegister }) => {
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 1, delay: .5, ease: "easeOut" }}
                             >
-                                <RegisterForm onSubmit={handleRegister} />
+                                <RegisterForm handleRegister={handleRegister} />
                             </motion.div>
                         )}
                     </div>

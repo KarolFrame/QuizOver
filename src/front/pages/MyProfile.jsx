@@ -8,14 +8,18 @@ import { Button } from "../components/Button";
 import { Avatar } from "../components/Profile/Avatar";
 import { ExpBar } from "../components/Profile/ExpBar";
 import { Level } from "../components/Profile/Level";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 
 export default function MyProfile() {
+  const { store } = useGlobalReducer();
+  const usernameFromStore = store.user.user_info.userName;
   const user = {
-    username: "John_Doe",
+    username: usernameFromStore,
     globalRank: 1,
     friendsCount: 42,
   };
+
 
   return (
     <div
@@ -31,9 +35,9 @@ export default function MyProfile() {
           {user.username}
         </h2>
         <Level />
-        <Link to="/avatar-creator">
+        <Link to="/edit-profile">
           <Button
-            label="Edit Avatar"
+            label="Edit Profile"
             variant="ghost"
             size="responsive"
           />
@@ -41,8 +45,6 @@ export default function MyProfile() {
       </div>
       <ExpBar />
 
-
-      {/* Estadísticas rápidas */}
       <div className="grid grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
         <div
           className="p-4 sm:p-6 rounded-lg flex flex-col items-center"
@@ -69,9 +71,8 @@ export default function MyProfile() {
       </div>
       <div className="flex justify-between">
         <Button label="Add Friend" size="responsive" variant="accent"
-          icon={<HugeiconsIcon icon={UserAdd02Icon} />} // Falta alinear icono desde el componente Button
+          icon={<HugeiconsIcon icon={UserAdd02Icon} />}
         />
-        {/* <Button label="Edit Avatar" size="responsive" variant="info" /> */}
       </div>
     </div>
   );
