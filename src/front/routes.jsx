@@ -15,6 +15,7 @@ import { RankingPage } from "./pages/RankingPage";
 import MyProfile from "./pages/MyProfile";
 import PrivateRoute from "./components/PrivateRoute";
 import { EditProfile } from "./pages/EditProfile";
+import { MyFriends } from "./pages/MyFriends";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -62,6 +63,14 @@ export const router = createBrowserRouter(
         element={
           <PrivateRoute>
             <EditProfile />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/my-friends"
+        element={
+          <PrivateRoute>
+            <MyFriends />
           </PrivateRoute>
         }
       />

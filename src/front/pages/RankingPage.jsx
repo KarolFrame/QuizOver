@@ -4,6 +4,7 @@ import Avatars from '../components/Avatars';
 import Podium from '../components/Podium';
 import Lista from '../components/Lista';
 import { getGlobalRanking } from '../services/rankingService';
+import { QuestionsLoader } from '../components/QuestionsLoader/QuestionsLoader.jsx';
 
 export const RankingPage = () => {
   const { store, dispatch } = useGlobalReducer();
@@ -25,7 +26,7 @@ export const RankingPage = () => {
   }, [dispatch]);
 
 
-  if (loading) return <div className="text-white">Loading ranking...</div>;
+  if (loading) return <div className="flex justify-center"><QuestionsLoader /></div>;
   if (error) return <div className="text-red-500">Error: {error}</div>;
   if (!ranking || ranking.length === 0) return <div className="text-gray-400">No ranking data available.</div>;
 

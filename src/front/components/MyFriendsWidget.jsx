@@ -2,15 +2,20 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "./Button";
+import useGlobalReducer from "../hooks/useGlobalReducer";
+import Avatars from "./Avatars";
 
 export function MyFriendsWidget() {
-  // Mock data - más tarde se conectará al backend
+  const { store } = useGlobalReducer();
   const [friends] = useState([
     { id: 1, name: "Ana", avatar: "👩" },
     { id: 2, name: "Carlos", avatar: "👨" },
     { id: 3, name: "María", avatar: "👩‍🦱" },
     { id: 4, name: "Juan", avatar: "👨‍🦰" },
   ]);
+
+  const friendList = store.user.friends;
+  console.log(friendList);
 
   const [showAddFriend, setShowAddFriend] = useState(false);
 
@@ -29,70 +34,20 @@ export function MyFriendsWidget() {
       <h3 className="text-4xl font-semibold mb-4 text-center">
         My friends
       </h3>
+      {friendList.length > 0 && (
+        <div>
+          <Avatars entries={friendList} displayOrder={false} showDecorations={false} scrollable={true} height="200px" />
+        </div>)}
+      {friendList.length == 0 && (
+        <div className="flex justify-center">
+          <p>You don’t have any friends yet :(</p>
+        </div>)}
 
-      {/* Lista de amigos */}
-      <div className="grid grid-cols-4 gap-3 mb-4">
-        {friends.map((friend) => (
-          <div key={friend.id} className="flex flex-col items-center">
-            <div
-              className="w-20 h-20 rounded-full flex items-center justify-center text-xl font-bold bg-info"
-              style={{
-                color: "var(--color-white)",
-              }}
-            >
-              {friend.avatar}
-            </div>
-            <div
-              className="text-xs mt-1 text-center font-medium"
-              style={{ color: "var(--color-white)" }}
-            >
-              {friend.name}
-            </div>
-          </div>
-        ))}
-      </div>
       <div className="flex justify-end">
-        <Button label="See all" variant="accent" />
+        <Link to="/my-friends">
+          <Button label="See all" variant="accent" />
+        </Link>
       </div>
-
-      {/* Modal/Form para agregar amigo (opcional) */}
-      {showAddFriend && (
-        <div className="mt-4 p-3 rounded-lg" style={{ backgroundColor: "var(--color-bg-light)" }}>
-          <input
-            type="text"
-            placeholder="Friend's username"
-            className="w-full mb-2"
-            style={{
-              backgroundColor: "var(--color-secondary)",
-              color: "var(--color-white)",
-              border: "1px solid var(--color-bg-light)",
-              height: "40px",
-              margin: "0"
-            }}
-          />
-          <div className="flex gap-2">
-            <button
-              className="px-3 py-1 rounded text-sm"
-              style={{
-                backgroundColor: "var(--color-info)",
-                color: "var(--color-white)",
-              }}
-            >
-              Send
-            </button>
-            <button
-              onClick={() => setShowAddFriend(false)}
-              className="px-3 py-1 rounded text-sm"
-              style={{
-                backgroundColor: "var(--color-secondary)",
-                color: "var(--color-white)",
-              }}
-            >
-              Cancel
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
