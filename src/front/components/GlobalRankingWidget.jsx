@@ -12,7 +12,7 @@ export function GlobalRankingWidget({ entries }) {
 
   return (
     <div
-      className=" bg-primary rounded-lg mb-6 p-4 overflow-hidden">
+      className="bg-primary rounded-lg mb-6 p-4 overflow-hidden w-full max-w-md mx-auto">
       <h3 className="text-4xl mt-2 mb-2 text-white font-semibold text-center"> Global Ranking</h3>
       <div>
         <Avatars entries={entries} displayOrder={false} showDecorations={false} scrollable={true} height="200px" />

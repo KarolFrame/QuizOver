@@ -8,7 +8,7 @@
   --color-info: #3f9ffe; /* accent-card-bg- textlinks*/
   --color-white: #ede9f1; /* text*/
   --color-background: #232748;
-  --color-yellow:#F9BF14;
+  --color-yellow: #f9bf14;
 }
 
 body {
@@ -134,4 +134,23 @@ button {
 .avatar-wrapper > * {
   margin: 0 !important;
   flex-shrink: 1 !important;
+}
+
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-bg-light);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-bg-light);
 }

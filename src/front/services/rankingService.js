@@ -1,11 +1,11 @@
-export const FETCH_RANKING_REQUEST = 'FETCH_RANKING_REQUEST';
-export const FETCH_RANKING_SUCCESS = 'FETCH_RANKING_SUCCESS';
-export const FETCH_RANKING_FAILURE = 'FETCH_RANKING_FAILURE';
+export const FETCH_RANKING_REQUEST = "FETCH_RANKING_REQUEST";
+export const FETCH_RANKING_SUCCESS = "FETCH_RANKING_SUCCESS";
+export const FETCH_RANKING_FAILURE = "FETCH_RANKING_FAILURE";
+
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const getGlobalRanking = async () => {
   const response = await fetch(`${BACKEND_URL}/ranking/global`);
-
   if (!response.ok) {
     let errorMessage;
     try {
@@ -19,4 +19,27 @@ export const getGlobalRanking = async () => {
   }
 
   return response.json();
+};
+
+export const getUserProfileById = async (userId) => {
+  try {
+    const response = await fetch(`${BACKEND_URL}/users/${userId}`);
+
+    if (!response.ok) {
+      let errorMessage;
+      try {
+        const json = await response.json();
+        errorMessage = json.message || JSON.stringify(json);
+      } catch {
+        const text = await response.text();
+        errorMessage = text;
+      }
+      throw new Error(`HTTP ${response.status}: ${errorMessage}`);
+    }
+    const userData = await response.json();
+    return userData;
+  } catch (error) {
+    console.error("Error al obtener el perfil por ID:", error);
+    throw error;
+  }
 };

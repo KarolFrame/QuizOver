@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-// import { useGlobalContext } from "../../hooks/useGlobalReducer";
 
-export const Level = () => {
+export const Level = ({ userLevel }) => {
 
     const user = {
-        level: 5,
+        level: userLevel,
     };
 
     return (
