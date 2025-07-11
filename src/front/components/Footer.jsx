@@ -11,8 +11,5 @@ export const Footer = () => (
     <Link to="/about-us">
       <p>About Us</p>
     </Link>
-    <Link to="/profile">
-      <p>My Profile</p>
-    </Link>
   </motion.footer>
 );

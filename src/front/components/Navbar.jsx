@@ -9,7 +9,7 @@ export const Navbar = () => {
 
 	const { store } = useGlobalReducer();
 	const isAuthenticated = store.auth.isAuthenticated;
-	const userEmail = store.auth.userEmail;
+	const userId = isAuthenticated && store.user ? store.user.id : null;
 
 	return (
 		<>
@@ -21,15 +21,19 @@ export const Navbar = () => {
 			>
 				<div className="px-8 flex justify-between">
 					<Link to={isAuthenticated ? "/home" : "/"}>
-						<img src="/logo.png" className="h-4 md:h-8 mt-2" />
+						<img src="/logo.png" className="h-4 md:h-8 mt-2" alt="Logo" />
 					</Link>
 
 					{isAuthenticated ? (
 						<>
 							<div>
-								<Link to="/profile">
+								{userId ? (
+									<Link to={`/profile/${userId}`}>
+										<Avatar className="h-10 w-10 sm:h-12 sm:w-12" />
+									</Link>
+								) : (
 									<Avatar className="h-10 w-10 sm:h-12 sm:w-12" />
-								</Link>
+								)}
 							</div>
 						</>
 					) : (

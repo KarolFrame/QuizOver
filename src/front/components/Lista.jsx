@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Lista = ({ entries }) => {
   const defaultEntries = [
@@ -14,7 +15,7 @@ export const Lista = ({ entries }) => {
   return (
     <div className="w-full max-w-md mx-auto mb-8">
       <ul className="space-y-2">
-        {list.map(({ position, name, score, avatar }, index) => (
+        {list.map(({ position, name, score, avatar, id }, index) => (
           <motion.li
             key={position}
             className="flex items-center justify-between bg-bg-light p-2 rounded-lg"
@@ -25,7 +26,9 @@ export const Lista = ({ entries }) => {
             <div className="flex items-center gap-2">
               <span className='text-(--color-white) w-[20px]'>{position}</span>
               <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center text-sm font-semibold text-white">
-                <img src={avatar} />
+                <Link to={`/profile/${id}`}>
+                  <img src={avatar} />
+                </Link>
               </div>
               <span className="text-white font-medium text-medium">{name}</span>
             </div>

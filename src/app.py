@@ -27,6 +27,10 @@ CORS(app)
 app.url_map.strict_slashes = False
 
 
+def calculate_level(experience_points):
+    return max(1, experience_points // 1000)
+
+
 @app.after_request
 def add_header(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
@@ -156,7 +160,7 @@ def register():
     db.session.commit()
 
     new_user_info = UserInfo(user_id=new_user.id, userName=username,
-                             avatar='default.png', genre='unknown', birthday=date.today())
+                             avatar='/favicon.ico', genre='unknown', birthday=date.today())
     db.session.add(new_user_info)
     db.session.commit()
 
@@ -256,6 +260,8 @@ def get_experience():
         "currentXp": current_xp,
         "xpForNext": xp_for_next
     }), 200
+
+
 def calculate_xp_for_next_level(current_xp):
     return 1000
 
@@ -298,7 +304,41 @@ def handle_user_profile():
         return jsonify({"msg": "Profile updated successfully", "user_info": user.user_info.serialize()}), 200
 
 
+@app.route("/users/<int:user_id>", methods=["GET"])
+def get_user_profile_by_id(user_id):
+    """
+    Endpoint para obtener el perfil de un usuario por su ID.
+    Devuelve los datos públicos del perfil del usuario en formato JSON.
+    """
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({"msg": "User not found"}), 404
 
+    user_info = user.user_info
+
+    friends_count = len(user.friends) if hasattr(
+        user, 'friends') and user.friends is not None else 0
+
+    current_xp = user.experience_points
+    xp_for_next = calculate_xp_for_next_level(
+        current_xp)
+
+    user_level = calculate_level(current_xp)
+
+    all_users_ranked = db.session.query(User).order_by(
+        desc(User.experience_points)).all()
+    global_rank = next(
+        (i + 1 for i, u in enumerate(all_users_ranked) if u.id == user_id), None)
+
+    return jsonify({
+        "id": user.id,
+        "username": user_info.userName if user_info else "Unknown",
+        "avatar": user_info.avatar if user_info else "/default_avatar.png",
+        "friendsCount": friends_count,
+        "level": user_level,
+        "currentExp": current_xp,
+        "totalExp": xp_for_next,
+    }), 200
 
 
 # this only runs if `$ python src/main.py` is executed

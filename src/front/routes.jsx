@@ -8,7 +8,7 @@ import { Single } from "./pages/Single";
 import { Demo } from "./pages/Demo";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
-import { GameSelector } from "./pages/GameSelector";
+import { Home } from "./pages/Home";
 import { AboutUs } from "./pages/AboutUs";
 import { InGame } from "./pages/InGame";
 import { RankingPage } from "./pages/RankingPage";
@@ -29,7 +29,7 @@ export const router = createBrowserRouter(
         path="/home"
         element={
           <PrivateRoute>
-            <GameSelector />
+            <Home />
           </PrivateRoute>
         }
       />
@@ -42,7 +42,7 @@ export const router = createBrowserRouter(
         }
       />
       <Route
-        path="/profile"
+        path="/profile/:userId"
         element={
           <PrivateRoute>
             <MyProfile />
