@@ -69,10 +69,8 @@ export default function MyProfile() {
           </p>
         </div>
       </div>
-      <div className="flex justify-between">
-        <Button label="Add Friend" size="responsive" variant="accent"
-          icon={<HugeiconsIcon icon={UserAdd02Icon} />}
-        />
+      <div className="flex gap-3 justify-between">
+        <Button label="Add Friend" size="responsive" variant="accent" className="grow" />
         <LogoutButton />
       </div>
     </div>

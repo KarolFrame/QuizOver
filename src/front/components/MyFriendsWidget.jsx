@@ -1,6 +1,7 @@
 // src/front/components/MyFriendsWidget.jsx
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Button } from "./Button";
 
 export function MyFriendsWidget() {
   // Mock data - más tarde se conectará al backend
@@ -20,13 +21,12 @@ export function MyFriendsWidget() {
 
   return (
     <div
-      className="p-4 rounded-lg mb-6 overflow-hidden border"
+      className="p-4 rounded-lg mb-6 overflow-hidden bg-primary"
       style={{
-        backgroundColor: "var(--color-primary)",
         color: "var(--color-white)"
       }}
     >
-      <h3 className="text-2xl font-semibold mb-4 text-center">
+      <h3 className="text-4xl font-semibold mb-4 text-center">
         My friends
       </h3>
 
@@ -34,16 +34,15 @@ export function MyFriendsWidget() {
       <div className="grid grid-cols-4 gap-3 mb-4">
         {friends.map((friend) => (
           <div key={friend.id} className="flex flex-col items-center">
-            <div 
-              className="w-20 h-20 rounded-full flex items-center justify-center text-xl font-bold"
+            <div
+              className="w-20 h-20 rounded-full flex items-center justify-center text-xl font-bold bg-info"
               style={{
-                backgroundColor: "var(--color-info)",
                 color: "var(--color-white)",
               }}
             >
               {friend.avatar}
             </div>
-            <div 
+            <div
               className="text-xs mt-1 text-center font-medium"
               style={{ color: "var(--color-white)" }}
             >
@@ -52,19 +51,8 @@ export function MyFriendsWidget() {
           </div>
         ))}
       </div>
-
-      {/* Botón Add a friend */}
-      <div className="flex justify-center">
-        <button
-          onClick={handleAddFriend}
-          className="px-4 py-2 rounded-lg font-medium text-sm"
-          style={{
-            backgroundColor: "var(--color-accent)",
-            color: "var(--color-white)",
-          }}
-        >
-          + Add a friend
-        </button>
+      <div className="flex justify-end">
+        <Button label="See all" variant="accent" />
       </div>
 
       {/* Modal/Form para agregar amigo (opcional) */}

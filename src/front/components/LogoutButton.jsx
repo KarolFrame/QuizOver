@@ -17,7 +17,7 @@ export const LogoutButton = () => {
     return (
         <Button
             label="Logout"
-            variant="secondary"
+            variant="danger"
             size="responsive"
             onClick={handleLogout}
         />
