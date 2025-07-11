@@ -11,6 +11,8 @@ export const EditProfile = () => {
     const navigate = useNavigate();
     const currentUserInfo = store?.user?.user_info;
     const currentToken = store?.auth?.token;
+    const isAuthenticated = store.auth.isAuthenticated;
+    const userId = isAuthenticated && store.user ? store.user.id : null;
 
     const [formData, setFormData] = useState({
         userName: '',
@@ -74,7 +76,7 @@ export const EditProfile = () => {
 
             setSuccessMessage("Profile updated successfully!");
             setTimeout(() => {
-                navigate('/profile');
+                navigate(`/profile/${userId}`);
             }, 1500);
 
         } catch (err) {
@@ -165,7 +167,7 @@ export const EditProfile = () => {
                                 label="Cancel"
                                 variant="ghost"
                                 size="responsive"
-                                onClick={() => navigate('/profile')}
+                                onClick={() => navigate(`/profile/${userId}`)}
                                 type="button"
                             />
                             <Button
