@@ -341,6 +341,62 @@ def get_user_profile_by_id(user_id):
     }), 200
 
 
+@app.route("/users/friends", methods=["GET"])
+@jwt_required()
+def get_friends():
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+
+    if not user:
+        return {"error": "User not found"}, 404
+
+    friends = [f.serialize() for f in user.friends]
+    return jsonify(friends), 200
+
+
+@app.route("/users/friends", methods=["POST"])
+@jwt_required()
+def add_friend():
+    current_user_id = get_jwt_identity()
+    data = request.get_json()
+    friend_id = data.get("friend_id")     
+
+    user = db.session.get(User, current_user_id)
+    friend = db.session.get(User, friend_id)
+
+    if not user or not friend:
+        return {"error": "User or friend not found"}, 404
+
+    user.add_friend(friend)
+    db.session.commit()
+
+    return {"success": True, "friend": friend.serialize()}, 201
+
+# bse to add by username future implementation
+# @app.route("/users/friends", methods=["POST"])
+# @jwt_required()
+# def add_friend():
+#     data = request.get_json()
+
+#     username = data.get("username")
+#     if not username:
+#         return {"error": "Missing username"}, 400
+
+#     current_user_id = get_jwt_identity()
+#     user = db.session.get(User, current_user_id)
+#     friend = db.session.execute(
+#         db.select(User).where(User.user_info.username == username)
+#     ).scalar()
+
+#     if not friend:
+#         return {"error": "Friend not found"}, 404
+
+#     user.add_friend(friend)
+#     db.session.commit()
+
+#     return {"success": True, "friend": friend.serialize()}, 201
+
+
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3001))
