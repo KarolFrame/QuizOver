@@ -10,6 +10,7 @@ import { ExpBar } from "../components/Profile/ExpBar";
 import { Level } from "../components/Profile/Level";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { getGlobalRanking, getUserProfileById } from "../services/rankingService";
+import { QuestionsLoader } from "../components/QuestionsLoader/QuestionsLoader.jsx";
 
 export default function MyProfile() {
   const { userId } = useParams();
@@ -21,6 +22,7 @@ export default function MyProfile() {
 
   const currentUserUsername = store.user?.user_info?.userName;
   const currentUserId = store.user?.id;
+
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -82,19 +84,16 @@ export default function MyProfile() {
   }, [profileUser]);
 
   if (!profileUser) {
-    return <div style={{ color: "var(--color-white)" }}>Cargando perfil...</div>;
+    return <div className="flex justify-center"><QuestionsLoader /></div>;
   }
 
   const parsedUserId = userId ? parseInt(userId, 10) : undefined;
   const isCurrentUserProfile = parsedUserId === currentUserId || (userId === undefined && profileUser.id === currentUserId);
 
   return (
-    <div
-      className="mx-auto p-4 sm:p-6 md:p-8 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl"
-      style={{ color: "var(--color-white)" }}
-    >
+    <div className="mx-auto p-4 sm:p-6 md:p-8 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl" style={{ color: "var(--color-white)" }}>
       <div className="flex flex-col items-center mb-6 sm:mb-8">
-        <Avatar userId={profileUser.id} />
+        <Avatar userId={profileUser.id} globalRanking={globalRank} />
         <h2
           className="mb-1 text-2xl sm:text-3xl font-extrabold"
           style={{ color: "var(--color-white)" }}
@@ -123,8 +122,7 @@ export default function MyProfile() {
             Global Rank
           </p>
           <p className="mt-2 text-lg sm:text-2xl font-bold text-var(--color-white)">
-            {/* Muestra el rank calculado o N/A */}
-            {rankingLoading ? "Cargando..." : (rankingError ? "Error" : globalRank)}
+            {rankingLoading ? "" : (rankingError ? "Error" : globalRank)}
           </p>
         </div>
         <div
