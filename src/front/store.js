@@ -184,6 +184,26 @@ export const storeReducer = (store, action) => {
         },
       };
 
+    case "SET_FRIENDS":
+    return {
+      ...store,
+      user: {
+        ...store.user,
+        friends: action.payload,
+      },
+    };
+
+    case "ADD_FRIEND":
+      return {
+        ...store,
+        user: {
+          ...store.user,
+          friends: [...store.user.friends, action.payload],
+        },
+      };
+ 
+    
+
     default:
       console.warn(`Acción desconocida: ${action.type}`);
       return store;

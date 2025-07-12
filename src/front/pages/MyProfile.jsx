@@ -11,6 +11,7 @@ import { Level } from "../components/Profile/Level";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { getGlobalRanking, getUserProfileById } from "../services/rankingService";
 import { QuestionsLoader } from "../components/QuestionsLoader/QuestionsLoader.jsx";
+import { fetchFriends, postFriend } from '../services/friendsService.js';
 
 export default function MyProfile() {
   const { userId } = useParams();
@@ -22,6 +23,7 @@ export default function MyProfile() {
 
   const currentUserUsername = store.user?.user_info?.userName;
   const currentUserId = store.user?.id;
+  const token = localStorage.getItem('jwt-token');
 
 
   useEffect(() => {
@@ -56,6 +58,20 @@ export default function MyProfile() {
 
 
   useEffect(() => {
+    fetchFriends(token)
+      .then(data => {
+        console.log('Friends list:', data);
+      })
+      .catch(err => console.error('Fetch error:', err));
+
+    postFriend(token, 2)
+      .then(data => {
+        console.log('Add friend success:', data);
+      })
+      .catch(err => console.error('Add friend error:', err));
+  }, []);
+
+  useEffect(() => {
     const fetchGlobalAndUserRank = async () => {
       setRankingLoading(true);
       setRankingError(null);
@@ -86,6 +102,15 @@ export default function MyProfile() {
   if (!profileUser) {
     return <div className="flex justify-center"><QuestionsLoader /></div>;
   }
+
+  const addFriend = async () => {
+    try {
+      const response = await postFriend(token, profileUser.id);
+      console.log('Add friend success:', response);
+    } catch (error) {
+      console.error('Add friend error:', error);
+    }
+  };
 
   const parsedUserId = userId ? parseInt(userId, 10) : undefined;
   const isCurrentUserProfile = parsedUserId === currentUserId || (userId === undefined && profileUser.id === currentUserId);
@@ -139,7 +164,7 @@ export default function MyProfile() {
       </div>
       {!isCurrentUserProfile ? (
         <div className="flex gap-3 justify-between">
-          <Button label="Add Friend" size="responsive" variant="accent" className="grow" />
+          <Button label="Add Friend" size="responsive" variant="accent" className="grow" onClick={addFriend} />
         </div>
       ) : (
         <div className="flex justify-end">
