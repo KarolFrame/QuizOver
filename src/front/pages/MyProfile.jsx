@@ -11,7 +11,7 @@ import { Level } from "../components/Profile/Level";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { getGlobalRanking, getUserProfileById } from "../services/rankingService";
 import { QuestionsLoader } from "../components/QuestionsLoader/QuestionsLoader.jsx";
-import { fetchFriends, postFriend } from '../services/friendsService.js';
+import { fetchFriends, postFriend } from '../services/FriendsService.js';
 
 export default function MyProfile() {
   const { userId } = useParams();
