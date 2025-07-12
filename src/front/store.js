@@ -124,14 +124,7 @@ export const storeReducer = (store, action) => {
           user_info: action.payload.user_info,
         },
       };
-    case "SET_USER_INFO":
-      return {
-        ...store,
-        user: {
-          ...store.user,
-          user_info: { ...action.payload },
-        },
-      };
+  
     case "LOGIN_SUCCESS":
       return {
         ...store,
@@ -185,13 +178,13 @@ export const storeReducer = (store, action) => {
       };
 
     case "SET_FRIENDS":
-    return {
-      ...store,
-      user: {
-        ...store.user,
-        friends: action.payload,
-      },
-    };
+      return {
+        ...store,
+        user: {
+          ...store.user,
+          friends: action.payload,
+        },
+      };
 
     case "ADD_FRIEND":
       return {
