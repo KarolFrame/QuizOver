@@ -7,6 +7,8 @@ import { QuestionsLoader } from "../components/QuestionsLoader/QuestionsLoader.j
 import useSound from 'use-sound';
 import { AnswerAnimReaction } from "../components/AnswerAnimReaction.jsx";
 import { GameEnd } from "./GameEnd.jsx";
+import { Button } from "../components/Button.jsx";
+import { useNavigate } from "react-router-dom";
 
 const HAPPY_FRAMES = [0, 5, 6, 8, 10, 11, 12, 13, 14, 15];
 const ANGRY_FRAMES = [1, 2, 3, 4, 7, 9, 16, 17, 18, 19];
@@ -21,6 +23,7 @@ export const InGame = () => {
     const [reaction, setReaction] = useState(false);
     const [frame, setFrame] = useState(0);
     const [shake, setShake] = useState(false);
+    const navigate = useNavigate();
 
     const loadNewQuestion = async () => {
         try {
@@ -72,21 +75,23 @@ export const InGame = () => {
         setReaction(true);
         setQuestionAndAnswers(null);
 
-
         setTimeout(() => {
             loadNewQuestion();
             setReaction(false);
         }, 2000);
     };
 
+    const handleExitGame = () => {
+        navigate("/");
+    };
+
     return (
-        <div className={`text-center flex flex-col justify-center items-center gap-3 ${shake ? 'shake' : ''}`}>
+        <div className={`text-center flex flex-col justify-center items-center gap-3 ${shake ? 'shake' : ''} relative min-h-screen`}>
             {reaction &&
                 <AnswerAnimReaction frameIndex={frame} />}
             {hearts > 0 && questionAndAnswers &&
                 (<>
                     <ProgressInGame onTimeOut={() => handleAnswer("", questionAndAnswers.correct_answer)} />
-                    <p>{questionAndAnswers.correct_answer}</p>
                     <QuestionAndAnswers
                         question={questionAndAnswers.question}
                         option1={questionAndAnswers.correct_answer}
@@ -105,8 +110,15 @@ export const InGame = () => {
                     <GameEnd />
                 </>)}
 
+            {/* Botón de salir - responsive, siempre visible abajo a la derecha */}
+            <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8">
+                <Button
+                    label="← Exit"
+                    variant="danger"
+                    size="responsive"
+                    onClick={handleExitGame}
+                />
+            </div>
         </div>
     );
-
 };
-

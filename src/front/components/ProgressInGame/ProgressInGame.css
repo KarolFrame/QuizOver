@@ -20,3 +20,9 @@
     width: 0%;
   }
 }
+
+/* Estilo para corazones vacíos */
+.heart-empty {
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
