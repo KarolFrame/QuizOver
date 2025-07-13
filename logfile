@@ -1,0 +1,15 @@
+2025-07-13 12:06:58.271 CEST [1929] LOG:  starting PostgreSQL 17.5 on x86_64-conda-linux-gnu, compiled by x86_64-conda-linux-gnu-cc (conda-forge gcc 13.3.0-2) 13.3.0, 64-bit
+2025-07-13 12:06:58.272 CEST [1929] LOG:  listening on IPv6 address "::1", port 5432
+2025-07-13 12:06:58.272 CEST [1929] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2025-07-13 12:06:58.274 CEST [1929] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2025-07-13 12:06:58.285 CEST [1932] LOG:  database system was shut down at 2025-07-13 12:06:22 CEST
+2025-07-13 12:06:58.293 CEST [1929] LOG:  database system is ready to accept connections
+2025-07-13 12:11:58.365 CEST [1930] LOG:  checkpoint starting: time
+2025-07-13 12:12:02.725 CEST [1930] LOG:  checkpoint complete: wrote 46 buffers (0.3%); 0 WAL file(s) added, 0 removed, 0 recycled; write=4.316 s, sync=0.027 s, total=4.360 s; sync files=11, longest=0.015 s, average=0.003 s; distance=277 kB, estimate=277 kB; lsn=0/1534F40, redo lsn=0/1534EB0
+2025-07-13 12:16:58.404 CEST [1929] LOG:  received fast shutdown request
+2025-07-13 12:16:58.408 CEST [1929] LOG:  aborting any active transactions
+2025-07-13 12:16:58.410 CEST [1929] LOG:  background worker "logical replication launcher" (PID 1935) exited with exit code 1
+2025-07-13 12:16:58.410 CEST [1930] LOG:  shutting down
+2025-07-13 12:16:58.413 CEST [1930] LOG:  checkpoint starting: shutdown immediate
+2025-07-13 12:16:58.839 CEST [1930] LOG:  checkpoint complete: wrote 933 buffers (5.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.031 s, sync=0.380 s, total=0.429 s; sync files=300, longest=0.005 s, average=0.002 s; distance=4271 kB, estimate=4271 kB; lsn=0/1960D28, redo lsn=0/1960D28
+2025-07-13 12:16:58.853 CEST [1929] LOG:  database system is shut down
