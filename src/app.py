@@ -18,6 +18,8 @@ from sqlalchemy import desc
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 from datetime import date, timedelta
+from dotenv import load_dotenv
+load_dotenv() 
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
 static_file_dir = os.path.join(os.path.dirname(
