@@ -86,7 +86,7 @@ export const InGame = () => {
     };
 
     return (
-        <div className={`text-center flex flex-col justify-center items-center gap-3 ${shake ? 'shake' : ''} relative min-h-screen`}>
+        <div className={`text-center flex flex-col justify-center items-center gap-3 ${shake ? 'shake' : ''} relative min-h-screen`} style={{ zIndex: 10 }}>
             {reaction &&
                 <AnswerAnimReaction frameIndex={frame} />}
             {hearts > 0 && questionAndAnswers &&

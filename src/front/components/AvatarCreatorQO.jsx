@@ -35,7 +35,7 @@ export const AvatarCreatorQO = ({ desactivate, onAvatarExportedCallback }) => {
     }, [onAvatarExportedCallback, desactivate]);
 
     return (
-        <div className="w-full h-[calc(100vh-200px)] flex flex-col items-center justify-center p-4">
+        <div className="w-full h-[calc(100vh-200px)] flex flex-col items-center justify-center p-4" style={{ zIndex: 10 }}>
             {!avatarUrl ? (
                 <div className="w-full h-full max-w-3xl rounded-lg overflow-hidden shadow-lg">
                     <AvatarCreator

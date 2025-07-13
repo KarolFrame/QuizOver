@@ -27,24 +27,26 @@ export const Home = () => {
       .catch(() => setEntries(null));
   }, []);
 
-  return (
-    <div className="flex flex-col items-center justify-center px-4 gap-13">
-      <VideoPet />
-      <Link to="/game/classic-mode">
-        <motion.img
-          src="/images/classic-button.png"
-          whileHover={{ scale: 1.05 }}
-          transition={{ duration: .2 }}
-        />
-      </Link>
-      <div className="flex flex-wrap justify-center items-center">
-        <div className="w-full" >
-          <GlobalRankingWidget entries={entries} />
-        </div>
-        <div className="w-full max-w-md mx-auto">
-          <MyFriendsWidget />
+  return (<>
+    <div className="flex flex-column items-cente justify-center">
+      <div className="flex flex-col items-center justify-center px-4 gap-13 max-w-[80%] md:max-w-[50%]" style={{ zIndex: 10, }}>
+        <VideoPet />
+        <Link to="/game/classic-mode">
+          <motion.img
+            src="/images/classic-button.png"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: .2 }}
+          />
+        </Link>
+        <div className="flex flex-wrap justify-center items-center">
+          <div className="w-full" >
+            <GlobalRankingWidget entries={entries} />
+          </div>
+          <div className="w-full max-w-md mx-auto">
+            <MyFriendsWidget />
+          </div>
         </div>
       </div>
     </div>
-  );
+  </>);
 };

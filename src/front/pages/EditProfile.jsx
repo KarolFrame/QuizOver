@@ -99,7 +99,7 @@ export const EditProfile = () => {
     return (
         <>
             {!isCreatingAvatar ? (
-                <div className="mx-auto p-4 sm:p-6 md:p-8 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl" style={{ color: "var(--color-white)" }}>
+                <div className="mx-auto p-4 sm:p-6 md:p-8 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl" style={{ color: "var(--color-white)", zIndex: 10 }}>
                     <h1 className="text-3xl sm:text-4xl font-extrabold mb-8 text-center">Edit Profile</h1>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
@@ -184,6 +184,7 @@ export const EditProfile = () => {
                 <AvatarCreatorQO
                     desactivate={() => setIsCreatingAvatar(false)}
                     onAvatarExportedCallback={handleAvatarExportedFromCreator}
+                    style={{ zIndex: 10 }}
                 />
             )}
         </>

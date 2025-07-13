@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from "react-router-dom";
 import { Loader } from "../components/Loader";
 import useGlobalReducer from "../hooks/useGlobalReducer";
+import { ParticlesBackground } from "../components/ParticlesBackground/ParticlesBackground";
 
 export const Layout = () => {
     const { store, dispatch } = useGlobalReducer();
@@ -68,7 +69,8 @@ export const Layout = () => {
 
     return (
         <>
-            <div className="wrapper flex justify-center">
+            <ParticlesBackground />
+            <div className="wrapper flex justify-center" >
                 {loading ? <Loader /> : (
                     <ScrollToTop>
                         <Navbar />

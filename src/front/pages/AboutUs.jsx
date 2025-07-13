@@ -5,7 +5,7 @@ export const AboutUs = () => {
 
     return (
         <>
-            <div className="text-center mt-5">
+            <div className="text-center mt-5" style={{ zIndex: 10 }}>
                 <motion.div
                     initial={{ opacity: 0, x: -500 }}
                     animate={{ opacity: 1, x: 0 }}
