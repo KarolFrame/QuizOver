@@ -77,6 +77,8 @@ export const LoopingRewindVideo = ({ videoSrc, handleRegister }) => {
                         onClick={() => {
                             setShowVideoPet(true);
                         }}
+                        style={
+                            { zIndex: 10, }}
                     />
                     <div className="absolute inset-0 pointer-events-none z-[1] bg-[radial-gradient(rgba(35,39,72,0)_40%,rgba(35,39,72,1)_70%,rgba(35,39,72,1)_100%)]" />
                 </div>

@@ -37,6 +37,7 @@ export const GameEnd = () => {
                 initial={{ opacity: 0, scale: 0, y: -150 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 1, ease: "easeOut" }}
+                style={{ zIndex: 10 }}
             >
                 <img src="/images/img_dead.png" />
                 <div className="bg-(--color-primary) p-4 rounded-2xl">

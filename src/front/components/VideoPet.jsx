@@ -52,6 +52,7 @@ export const VideoPet = ({ onIdle }) => {
                         pointerEvents: isIdle ? "auto" : "none",
                         background: "none",
                         display: "block",
+                        zIndex: 10,
                     }}
                 /></>)}
             {sad && (<>

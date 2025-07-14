@@ -36,7 +36,7 @@ export const Register = () => {
     };
 
     return (<>
-        <div className=" d-flex flex-column gap-0 text-center">
+        <div className=" d-flex flex-column gap-0 text-center" style={{ zIndex: 10 }}>
             <div className="flex justify-center items-center">
                 <LoopingRewindVideo videoSrc="/video/header_video2.mp4" handleRegister={handleRegister} />
             </div>
