@@ -33,7 +33,7 @@ export const Lista = ({ entries }) => {
               <span className="text-white font-medium text-medium">{name}</span>
             </div>
             <div className="text-white flex gap-1 items-center font-bold text-sm">
-              {score.toLocaleString()}
+              {(score ?? 0).toLocaleString()}
               <img src={star} className="w-[25px] m-1" />
             </div>
           </motion.li>

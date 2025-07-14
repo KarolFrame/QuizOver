@@ -31,20 +31,33 @@ export const Home = () => {
     <div className="flex flex-column items-cente justify-center">
       <div className="flex flex-col items-center justify-center px-4 gap-13 max-w-[80%] md:max-w-[50%]" style={{ zIndex: 10, }}>
         <VideoPet />
-        <Link to="/game/classic-mode">
-          <motion.img
-            src="/images/classic-button.png"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: .2 }}
-          />
-        </Link>
+        <motion.div
+          initial={{ opacity: 0, x: -500 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: .5, delay: 2.5 }}
+        >
+          <Link to="/game/classic-mode">
+            <motion.img
+              src="/images/classic-button.png"
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: .2 }}
+            />
+          </Link>
+        </motion.div>
         <div className="flex flex-wrap justify-center items-center">
-          <div className="w-full" >
+          <motion.div
+            className="w-full"
+            initial={{ opacity: 0, x: 500 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: .5, delay: 3 }}>
             <GlobalRankingWidget entries={entries} />
-          </div>
-          <div className="w-full max-w-md mx-auto">
+          </motion.div>
+          <motion.div className="w-full max-w-md mx-auto"
+            initial={{ opacity: 0, x: -500 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: .5, delay: 3.5 }}>
             <MyFriendsWidget />
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

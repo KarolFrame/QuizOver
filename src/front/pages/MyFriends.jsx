@@ -5,7 +5,7 @@ import { Button } from '../components/Button.jsx';
 export const MyFriends = () => {
     const { store } = useGlobalReducer();
     const myFriendsList = store.user?.friends;
-
+    console.log(myFriendsList);
     return (<>
         <div className="flex flex-col items-center p-4" style={{ zIndex: 10 }}>
             <header className="w-full max-w-md text-center mb-6">

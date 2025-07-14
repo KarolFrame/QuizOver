@@ -86,39 +86,41 @@ export const InGame = () => {
     };
 
     return (
-        <div className={`text-center flex flex-col justify-center items-center gap-3 ${shake ? 'shake' : ''} relative min-h-screen`} style={{ zIndex: 10 }}>
-            {reaction &&
-                <AnswerAnimReaction frameIndex={frame} />}
-            {hearts > 0 && questionAndAnswers &&
-                (<>
-                    <ProgressInGame onTimeOut={() => handleAnswer("", questionAndAnswers.correct_answer)} />
-                    <QuestionAndAnswers
-                        question={questionAndAnswers.question}
-                        option1={questionAndAnswers.correct_answer}
-                        option2={questionAndAnswers.incorrect_answer}
-                        image={questionAndAnswers.image_url}
-                        onAnswer={handleAnswer}
-                        correct={questionAndAnswers.correct_answer} />
-                </>)}
-            {hearts > 0 && !questionAndAnswers &&
-                (
-                    <QuestionsLoader />
-                )}
+        <div className="flex flex-col items-center justify-center m-5">
+            <div className="flex flex-col max-w-[50%] items-center justify-center">
+                <div className={`text-center flex flex-col justify-center items-center gap-3 ${shake ? 'shake' : ''} hv-100`} style={{ zIndex: 10 }}>
+                    {reaction &&
+                        <AnswerAnimReaction frameIndex={frame} />}
+                    {hearts > 0 && questionAndAnswers &&
+                        (<>
+                            <div className="self-start mx-5 " style={{ zIndex: 10 }}>
+                                <Button
+                                    label="← Exit"
+                                    variant="danger"
+                                    size="responsive"
+                                    onClick={handleExitGame}
+                                />
+                            </div>
+                            <ProgressInGame onTimeOut={() => handleAnswer("", questionAndAnswers.correct_answer)} />
+                            <QuestionAndAnswers
+                                question={questionAndAnswers.question}
+                                option1={questionAndAnswers.correct_answer}
+                                option2={questionAndAnswers.incorrect_answer}
+                                image={questionAndAnswers.image_url}
+                                onAnswer={handleAnswer}
+                                correct={questionAndAnswers.correct_answer} />
+                        </>)}
+                    {hearts > 0 && !questionAndAnswers &&
+                        (
+                            <QuestionsLoader />
+                        )}
 
-            {hearts <= 0 &&
-                (<>
-                    <GameEnd />
-                </>)}
+                    {hearts <= 0 &&
+                        (<>
+                            <GameEnd />
+                        </>)}
 
-            {/* Botón de salir - responsive, siempre visible abajo a la derecha */}
-            <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8">
-                <Button
-                    label="← Exit"
-                    variant="danger"
-                    size="responsive"
-                    onClick={handleExitGame}
-                />
+                </div>
             </div>
-        </div>
-    );
+        </div>);
 };

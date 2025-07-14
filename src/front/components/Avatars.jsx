@@ -35,7 +35,7 @@ export const Avatars = ({
   return (
     <div className="w-full max-w-md mx-auto mt-2 mb-8">
       <div
-        className={`flex items-end gap-4 ${scrollable ? 'overflow-x-auto whitespace-nowrap px-2' : 'justify-between'
+        className={`flex items-end gap-1 md:gap-4 ${scrollable ? 'overflow-x-auto whitespace-nowrap px-2' : 'justify-between'
           }`}
         style={{ height }}
       >
