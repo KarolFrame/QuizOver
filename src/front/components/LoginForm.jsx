@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from './Button.jsx';
 import { useNavigate } from 'react-router-dom';
 import useGlobalReducer from "../hooks/useGlobalReducer";
-import { Login } from '../services/LoginService.js';
+import { Login } from '../services/authServices';
 
 export const LoginForm = () => {
     const [email, setEmail] = useState(localStorage.getItem("user-email") || "");
@@ -23,15 +23,15 @@ export const LoginForm = () => {
 
             dispatch({
                 type: "LOGIN_SUCCESS",
-                payload: { 
-                    email: data.email, 
+                payload: {
                     token: data.token,
+                    email: data.email,
                     user_id: data.user_id,
-                    user_info: data.user_info,
                     experience_points: data.experience_points,
-                    friends: data.friends
-                }
-            });
+                    friends: data.friends || {},
+                    user_info: data.user_info || {},
+                },
+            })
 
             navigate("/home");
 

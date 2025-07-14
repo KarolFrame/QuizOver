@@ -9,7 +9,7 @@ export const Navbar = () => {
 
 	const { store } = useGlobalReducer();
 	const isAuthenticated = store.auth.isAuthenticated;
-	const userId = isAuthenticated && store.user ? store.user.id : null;
+	const userId = isAuthenticated && store.profile ? store.profile.id : null;
 
 	return (
 		<>
@@ -29,7 +29,7 @@ export const Navbar = () => {
 							<div>
 								{userId ? (
 									<Link to={`/profile/${userId}`}>
-										<Avatar className="h-10 w-10 sm:h-12 sm:w-12" />
+										<Avatar className="h-10 w-10 sm:h-12 sm:w-12" userId={userId} />
 									</Link>
 								) : (
 									<Avatar className="h-10 w-10 sm:h-12 sm:w-12" />

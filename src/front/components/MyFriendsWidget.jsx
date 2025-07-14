@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Button } from "./Button";
 import Avatars from "./Avatars";
 import { FingerPrintAddIcon } from "@hugeicons/core-free-icons";
+import { getAuthToken } from "../services/authServices";
+import useGlobalReducer from "../hooks/useGlobalReducer";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL
 
@@ -10,9 +12,10 @@ export function MyFriendsWidget() {
   const [friendList, setFriendList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { dispatch } = useGlobalReducer();
 
   useEffect(() => {
-    const token = localStorage.getItem("jwt-token");
+    const token = getAuthToken();
     if (!token) {
       setError("No token found");
       setLoading(false);
@@ -32,6 +35,7 @@ export function MyFriendsWidget() {
         return res.json();
       })
       .then((data) => {
+        dispatch({ type: "SET_FRIENDS", payload: data });
         const transformedData = data.map((friend) => {
           return {
             id: friend.id,
