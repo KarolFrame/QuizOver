@@ -1,18 +1,22 @@
+import { getAuthToken } from "./authServices";
+
 const BACKURL = import.meta.env.VITE_BACKEND_URL;
 
 
-export const fetchFriends = async (token) => {
-    const res = await fetch(`${BACKURL}/users/friends`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-    });
+export const fetchFriends = async () => {
+  const token = getAuthToken();
+  const res = await fetch(`${BACKURL}/users/friends`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+  });
 
-    if (!res.ok) throw new Error('Failed to fetch friends');
-    return await res.json();
-  };
+  if (!res.ok) throw new Error('Failed to fetch friends');
+  return await res.json();
+};
   
-  export const postFriend = async (token, friend_id) => {
+  export const postFriend = async (friend_id) => {
+    const token = getAuthToken();
     const res = await fetch(`${BACKURL}/users/friends`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json',  'Authorization': `Bearer ${token}`, },
