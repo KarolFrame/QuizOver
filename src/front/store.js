@@ -191,7 +191,10 @@ export const storeReducer = (store, action) => {
         ...store,
         user: {
           ...store.user,
-          friends: [...store.user.friends, action.payload],
+          friends: [...store.user.friends, {
+            ...action.payload,
+            score: action.payload.score??0,
+          }],
         },
       };
  

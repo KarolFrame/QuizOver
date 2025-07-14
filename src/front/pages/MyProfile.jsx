@@ -15,7 +15,7 @@ import { fetchFriends, postFriend } from '../services/FriendsService.js';
 
 export default function MyProfile() {
   const { userId } = useParams();
-  const { store } = useGlobalReducer();
+  const { store, dispatch } = useGlobalReducer();
   const [profileUser, setProfileUser] = useState(null);
   const [globalRank, setGlobalRank] = useState("N/A");
   const [rankingLoading, setRankingLoading] = useState(true);
@@ -110,6 +110,16 @@ export default function MyProfile() {
     } catch (error) {
       console.error('Add friend error:', error);
     }
+    dispatch({
+      type: "ADD_FRIEND",
+      payload: {
+        position: profileUser.globalRank,
+        name: profileUser.username,
+        score: profileUser.currentExp,
+        avatar: profileUser.avatar,
+        id: profileUser.id
+      }
+    })
   };
 
   const parsedUserId = userId ? parseInt(userId, 10) : undefined;

@@ -60,32 +60,34 @@ export function MyFriendsWidget() {
   }
 
   return (
-    <div
-      className="p-4 rounded-lg mb-6 overflow-hidden bg-primary"
-      style={{
-        color: "var(--color-white)",
-      }}
-    >
-      <h3 className="text-4xl font-semibold mb-4 text-center">My friends</h3>
-      {friendList.length > 0 ? (
-        <div>
-          <Avatars
-            entries={friendList}
-            displayOrder={false}
-            showDecorations={false}
-            scrollable={true}
-            height="200px"
-          />
+    <div className="flex flex-column justify-center items-center">
+      <div
+        className="p-4 rounded-lg mb-6 overflow-hidden bg-primary max-w-[80%]"
+        style={{
+          color: "var(--color-white)",
+        }}
+      >
+        <h3 className="text-4xl font-semibold mb-4 text-center">My friends</h3>
+        {friendList.length > 0 ? (
+          <div>
+            <Avatars
+              entries={friendList}
+              displayOrder={false}
+              showDecorations={false}
+              scrollable={true}
+              height="200px"
+            />
+          </div>
+        ) : (
+          <div className="flex justify-center">
+            <p>You don’t have any friends yet :(</p>
+          </div>
+        )}
+        <div className="flex justify-end">
+          <Link to="/my-friends">
+            <Button label="See all" variant="accent" />
+          </Link>
         </div>
-      ) : (
-        <div className="flex justify-center">
-          <p>You don’t have any friends yet :(</p>
-        </div>
-      )}
-      <div className="flex justify-end">
-        <Link to="/my-friends">
-          <Button label="See all" variant="accent" />
-        </Link>
       </div>
     </div>
   );
