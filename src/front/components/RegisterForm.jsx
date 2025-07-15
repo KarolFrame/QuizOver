@@ -17,7 +17,7 @@ export const RegisterForm = ({ handleRegister }) => {
 
     return (
         <>
-            <h1 className='text-4xl font-bold text-white'>Crear una Cuenta</h1>
+            <h1 className='text-4xl font-bold text-white'>Create your account</h1>
             <div className='flex justify-center'>
                 <form className='flex flex-col bg-primary' onSubmit={handleSubmit}>
                     <input
@@ -45,7 +45,7 @@ export const RegisterForm = ({ handleRegister }) => {
                             setPassword(event.target.value);
                         }}
                     />
-                    <Button label="Crear Cuenta" variant="accent" />
+                    <Button label="Create Account" variant="accent" />
                 </form>
             </div>
             <Link to="/login">

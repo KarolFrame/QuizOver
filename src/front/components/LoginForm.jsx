@@ -3,6 +3,7 @@ import { Button } from './Button.jsx';
 import { useNavigate } from 'react-router-dom';
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { Login } from '../services/authServices';
+import { Link } from 'react-router-dom';
 
 export const LoginForm = () => {
     const [email, setEmail] = useState(localStorage.getItem("user-email") || "");
@@ -44,7 +45,7 @@ export const LoginForm = () => {
     return (
         <>
             <h1 className='text-4xl font-bold text-white'>Welcome back!</h1>
-            <div className='flex justify-center'>
+            <div className='flex flex-col justify-center'>
                 <form className='flex flex-col bg-primary' onSubmit={handleSubmit}>
                     <input
                         type="email"
@@ -62,6 +63,11 @@ export const LoginForm = () => {
                     />
                     <Button label="Log In" variant="accent" />
                 </form>
+                <Link to="/register">
+                    <span className="font-normal text-gray-400 underline">
+                        Don't have an account yet? Sign up
+                    </span>
+                </Link>
             </div>
         </>
     );

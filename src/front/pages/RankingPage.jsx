@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import useGlobalReducer from '../hooks/useGlobalReducer.jsx';
-import Avatars from '../components/Avatars';
+import { Avatars } from '../components/Avatars.jsx';
 import Podium from '../components/Podium';
 import Lista from '../components/Lista';
 import { getGlobalRanking } from '../services/rankingService';

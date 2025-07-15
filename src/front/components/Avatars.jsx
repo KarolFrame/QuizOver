@@ -6,7 +6,8 @@ export const Avatars = ({
   displayOrder = [2, 1, 3],
   showDecorations = true,
   scrollable = true,
-  height = '250px'
+  height = '250px',
+  containerWidth = "w-[100%]"
 }) => {
   const borderImages = {
     1: '/images/borders/border1.png',
@@ -33,7 +34,7 @@ export const Avatars = ({
   }
 
   return (
-    <div className="w-full max-w-md mx-auto mt-2 mb-8">
+    <div className={`${containerWidth} flex items-center justify-center p-1 mx-auto`}>
       <div
         className={`flex items-end gap-1 md:gap-4 ${scrollable ? 'overflow-x-auto whitespace-nowrap px-2' : 'justify-between'
           }`}
@@ -44,25 +45,23 @@ export const Avatars = ({
 
           return (
             <div key={id || pos} className="flex flex-col items-center space-y-2">
-              <div className={`relative ${showDecorations && pos === 1 ? 'w-45 h-45' : 'w-24 h-24'}`}>
+              <div className={`relative ${showDecorations && pos === 1 ? 'w-32 md:w-44' : 'w-20 md:w-24'} aspect-square`}>
+
                 {id ? (
                   <Link to={`/profile/${id}`} className="block w-full h-full rounded-full">
                     <img
                       src={avatar}
                       alt={`${name}'s avatar`}
-                      className={`rounded-full object-cover absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 ${showDecorations && pos === 1 ? 'w-24 h-24' : 'w-20 h-20'
-                        }`}
+                      className="rounded-full object-cover w-full h-full z-0"
                     />
                   </Link>
                 ) : (
                   <img
                     src={avatar}
                     alt={`${name}'s avatar`}
-                    className={`rounded-full object-cover absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 ${showDecorations && pos === 1 ? 'w-24 h-24' : 'w-20 h-20'
-                      }`}
+                    className="rounded-full object-cover w-full h-full z-0"
                   />
                 )}
-
                 {showDecorations && borderImages[pos] && (
                   <img
                     src={borderImages[pos]}

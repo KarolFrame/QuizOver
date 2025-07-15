@@ -40,7 +40,6 @@ export const AvatarCreatorQO = ({ desactivate, onAvatarExportedCallback }) => {
                 <div className="w-full h-full max-w-3xl rounded-lg overflow-hidden shadow-lg">
                     <AvatarCreator
                         className="w-full h-full"
-                        subdomain="quiz-over"
                         config={config}
                         onAvatarExported={handleAvatarExported}
                     />
