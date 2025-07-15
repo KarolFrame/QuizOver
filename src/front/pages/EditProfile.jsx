@@ -9,10 +9,11 @@ import { Avatar } from '../components/Profile/Avatar';
 export const EditProfile = () => {
     const { store, dispatch } = useGlobalReducer();
     const navigate = useNavigate();
-    const currentUserInfo = store?.user?.user_info;
-    const currentToken = store?.auth?.token;
+    const currentUserInfo = store?.profile?.user_info;
     const isAuthenticated = store.auth.isAuthenticated;
     const userId = isAuthenticated && store.profile ? store.profile.id : null;
+
+    console.log("EditProfile -> store:", store);
 
     const [formData, setFormData] = useState({
         userName: '',
@@ -60,14 +61,9 @@ export const EditProfile = () => {
         setError(null);
         setSuccessMessage(null);
 
-        if (!currentToken) {
-            setError("No token found. Please log in.");
-            setLoading(false);
-            return;
-        }
 
         try {
-            const updatedUserInfo = await updateProfile(formData, currentToken);
+            const updatedUserInfo = await updateProfile(formData);
 
             dispatch({
                 type: 'UPDATE_USER_INFO',
