@@ -17,7 +17,7 @@ export const Lista = ({ entries }) => {
       <ul className="space-y-2">
         {list.map(({ position, name, score, avatar, id }, index) => (
           <motion.li
-            key={position}
+            key={id}
             className="flex items-center justify-between bg-bg-light p-2 rounded-lg"
             initial={{ opacity: 0, x: -80 }}
             animate={{ opacity: 1, x: 0 }}
