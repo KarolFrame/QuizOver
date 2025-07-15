@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Avatars from "./Avatars";
+import { Avatars } from "./Avatars.jsx";
 import { Button } from "../components/Button.jsx"
 
 export function GlobalRankingWidget({ entries }) {
@@ -12,10 +12,9 @@ export function GlobalRankingWidget({ entries }) {
 
   return (
     <div
-      className="bg-primary rounded-lg mb-6 p-4 overflow-hidden w-full max-w-md mx-auto">
-      <h3 className="text-4xl mt-2 mb-2 text-white font-semibold text-center"> Global Ranking</h3>
+      className="mb-6 w-[80%] md:w-[75%] mx-auto flex flex-col items-center justify-center">
       <div>
-        <Avatars entries={entries} displayOrder={false} showDecorations={false} scrollable={true} height="200px" />
+        <Avatars entries={entries} displayOrder={false} showDecorations={false} scrollable={true} height="50%" containerWidth="w-[70%]" />
       </div>
       <div className="flex justify-end mt-4">
         <Link to="/ranking/global">
