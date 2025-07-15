@@ -27,7 +27,7 @@ export const MyFriends = () => {
                 <p className="text-white">You don’t have any friends yet :(</p>
             )}
 
-            <div className="flex mt-4 p-3 rounded-lg gap-5 justify-between bg-(--color-bg-light) max-w-[80%] md:max-w-[60%] items-center">
+            {/*            <div className="flex mt-4 p-3 rounded-lg gap-5 justify-between bg-(--color-bg-light) max-w-[80%] md:max-w-[60%] items-center">
                 <input
                     type="text"
                     placeholder="Friend's username"
@@ -40,7 +40,7 @@ export const MyFriends = () => {
                         variant='accent'
                     />
                 </div>
-            </div>
+            </div>*/}
         </div>
     </>);
 };

@@ -8,7 +8,7 @@ import useGlobalReducer from "../hooks/useGlobalReducer";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL
 
-export function MyFriendsWidget() {
+export const MyFriendsWidget = () => {
   const [friendList, setFriendList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -66,22 +66,23 @@ export function MyFriendsWidget() {
   return (
     <div className="flex flex-column justify-center items-center">
       <div
-        className="p-4 rounded-lg mb-6 overflow-hidden bg-primary max-w-[80%]"
+        className="p-4 rounded-lg mb-6 overflow-hidden bg-primary"
         style={{
           color: "var(--color-white)",
         }}
       >
         <h3 className="text-4xl font-semibold mb-4 text-center">My friends</h3>
         {friendList.length > 0 ? (
-          <div>
+          <>
             <Avatars
               entries={friendList}
               displayOrder={false}
               showDecorations={false}
               scrollable={true}
-              height="200px"
+              height="150px"
+              containerWidth="w-[100%]"
             />
-          </div>
+          </>
         ) : (
           <div className="flex justify-center">
             <p>You don’t have any friends yet :(</p>

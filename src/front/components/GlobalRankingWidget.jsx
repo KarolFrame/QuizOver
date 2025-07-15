@@ -12,9 +12,9 @@ export function GlobalRankingWidget({ entries }) {
 
   return (
     <div
-      className="mb-6 w-[80%] md:w-[75%] mx-auto flex flex-col items-center justify-center">
+      className="mb-6 mx-auto flex flex-col items-center justify-center">
       <div>
-        <Avatars entries={entries} displayOrder={false} showDecorations={false} scrollable={true} height="50%" containerWidth="w-[70%]" />
+        <Avatars entries={entries} inGlobalRankingPage={true} displayOrder={false} showDecorations={false} scrollable={true} height="50%" containerWidth="w-[80%] lg:w-[55%] md:w-[38%]" />
       </div>
       <div className="flex justify-end mt-4">
         <Link to="/ranking/global">

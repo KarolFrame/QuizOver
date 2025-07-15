@@ -21,7 +21,7 @@ export const Navbar = () => {
 			>
 				<div className="px-8 flex justify-between">
 					<Link to={isAuthenticated ? "/home" : "/"}>
-						<img src="/logo.png" className="h-4 md:h-8 mt-2" alt="Logo" />
+						<img src="/logo.png" className="h-6 md:h-8 mt-2" alt="Logo" />
 					</Link>
 
 					{isAuthenticated ? (
@@ -29,10 +29,10 @@ export const Navbar = () => {
 							<div>
 								{userId ? (
 									<Link to={`/profile/${userId}`}>
-										<Avatar className="h-10 w-10 sm:h-12 sm:w-12" userId={userId} />
+										<Avatar className="h-15 w-15 sm:h-18 sm:w-18" userId={userId} />
 									</Link>
 								) : (
-									<Avatar className="h-10 w-10 sm:h-12 sm:w-12" />
+									<Avatar className="h-15 w-15 sm:h-18 sm:w-18" />
 								)}
 							</div>
 						</>

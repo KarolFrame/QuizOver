@@ -55,3 +55,18 @@ def setup_commands(app):
 
         db.session.commit()
         print(f"Created {created_count} UserInfo records.")
+    
+    @app.cli.command("remove-all-friends")
+    def remove_all_friends():
+        print("Removing all friendships...")
+        users = User.query.all()
+        count = 0
+
+        for user in users:
+            for friend in list(user.friends):
+                user.remove_friend(friend)
+                count += 1
+
+        db.session.commit()
+        print(f"Removed {count} friendships.")
+
