@@ -8,6 +8,7 @@ import { getGlobalRanking } from "../services/rankingService.js";
 import { Avatar } from "../components/Profile/Avatar.jsx";
 import { ExpBar } from "../components/Profile/ExpBar.jsx";
 import { getUserProfileById } from "../services/rankingService.js";
+import { RankingFriendsProfileWidget } from "../components/RankingFriendsProfileWidget.jsx";
 
 export const Home = () => {
   const [videoIsPlaying, setVideoIsPlaying] = useState(true);
@@ -115,6 +116,7 @@ export const Home = () => {
           >
             <div className="w-full flex flex-col items-center justify-center">
               <Avatar avatarUrl={user.user_info?.avatar} globalRanking={globalRank} />
+              <h2 className="text-(--color-white) text-3xl">{user.user_info?.userName}</h2>
             </div>
             <div>
               <div className="w-full max-w-md mx-auto" style={{ color: "var(--color-white)" }}>
@@ -122,30 +124,7 @@ export const Home = () => {
                   currentExp={profileUser.currentExp || 0}
                   level={profileUser.level || 1}
                 />
-                <div className="grid grid-cols-2 gap-4 sm:gap-6 mb-6 sm:mb-8">
-                  <div
-                    className="p-4 sm:p-6 rounded-lg flex flex-col items-center"
-                    style={{ backgroundColor: "var(--color-primary)" }}
-                  >
-                    <p className="text-sm sm:text-base font-semibold" style={{ color: "var(--color-white)" }}>
-                      Global Rank
-                    </p>
-                    <p className="mt-2 text-lg sm:text-2xl font-bold" style={{ color: "var(--color-white)" }}>
-                      {rankingLoading ? "Cargando..." : rankingError ? "Error" : globalRank}
-                    </p>
-                  </div>
-                  <div
-                    className="p-4 sm:p-6 rounded-lg flex flex-col items-center"
-                    style={{ backgroundColor: "var(--color-primary)" }}
-                  >
-                    <p className="text-sm sm:text-base font-semibold" style={{ color: "var(--color-white)" }}>
-                      Friends
-                    </p>
-                    <p className="mt-2 text-lg sm:text-2xl font-bold" style={{ color: "var(--color-white)" }}>
-                      {currentUserProfile.friends.length || 0}
-                    </p>
-                  </div>
-                </div>
+                <RankingFriendsProfileWidget />
               </div>
             </div>
           </motion.div>

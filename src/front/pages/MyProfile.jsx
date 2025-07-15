@@ -10,6 +10,7 @@ import useGlobalReducer from "../hooks/useGlobalReducer";
 import { getGlobalRanking, getUserProfileById } from "../services/rankingService";
 import { QuestionsLoader } from "../components/QuestionsLoader/QuestionsLoader.jsx";
 import { fetchFriends, postFriend } from '../services/FriendsService.js';
+import { MyFriendsWidget } from "../components/MyFriendsWidget.jsx";
 
 export default function MyProfile() {
   const { userId } = useParams();
@@ -167,6 +168,7 @@ export default function MyProfile() {
           </p>
         </div>
       </div>
+      {isCurrentUserProfile && <div className="m-5"><MyFriendsWidget /></div>}
       {!isCurrentUserProfile ? (
         isFriend ? <p>{profileUser.username} is a friend!</p> :
           <div className="flex gap-3 justify-between">
