@@ -1,4 +1,5 @@
 const BACKURL = import.meta.env.VITE_BACKEND_URL;
+import { fetchBackend } from "./authServices";
 
 export const getUserProfile = async (token) => {
   try {
@@ -23,25 +24,13 @@ export const getUserProfile = async (token) => {
   }
 };
 
-export const updateProfile = async (profileData, token) => {
+export const updateProfile = async (profileData) => {
   try {
-    const response = await fetch(`${BACKURL}/user/profile`, {
+    const data = await fetchBackend(`/user/profile`, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(profileData),
+      body:(profileData),
     });
-
-    if (!response.ok) {
-      const errorData = await response
-        .json()
-        .catch(() => ({ message: response.statusText }));
-      throw new Error(errorData.message || "Error updating profile.");
-    }
-
-    const data = await response.json();
+    
     return data.user_info;
   } catch (error) {
     console.error("Error updating profile:", error);

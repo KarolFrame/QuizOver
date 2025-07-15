@@ -16,7 +16,6 @@ export const ProgressInGame = ({ onTimeOut }) => {
         return () => clearTimeout(timeout);
     }, [points]);
 
-    // Función para renderizar los corazones
     const renderHearts = () => {
         const heartsArray = [];
         for (let i = 0; i < 3; i++) {
