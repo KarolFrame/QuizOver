@@ -1,4 +1,6 @@
 import { AvalancheFreeIcons } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { UserAdd02Icon } from "@hugeicons/core-free-icons";
 import { LogoutButton } from "../components/LogoutButton";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -19,12 +21,10 @@ export default function MyProfile() {
   const [rankingLoading, setRankingLoading] = useState(true);
   const [rankingError, setRankingError] = useState(null);
 
-  const currentUserUsername = store.profile?.user_info?.userName;
-  const currentUserId = store.profile?.id;
-  const isFriend = userId in store.profile?.friends;
+  const currentUserUsername = store.user?.user_info?.userName;
+  const currentUserId = store.user?.id;
+  const token = localStorage.getItem('jwt-token');
 
-  console.log(isFriend)
-  console.log(store.profile.friends)
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -38,15 +38,15 @@ export default function MyProfile() {
           console.error("Error fetching user profile:", error);
         }
       } else {
-        if (store.profile && store.profile.id) {
+        if (store.user && store.user.id) {
           userData = {
             id: currentUserId,
             username: currentUserUsername,
-            friendsCount: store.profile.friends?.length || 0,
-            currentExp: store.profile.experience_points || 0,
-            totalExp: store.profile.xpForNextLevel || 1000,
-            level: store.profile.level || 1,
-            avatar: store.profile.user_info?.avatar || '/default_avatar.png',
+            friendsCount: store.user.friends?.length || 0,
+            currentExp: store.user.experience_points || 0,
+            totalExp: store.user.xpForNextLevel || 1000,
+            level: store.user.level || 1,
+            avatar: store.user.user_info?.avatar || '/default_avatar.png',
           };
         }
       }
@@ -54,15 +54,21 @@ export default function MyProfile() {
     };
 
     fetchUserProfile();
-  }, [userId, store.profile, currentUserId, currentUserUsername]);
+  }, [userId, store.user, currentUserId, currentUserUsername]);
 
 
   useEffect(() => {
-    fetchFriends()
+    fetchFriends(token)
       .then(data => {
         console.log('Friends list:', data);
       })
       .catch(err => console.error('Fetch error:', err));
+
+    postFriend(token, 2)
+      .then(data => {
+        console.log('Add friend success:', data);
+      })
+      .catch(err => console.error('Add friend error:', err));
   }, []);
 
   useEffect(() => {
@@ -99,12 +105,11 @@ export default function MyProfile() {
 
   const addFriend = async () => {
     try {
-      const response = await postFriend(profileUser.id);
+      const response = await postFriend(token, profileUser.id);
       console.log('Add friend success:', response);
     } catch (error) {
       console.error('Add friend error:', error);
     }
-
     dispatch({
       type: "ADD_FRIEND",
       payload: {
@@ -168,10 +173,9 @@ export default function MyProfile() {
         </div>
       </div>
       {!isCurrentUserProfile ? (
-        isFriend ? <p>{profileUser.username} is a friend!</p> :
-          <div className="flex gap-3 justify-between">
-            <Button label="Add Friend" size="responsive" variant="accent" className="grow" onClick={addFriend} />
-          </div>
+        <div className="flex gap-3 justify-between">
+          <Button label="Add Friend" size="responsive" variant="accent" className="grow" onClick={addFriend} />
+        </div>
       ) : (
         <div className="flex justify-end">
           <LogoutButton />

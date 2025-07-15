@@ -12,7 +12,7 @@ export const EditProfile = () => {
     const currentUserInfo = store?.user?.user_info;
     const currentToken = store?.auth?.token;
     const isAuthenticated = store.auth.isAuthenticated;
-    const userId = isAuthenticated && store.profile ? store.profile.id : null;
+    const userId = isAuthenticated && store.user ? store.user.id : null;
 
     const [formData, setFormData] = useState({
         userName: '',

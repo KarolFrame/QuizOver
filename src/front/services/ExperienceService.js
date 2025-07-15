@@ -1,14 +1,19 @@
-import { fetchBackend } from "./authServices";
+export async function ExperienceService(experiencePoints, token) {
+  const BACKURL = import.meta.env.VITE_BACKEND_URL;
 
-export async function ExperienceService(experiencePoints) {
+  const response = await fetch(`${BACKURL}/users/experience`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,  
+    },
+    body: JSON.stringify({ experiencePoints }),
+  });
 
-  try {
-    return fetchBackend("/users/experience", {
-      method: "POST",
-      body: { experiencePoints },
-    });
-  } catch (e) {
-    console.error("Network or fetch error:", e);
-    throw e; 
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.msg || "Failed to update experience points");
   }
+  
+  return await response.json();
 }
