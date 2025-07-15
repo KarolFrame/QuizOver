@@ -75,7 +75,7 @@ export const Avatar = ({ avatarUrl: propAvatarUrl, className: additionalClassNam
             <img
                 src={finalAvatarToRender || defaultAvatarUrl}
                 alt={finalUserName ? `Avatar de ${finalUserName}` : "Avatar de usuario"}
-                className={`${baseClasses} h-[75%] w-[75%] object-cover`}
+                className={`${baseClasses} h-[90%] w-[85%] object-cover`}
                 style={{
                     border: "3px solid var(--color-info)",
                     backgroundColor: "var(--color-background)",
