@@ -1,27 +1,40 @@
+const normalizeFriends = (friendsArray) => {
+  const result = {};
+  (friendsArray || []).forEach(friend => {
+    result[friend.id] = {
+      ...friend,
+      score: friend.score ?? 0,
+    };
+  });
+  return result;
+};
+
 export const initialStore = () => {
   return {
     message: null,
+
     auth: {
       isAuthenticated: false,
-      userEmail: null,
-      token: null,
+      email: null,
     },
 
-    user: {
+    profile: {
       id: null,
-      email: "",
-      is_active: true,
       experience_points: 0,
-      friends: [],
+      xpForNextLevel: 1000,
+      level: 1,
+      friends: [], 
       user_info: null,
     },
+
     currentGame: {
       correctAnswers: 0,
-      lastAnswerCorrect: false,
+      lastAnswerCorrect: { value: false, timestamp: null },
       rowCorrectAnswers: 0,
       points: 0,
       hearts: 3,
     },
+
     ranking: {
       global: {
         data: [],
@@ -34,7 +47,7 @@ export const initialStore = () => {
 
 export const storeReducer = (store, action) => {
   switch (action.type) {
-    case "SET_ANSWER_RESULT":
+    case "SET_ANSWER_RESULT": {
       const isCorrect = action.payload.isCorrect;
       return {
         ...store,
@@ -43,26 +56,29 @@ export const storeReducer = (store, action) => {
           correctAnswers: isCorrect
             ? store.currentGame.correctAnswers + 1
             : store.currentGame.correctAnswers,
-          lastAnswerCorrect: isCorrect,
+          lastAnswerCorrect: {
+            value: isCorrect,
+            timestamp: Date.now(),
+          },
           rowCorrectAnswers: isCorrect
             ? store.currentGame.rowCorrectAnswers + 1
             : 0,
           points: isCorrect
-            ? store.currentGame.points +
-              10 +
-              store.currentGame.rowCorrectAnswers
+            ? store.currentGame.points + 10 + store.currentGame.rowCorrectAnswers
             : store.currentGame.points,
           hearts: isCorrect
             ? store.currentGame.hearts
             : store.currentGame.hearts - 1,
         },
       };
+    }
+
     case "SET_DEFAULT_STATS":
       return {
         ...store,
         currentGame: {
           correctAnswers: 0,
-          lastAnswerCorrect: false,
+          lastAnswerCorrect: { value: false, timestamp: null },
           rowCorrectAnswers: 0,
           points: 0,
           hearts: 3,
@@ -109,37 +125,28 @@ export const storeReducer = (store, action) => {
         },
       };
 
+    // case "SET_FRIENDS":
+    //   return {
+    //     ...store,
+    //     profile: {
+    //       ...store.profile,
+    //       friends: normalizeFriends(action.payload)
+    //     }
+    //   }
+
     case "REGISTER_SUCCESS":
-      return {
-        ...store,
-        auth: {
-          isAuthenticated: true,
-          userEmail: action.payload.email,
-          token: action.payload.token,
-        },
-        user: {
-          ...store.user,
-          id: action.payload.user_id,
-          email: action.payload.email,
-          user_info: action.payload.user_info,
-        },
-      };
-  
     case "LOGIN_SUCCESS":
       return {
         ...store,
         auth: {
           isAuthenticated: true,
-          userEmail: action.payload.email,
-          token: action.payload.token,
-        },
-        user: {
-          ...store.user,
-          id: action.payload.user_id,
           email: action.payload.email,
-          user_info: action.payload.user_info,
+        },
+        profile: {
+          id: action.payload.user_id,
           experience_points: action.payload.experience_points || 0,
-          friends: action.payload.friends || [],
+          user_info: action.payload.user_info,
+          friends: action.payload.friends,
         },
         message: null,
       };
@@ -149,16 +156,13 @@ export const storeReducer = (store, action) => {
         ...store,
         auth: {
           isAuthenticated: true,
-          token: action.payload.token,
-          userEmail: action.payload.email,
-        },
-        user: {
-          ...store.user,
           email: action.payload.email,
-          user_info: action.payload.user_info,
+        },
+        profile: {
           id: action.payload.user_id,
           experience_points: action.payload.experience_points || 0,
-          friends: action.payload.friends || [],
+          user_info: action.payload.user_info,
+          friends: normalizeFriends(action.payload.friends),
         },
       };
 
@@ -171,34 +175,38 @@ export const storeReducer = (store, action) => {
     case "UPDATE_USER_INFO":
       return {
         ...store,
-        user: {
-          ...store.user,
-          user_info: action.payload,
+        profile: {
+          ...store.profile,
+          user_info: {
+            ...store.profile.user_info,
+            ...action.payload,
+          },
         },
       };
 
     case "SET_FRIENDS":
       return {
         ...store,
-        user: {
-          ...store.user,
-          friends: action.payload,
+        profile: {
+          ...store.profile,
+          friends: normalizeFriends(action.payload),
         },
       };
 
     case "ADD_FRIEND":
       return {
         ...store,
-        user: {
-          ...store.user,
-          friends: [...store.user.friends, {
-            ...action.payload,
-            score: action.payload.score??0,
-          }],
+        profile: {
+          ...store.profile,
+          friends: {
+            ...store.profile.friends,
+            [action.payload.id]: {
+              ...(action.payload ?? {}),
+              score: action.payload?.score ?? 0,
+            },
+          },
         },
       };
- 
-    
 
     default:
       console.warn(`Acción desconocida: ${action.type}`);
