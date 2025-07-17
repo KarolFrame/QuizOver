@@ -13,12 +13,17 @@ from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from flask_cors import CORS
-from api.ai_agent import generate_question_and_answers
+
 from sqlalchemy import desc
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 from datetime import date, timedelta
 from dotenv import load_dotenv
+
+
+from api.ai_agent import generate_question_and_answers
+from api.services.ranking import get_global_ranking
+
 load_dotenv() 
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
@@ -116,7 +121,7 @@ def create_token():
             "email": user.email,
             "user_info": user.user_info.serialize() if user.user_info else None,
             "experience_points": user.experience_points,
-            "friends": [friends.id for friends in user.friends] if hasattr(user, 'friends') else [],
+            "friends": [f.serialize() for f in user.friends] if hasattr(user, 'friends') else [],
         })
     else:
         return jsonify({"msg": "Bad username or password"}), 401
@@ -195,8 +200,7 @@ def trivia_question():
 @app.route('/ranking/global', methods=['GET'])
 def global_ranking():
     try:
-        results = db.session.query(User).order_by(
-            desc(User.experience_points)).all()
+        results = get_global_ranking()
         serialized_results = [result.serialize() for result in results]
         return jsonify(serialized_results), 200
     except Exception as e:
@@ -320,6 +324,7 @@ def get_user_profile_by_id(user_id):
 
     friends_count = len(user.friends) if hasattr(
         user, 'friends') and user.friends is not None else 0
+    friend_ids = [u.id for u in user.friends]
 
     current_xp = user.experience_points
     xp_for_next = calculate_xp_for_next_level(
@@ -327,8 +332,7 @@ def get_user_profile_by_id(user_id):
 
     user_level = calculate_level(current_xp)
 
-    all_users_ranked = db.session.query(User).order_by(
-        desc(User.experience_points)).all()
+    all_users_ranked = get_global_ranking()
     global_rank = next(
         (i + 1 for i, u in enumerate(all_users_ranked) if u.id == user_id), None)
 
@@ -336,10 +340,12 @@ def get_user_profile_by_id(user_id):
         "id": user.id,
         "username": user_info.userName if user_info else "Unknown",
         "avatar": user_info.avatar if user_info else "/default_avatar.png",
+        "friendIds": friend_ids,
         "friendsCount": friends_count,
         "level": user_level,
         "currentExp": current_xp,
         "totalExp": xp_for_next,
+        "globalRank": global_rank,
     }), 200
 
 
@@ -374,29 +380,21 @@ def add_friend():
 
     return {"success": True, "friend": friend.serialize()}, 201
 
-# bse to add by username future implementation
-# @app.route("/users/friends", methods=["POST"])
-# @jwt_required()
-# def add_friend():
-#     data = request.get_json()
+@app.route("/users/<int:user_id>/friends", methods=["GET"])
+@jwt_required()
+def get_user_friends(user_id):
+    user = User.query.get(user_id)
 
-#     username = data.get("username")
-#     if not username:
-#         return {"error": "Missing username"}, 400
+    if not user:
+        return {"error": "User not found"}, 404
 
-#     current_user_id = get_jwt_identity()
-#     user = db.session.get(User, current_user_id)
-#     friend = db.session.execute(
-#         db.select(User).where(User.user_info.username == username)
-#     ).scalar()
+    current_user_id = get_jwt_identity()
+    if not is_friend_or_public(current_user_id, user_id):
+        return {"error": "Unauthorized"}, 403
 
-#     if not friend:
-#         return {"error": "Friend not found"}, 404
+    friends = [f.serialize() for f in user.friends]
+    return jsonify(friends), 200
 
-#     user.add_friend(friend)
-#     db.session.commit()
-
-#     return {"success": True, "friend": friend.serialize()}, 201
 
 
 # this only runs if `$ python src/main.py` is executed

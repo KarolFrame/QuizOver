@@ -2,7 +2,8 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { QuestionsLoader } from "./QuestionsLoader/QuestionsLoader";
-import { getUserProfileById, getGlobalRanking } from "../services/rankingService";
+import { getGlobalRanking } from "../services/rankingService";
+import { getUserProfileById } from "../services/profileService";
 import { Link } from "react-router-dom";
 
 export const RankingFriendsProfileWidget = () => {

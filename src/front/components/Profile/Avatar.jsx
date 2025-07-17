@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useGlobalReducer from "../../hooks/useGlobalReducer.jsx";
 import { getAvatarUrl } from "../../services/avatarService.js";
-import { getUserProfileById } from "../../services/rankingService.js";
+import { getUserProfileById } from "../../services/profileService";
 
 export const Avatar = ({ avatarUrl: propAvatarUrl, className: additionalClassName, userId, globalRanking = 5 }) => {
     const [showDecorations, setShowDecorations] = useState(false);
