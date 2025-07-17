@@ -1,6 +1,15 @@
 const BACKURL = import.meta.env.VITE_BACKEND_URL;
 import { fetchBackend } from "./authServices";
 
+export const getUserProfileById = async (userId) => {
+  try {
+    return await fetchBackend(`/users/${userId}`, {});
+  } catch (error) {
+    console.error("Error al obtener el perfil por ID:", error);
+    throw error;
+  }
+};
+
 export const getUserProfile = async (token) => {
   try {
     const response = await fetch(`${BACKURL}/user/profile`, {

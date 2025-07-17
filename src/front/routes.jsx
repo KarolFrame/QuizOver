@@ -12,7 +12,7 @@ import { Home } from "./pages/Home";
 import { AboutUs } from "./pages/AboutUs";
 import { InGame } from "./pages/InGame";
 import { RankingPage } from "./pages/RankingPage";
-import MyProfile from "./pages/MyProfile";
+import UserProfile from "./pages/UserProfile";
 import PrivateRoute from "./components/PrivateRoute";
 import { EditProfile } from "./pages/EditProfile";
 import { MyFriends } from "./pages/MyFriends";
@@ -46,7 +46,7 @@ export const router = createBrowserRouter(
         path="/profile/:userId"
         element={
           <PrivateRoute>
-            <MyProfile />
+            <UserProfile />
           </PrivateRoute>
         }
       />

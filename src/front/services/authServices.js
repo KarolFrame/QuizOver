@@ -1,3 +1,6 @@
+const BACKURL = import.meta.env.VITE_BACKEND_URL;
+
+
 export const getCurrentUser = () => ({
   token: localStorage.getItem("jwt-token"),
   email: localStorage.getItem("user-email"),
@@ -6,29 +9,37 @@ export const getCurrentUser = () => ({
 export const logout = () => {
   localStorage.removeItem("jwt-token");
   localStorage.removeItem("user-email");
+  localStorage.removeItem("user-id");
+  localStorage.removeItem("user-info");
+  localStorage.removeItem("user-friends");
+
 };
 
 export const Login = async (email, password) => {
+  try{
   const resp = await fetch(`${BACKURL}/token`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers:{ "Content-Type": "application/json"},
     body: JSON.stringify({ email, password }),
   });
 
   if (resp.status === 401) {
     const data = await resp.json();
-    alert(data.msg);
-    throw new Error("Invalid credentials");
-  } else if (resp.status === 400) {
-    throw new Error("Invalid email or password format");
-  } else if (!resp.ok) {
-    throw new Error("There was a problem in the login request");
+    alert(data.msg || "Credenciales incorrectas");
+    throw new Error("Unauthorized");
   }
+
+  if (resp.status === 400) {
+    throw new Error("Formato de email o password inválido");
+  }
+
+  if (!resp.ok) {
+    throw new Error("Error desconocido al intentar iniciar sesión");
+  }
+
+
   const data = await resp.json();
-  console.log(
-    "Data recibida del backend en authService (DESPUÉS DE LOGIN):",
-    data
-  );
+  console.log("Data recibida en authService (Login):", data);
 
   if (Array.isArray(data.friends)) {
     data.friends = Object.fromEntries(
@@ -40,9 +51,14 @@ export const Login = async (email, password) => {
   localStorage.setItem("user-email", data.email);
   localStorage.setItem("user-id", data.user_id);
   localStorage.setItem("user-info", JSON.stringify(data.user_info));
-  
-  return data;
-};
+  localStorage.setItem("user-friends", JSON.stringify(data.friends));
+
+    return data;
+  } catch (error) {
+    console.error("Login error:", error.message);
+    throw error;
+  }
+}
 
 export const getAuthToken = () => {
   // If the token is null, get a token, populate jwt-token and return it.
@@ -56,7 +72,6 @@ export const getAuthToken = () => {
   return 
 }
 
-const BACKURL = import.meta.env.VITE_BACKEND_URL;
 
 export const fetchBackend = async (url, config) => {
   const token = getAuthToken();

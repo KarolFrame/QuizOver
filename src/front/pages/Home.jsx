@@ -7,7 +7,7 @@ import { GlobalRankingWidget } from "../components/GlobalRankingWidget.jsx";
 import { getGlobalRanking } from "../services/rankingService.js";
 import { Avatar } from "../components/Profile/Avatar.jsx";
 import { ExpBar } from "../components/Profile/ExpBar.jsx";
-import { getUserProfileById } from "../services/rankingService.js";
+import { getUserProfileById } from "../services/profileService";
 import { RankingFriendsProfileWidget } from "../components/RankingFriendsProfileWidget.jsx";
 
 export const Home = () => {

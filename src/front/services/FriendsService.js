@@ -1,28 +1,36 @@
-import { getAuthToken } from "./authServices";
-
-const BACKURL = import.meta.env.VITE_BACKEND_URL;
-
+import { fetchBackend } from "./authServices";
 
 export const fetchFriends = async () => {
-  const token = getAuthToken();
-  const res = await fetch(`${BACKURL}/users/friends`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
+  const data = await fetchBackend('/users/friends', {
+    method: 'GET',
   });
 
-  if (!res.ok) throw new Error('Failed to fetch friends');
-  return await res.json();
+  if (Array.isArray(data)) {
+    return Object.fromEntries(data.map(f => [f.id, f]));
+  }
+
+  return data;
 };
-  
-  export const postFriend = async (friend_id) => {
-    const token = getAuthToken();
-    const res = await fetch(`${BACKURL}/users/friends`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json',  'Authorization': `Bearer ${token}`, },
-      body: JSON.stringify({ friend_id }),
+
+export const addFriend = async (friendId) => {
+
+  try {
+    return await fetchBackend("/users/friends", {
+      method: "POST",
+      body: { friend_id: friendId },
     });
-    if (!res.ok) throw new Error('Failed to add friend');
-    return await res.json();
-  };
+
+  } catch (error) {
+    console.error("error adding friend", error);
+    throw error; 
+  }
+
+};
+
+export const removeFriend = async (friendId) => {
+  return await fetchBackend(`/users/friends/${friendId}`, {
+    method: 'DELETE',
+  });
+};
+
 
