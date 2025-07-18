@@ -146,7 +146,14 @@ export const Home = () => {
               </Link>
             </div>
             <div>
-              <GlobalRankingWidget entries={entries} />
+              <Link to="/ranking/global">
+                <motion.img
+                  src="/images/ranking.png"
+                  alt="Classic Mode Button"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
+                />
+              </Link>
             </div>
           </motion.div>
         </div>
