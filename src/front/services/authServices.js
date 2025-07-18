@@ -1,19 +1,47 @@
 const BACKURL = import.meta.env.VITE_BACKEND_URL;
 
+const STORAGE_KEYS = [
+  "jwt-token",
+  "user-email",
+  "user-id",
+  "user-info",
+  "user-friends",
+];
 
-export const getCurrentUser = () => ({
-  token: localStorage.getItem("jwt-token"),
-  email: localStorage.getItem("user-email"),
-});
+export const getCurrentUser = () => {
+  const token = localStorage.getItem("jwt-token");
+  const email = localStorage.getItem("user-email");
 
-export const logout = () => {
-  localStorage.removeItem("jwt-token");
-  localStorage.removeItem("user-email");
-  localStorage.removeItem("user-id");
-  localStorage.removeItem("user-info");
-  localStorage.removeItem("user-friends");
+  if (!token || !email) return null;
 
+  return { token, email };
 };
+
+export const clearLocalStorage = (keys) => {
+
+  keys.forEach(function(key) {
+    localStorage.removeItem(key);
+  });
+}
+
+export const logOut = (options) => {
+  clearLocalStorage(STORAGE_KEYS);
+
+  if (options && options.redirectTo) {
+    window.location.href = options.redirectTo;
+  }
+  
+};
+
+export const persistUserSesion = (data) => {
+
+  localStorage.setItem("jwt-token", data.token);
+  localStorage.setItem("user-email", data.email);
+  localStorage.setItem("user-id", data.user_id);
+  localStorage.setItem("user-info", JSON.stringify(data.user_info));
+  localStorage.setItem("user-friends", JSON.stringify(data.friends));
+
+}
 
 export const Login = async (email, password) => {
   try{
@@ -37,21 +65,15 @@ export const Login = async (email, password) => {
     throw new Error("Error desconocido al intentar iniciar sesión");
   }
 
-
   const data = await resp.json();
   console.log("Data recibida en authService (Login):", data);
+  persistUserSesion(data)
 
   if (Array.isArray(data.friends)) {
     data.friends = Object.fromEntries(
       data.friends.map(friend => [friend.id, friend])
     );
   }
-
-  localStorage.setItem("jwt-token", data.token);
-  localStorage.setItem("user-email", data.email);
-  localStorage.setItem("user-id", data.user_id);
-  localStorage.setItem("user-info", JSON.stringify(data.user_info));
-  localStorage.setItem("user-friends", JSON.stringify(data.friends));
 
     return data;
   } catch (error) {
@@ -60,14 +82,21 @@ export const Login = async (email, password) => {
   }
 }
 
+const redirectToLogin = () => {
+  clearLocalStorage(STORAGE_KEYS)
+  window.location.href = "/login";
+}
+
+
 export const getAuthToken = () => {
-  // If the token is null, get a token, populate jwt-token and return it.
   const token = localStorage.getItem("jwt-token");
 
   if (token) { return token; }
   else {
+    
     // dispatch event to say we are logged out
-    // redirect to login page
+    logOut();
+
   }
   return 
 }
@@ -90,7 +119,11 @@ export const fetchBackend = async (url, config) => {
 
   if (response.ok) {
     return jsonResponse;
-  } else {
+  }
+  else if (resp.status === 402 ){
+    logOut()
+  }
+  else {
     throw `Error fetching from backend: ${response.status}`;
   }
 }
