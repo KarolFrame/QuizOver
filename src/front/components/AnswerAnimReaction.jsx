@@ -12,7 +12,7 @@ const getSpritePosition = (index) => {
 
 export const AnswerAnimReaction = ({ frameIndex, delay = 0 }) => {
     const isMobile = window.innerWidth < 768;
-    const targetScale = isMobile ? .5 : 0.8;
+    const targetScale = isMobile ? .2 : 0.5;
 
     return (
         <motion.div
@@ -27,7 +27,7 @@ export const AnswerAnimReaction = ({ frameIndex, delay = 0 }) => {
                 y: "30vh",
             }}
             transition={{
-                duration: 1,
+                duration: .2,
                 delay,
                 ease: "easeOut",
             }}
@@ -39,7 +39,7 @@ export const AnswerAnimReaction = ({ frameIndex, delay = 0 }) => {
                 backgroundPosition: getSpritePosition(frameIndex),
                 backgroundSize: `${SPRITE_COLUMNS * SPRITE_WIDTH}px auto`,
                 pointerEvents: "none",
-                zIndex: 100,
+                zIndex: 1,
             }}
         />
     );

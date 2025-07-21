@@ -22,7 +22,7 @@ export const QuestionAndAnswers = ({ question, option1, option2, image, onAnswer
       y: 100,
       rotate: toRotate,
       opacity: 0,
-      transition: { duration: 0.5 },
+      transition: { duration: 0.2 },
     });
 
     onAnswer(selected, correct);
@@ -65,7 +65,7 @@ export const QuestionAndAnswers = ({ question, option1, option2, image, onAnswer
         onDragEnd={handleDragEnd}
         animate={controls}
         dragConstraints={{ left: 0, right: 0, bottom: 0 }}
-        dragElastic={0.5}
+        dragElastic={0.7}
         whileTap={{ cursor: "grabbing" }}
       />
 
