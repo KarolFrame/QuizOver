@@ -27,7 +27,7 @@ export const VideoPet = ({ onIdle }) => {
         }
     }, [clicks])
 
-    const videoWidth = isIdle ? "45vh" : "80vh";
+    const videoWidth = isIdle ? "30vh" : "60vh";
 
     return (
         <div
