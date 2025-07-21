@@ -14,6 +14,7 @@ import UserProfile from "./pages/UserProfile";
 import PrivateRoute from "./components/PrivateRoute";
 import { EditProfile } from "./pages/EditProfile";
 import { MyFriends } from "./pages/MyFriends";
+import { MiniGame } from "./pages/MiniGame";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -60,6 +61,14 @@ export const router = createBrowserRouter(
         element={
           <PrivateRoute>
             <MyFriends />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/minigame"
+        element={
+          <PrivateRoute>
+            <MiniGame />
           </PrivateRoute>
         }
       />
