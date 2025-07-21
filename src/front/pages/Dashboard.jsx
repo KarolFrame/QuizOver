@@ -57,7 +57,7 @@ export const Dashboard = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setVideoIsPlaying(false);
-    }, 5000);
+    }, 500);
     return () => clearTimeout(timer);
   }, []);
 
