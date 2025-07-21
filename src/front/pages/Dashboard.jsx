@@ -136,8 +136,8 @@ export const Dashboard = () => {
           </motion.div>
           <motion.div
             className="flex flex-col items-center justify-center w-full md:w-[50%] h-[70%] gap-4"
-            initial={{ opacity: 0, x: 500 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: -500 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.5 }}
           >
             <div>
@@ -145,6 +145,23 @@ export const Dashboard = () => {
                 <motion.img
                   src="/images/ranking.png"
                   alt="Classic Mode Button"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.2 }}
+                />
+              </Link>
+            </div>
+          </motion.div>
+          <motion.div
+            className="flex flex-col items-center justify-center w-full md:w-[50%] h-[70%] gap-4"
+            initial={{ opacity: 0, x: 500 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
+            <div>
+              <Link to="/minigame">
+                <motion.img
+                  src="/images/minigame-button.png"
+                  alt="MiniGame Button"
                   whileHover={{ scale: 1.05 }}
                   transition={{ duration: 0.2 }}
                 />
