@@ -34,7 +34,7 @@ export const LoginForm = () => {
                 },
             })
 
-            navigate("/home");
+            navigate("/dashboard");
 
         } catch (error) {
             console.error("error login:", error.message);

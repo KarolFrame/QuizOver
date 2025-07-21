@@ -10,7 +10,7 @@ import { ExpBar } from "../components/Profile/ExpBar.jsx";
 import { getUserProfileById } from "../services/profileService";
 import { RankingFriendsProfileWidget } from "../components/RankingFriendsProfileWidget.jsx";
 
-export const Home = () => {
+export const Dashboard = () => {
   const [videoIsPlaying, setVideoIsPlaying] = useState(true);
   const { store, dispatch } = useGlobalReducer();
   const [entries, setEntries] = useState(null);
@@ -104,36 +104,24 @@ export const Home = () => {
   return (
     <>
       {!videoIsPlaying && currentUserProfile && <div className="flex flex-col items-center justify-center">
+        <motion.div
+          className="flex flex-col items-center justify-center w-full md:w-[50%] h-[70%] gap-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.1, delay: 0.2 }}
+        >
+          <h1 className='text-lg md:text-4xl font-bold md:pt-20 text-white pb-10'>Are you ready?</h1>
+        </motion.div>
         <div
           className="flex flex-col md:flex-row items-center justify-center px-4 max-w-[80%] md:max-w-[50%] gap-4"
           style={{ zIndex: 10 }}
         >
-          <motion.div
-            className="flex flex-wrap justify-center items-center w-full md:w-[50%] h-[70%] gap-4"
-            initial={{ opacity: 0, x: -500 }}
-            animate={{ scale: 1, opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 1 }}
-          >
-            <div className="w-full flex flex-col items-center justify-center">
-              <Avatar avatarUrl={user.user_info?.avatar} globalRanking={globalRank} />
-              <h2 className="text-(--color-white) text-3xl">{user.user_info?.userName}</h2>
-            </div>
-            <div>
-              <div className="w-full max-w-md mx-auto" style={{ color: "var(--color-white)" }}>
-                <ExpBar
-                  currentExp={profileUser.currentExp || 0}
-                  level={profileUser.level || 1}
-                />
-                <RankingFriendsProfileWidget />
-              </div>
-            </div>
-          </motion.div>
 
           <motion.div
             className="flex flex-col items-center justify-center w-full md:w-[50%] h-[70%] gap-4"
-            initial={{ opacity: 0, x: 500 }}
+            initial={{ opacity: 0, x: -500 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 1.5 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
           >
             <div>
               <Link to="/game/classic-mode">
@@ -145,6 +133,13 @@ export const Home = () => {
                 />
               </Link>
             </div>
+          </motion.div>
+          <motion.div
+            className="flex flex-col items-center justify-center w-full md:w-[50%] h-[70%] gap-4"
+            initial={{ opacity: 0, x: 500 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
             <div>
               <Link to="/ranking/global">
                 <motion.img

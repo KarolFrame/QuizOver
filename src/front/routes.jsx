@@ -4,11 +4,9 @@ import {
   Route,
 } from "react-router-dom";
 import { Layout } from "./pages/Layout";
-import { Single } from "./pages/Single";
-import { Demo } from "./pages/Demo";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
-import { Home } from "./pages/Home";
+import { Dashboard } from "./pages/Dashboard";
 import { AboutUs } from "./pages/AboutUs";
 import { InGame } from "./pages/InGame";
 import { RankingPage } from "./pages/RankingPage";
@@ -24,21 +22,12 @@ export const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/about-us" element={<AboutUs />} />
-      <Route path="/single/:theId" element={<Single />} />
-      <Route path="/demo" element={<Demo />} />
+      <Route path="/ranking/global" element={<RankingPage />} />
       <Route
-        path="/home"
+        path="/dashboard"
         element={
           <PrivateRoute>
-            <Home />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/ranking/global"
-        element={
-          <PrivateRoute>
-            <RankingPage />
+            <Dashboard />
           </PrivateRoute>
         }
       />

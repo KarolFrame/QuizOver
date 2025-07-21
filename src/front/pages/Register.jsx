@@ -5,32 +5,25 @@ import useGlobalReducer from "../hooks/useGlobalReducer";
 import { LoopingRewindVideo } from "../components/HeaderVideo.jsx";
 import { AvatarCreatorQO } from "../components/AvatarCreatorQO.jsx";
 import { Button } from "../components/Button.jsx";
+import { persistUserSesion } from "../services/authServices.js";
+
 
 export const Register = () => {
     const { dispatch } = useGlobalReducer();
     const navigate = useNavigate();
 
     const handleRegister = async (username, email, password) => {
-        console.log("handleRegister en el padre recibió:", { username, email, password });
-
         try {
             const data = await register(username, email, password);
 
-            localStorage.setItem("jwt-token", data.token);
-            localStorage.setItem("user-email", data.email);
-            localStorage.setItem("user-id", data.user_id);
-            localStorage.setItem("user-username", data.user_info.userName || "");
-            localStorage.setItem("user-avatar", data.user_info.avatar || "");
-            localStorage.setItem("user-genre", data.user_info.genre || "");
-            localStorage.setItem("user-birthday", data.user_info.birthday || "");
+            persistUserSesion(data);
 
             dispatch({ type: "REGISTER_SUCCESS", payload: data });
 
             alert(data.msg);
-            navigate("/home");
-
+            navigate("/dashboard");
         } catch (error) {
-            alert(error.message);
+            alert(error.message || "Error al registrarse");
             console.error("Register error:", error.message);
         }
     };

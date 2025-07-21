@@ -30,7 +30,7 @@ export const RankingFriendsProfileWidget = () => {
                     console.error("Error fetching user profile:", error);
                 }
             } else {
-                console.log("store.profile en /home:", store.profile);
+                console.log("store.profile en /dashboard:", store.profile);
                 setProfileUser(store.profile);
             }
         };

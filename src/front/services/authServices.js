@@ -17,6 +17,35 @@ export const getCurrentUser = () => {
   return { token, email };
 };
 
+export const loadSession = () => {
+  const user = getCurrentUser(); 
+
+  const userId = localStorage.getItem("user-id");
+  const userInfoString = localStorage.getItem("user-info");
+
+  if (!user || !user.token || !user.email || !userId || !userInfoString || userInfoString === "undefined") {
+    return null;
+  }
+
+  let userInfo = null;
+
+  try {
+    userInfo = JSON.parse(userInfoString);
+  } catch (e) {
+    console.error("Error al parsear user-info:", e);
+    localStorage.removeItem("user-info");
+    return null;
+  }
+
+  return {
+    token: user.token,
+    email: user.email,
+    user_id: parseInt(userId, 10),
+    user_info: userInfo,
+  };
+};
+
+
 export const clearLocalStorage = (keys) => {
 
   keys.forEach(function(key) {
