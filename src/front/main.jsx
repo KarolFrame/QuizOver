@@ -14,16 +14,16 @@ const Main = () => {
             <BackendURL />
         </React.StrictMode>
     );
-    return (
-        <React.StrictMode>
-            {/* Provide global state to all components */}
-            <StoreProvider>
-                {/* Set up routing for the application */}
-                <RouterProvider router={router}>
-                </RouterProvider>
-            </StoreProvider>
-        </React.StrictMode>
-    );
+    return (<>
+        {/*<React.StrictMode>*/}
+        {/* Provide global state to all components */}
+        <StoreProvider>
+            {/* Set up routing for the application */}
+            <RouterProvider router={router}>
+            </RouterProvider>
+        </StoreProvider>
+        {/*</React.StrictMode>*/}
+    </>);
 }
 
 // Render the Main component into the root DOM element.

@@ -57,13 +57,13 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/V.0.1.loader.js";
+      var loaderUrl = buildUrl + "/Mazo_V.0.2.loader.js";
       var config = {
-        dataUrl: buildUrl + "/V.0.1.data.br",
-        frameworkUrl: buildUrl + "/V.0.1.framework.js.br",
-        codeUrl: buildUrl + "/V.0.1.wasm.br",
+        dataUrl: buildUrl + "/Mazo_V.0.2.data.br",
+        frameworkUrl: buildUrl + "/Mazo_V.0.2.framework.js.br",
+        codeUrl: buildUrl + "/Mazo_V.0.2.wasm.br",
         streamingAssetsUrl: "StreamingAssets",
-        companyName: "DefaultCompany",
+        companyName: "QuizOver",
         productName: "mazo.exe",
         productVersion: "1.0",
         showBanner: unityShowBanner,
@@ -98,6 +98,7 @@
         canvas.style.height = "600px";
       }
 
+      canvas.style.background = "url('" + buildUrl + "/Mazo_V.0.2.jpg.br') center / cover";
       loadingBar.style.display = "block";
 
       var script = document.createElement("script");
