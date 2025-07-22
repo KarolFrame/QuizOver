@@ -42,19 +42,14 @@ export const InGame = () => {
         called.current = true;
         loadNewQuestion();
     }, []);
-
-    // Función unificada para mostrar confirmación de salida
     const showExitConfirmationToast = () => {
-        // Limpiar cualquier toast anterior
         toast.dismiss();
 
         toast('', {
             duration: Infinity,
             closeButton: false,
-            // Toast personalizado con JSX
             jsx: (
                 <div className="flex flex-col items-center text-center w-full">
-                    {/* Texto en la parte superior */}
                     <div className="mb-6">
                         <h3 className="text-lg font-bold text-white mb-2">
                             Are you sure you want to quit the game?
@@ -63,8 +58,6 @@ export const InGame = () => {
                             If you quit now, you will lose all progress from the current match. Time keeps running...
                         </p>
                     </div>
-
-                    {/* Botones en la parte inferior */}
                     <div className="flex gap-3 w-full">
                         <button
                             onClick={() => {
@@ -93,35 +86,23 @@ export const InGame = () => {
         });
     };
 
-    // Efecto para interceptar refresh/navegación y mostrar nuestro toast
     useEffect(() => {
         const handleBeforeUnload = (e) => {
-            // Solo si hay un juego en progreso
             if (hearts > 0 && questionAndAnswers) {
                 e.preventDefault();
-
-                // Mostrar nuestro toast personalizado
                 showExitConfirmationToast();
-
-                // Esto previene que la página se cierre inmediatamente
-                // dando tiempo al usuario para ver y responder al toast
                 e.returnValue = '';
                 return '';
             }
         };
 
         const handlePopState = (e) => {
-            // Interceptar navegación hacia atrás
             if (hearts > 0 && questionAndAnswers) {
                 e.preventDefault();
                 showExitConfirmationToast();
-
-                // Volver a agregar el estado actual al historial
                 window.history.pushState(null, null, window.location.pathname);
             }
         };
-
-        // Agregar estado al historial para detectar navegación hacia atrás
         window.history.pushState(null, null, window.location.pathname);
 
         window.addEventListener('beforeunload', handleBeforeUnload);
@@ -173,12 +154,10 @@ export const InGame = () => {
         }, 2000);
     };
 
-    // Función que ejecuta la lógica real de salida
     const executeExitGame = () => {
         navigate("/dashboard");
     };
 
-    // Función del botón Exit (usa la misma confirmación)
     const handleExitGame = () => {
         showExitConfirmationToast();
     };
