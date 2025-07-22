@@ -1,10 +1,11 @@
-import { AvatarCreatorQO } from "../components/AvatarCreatorQO";
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useGlobalReducer from '../hooks/useGlobalReducer';
 import { Button } from '../components/Button';
 import { updateProfile } from '../services/profileService';
 import { Avatar } from '../components/Profile/Avatar';
+import { AvatarCreatorQO } from '../components/AvatarCreatorQO';
+import { toast } from 'sonner';
 
 export const EditProfile = () => {
     const { store, dispatch } = useGlobalReducer();
@@ -13,18 +14,13 @@ export const EditProfile = () => {
     const isAuthenticated = store.auth.isAuthenticated;
     const userId = isAuthenticated && store.profile ? store.profile.id : null;
 
-    console.log("EditProfile -> store:", store);
-
     const [formData, setFormData] = useState({
         userName: '',
         avatar: '',
         birthday: '',
         genre: '',
     });
-
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [successMessage, setSuccessMessage] = useState(null);
     const [isCreatingAvatar, setIsCreatingAvatar] = useState(false);
 
     useEffect(() => {
@@ -32,7 +28,9 @@ export const EditProfile = () => {
             setFormData({
                 userName: currentUserInfo.userName || '',
                 avatar: currentUserInfo.avatar || '',
-                birthday: currentUserInfo.birthday ? new Date(currentUserInfo.birthday).toISOString().split('T')[0] : '',
+                birthday: currentUserInfo.birthday
+                    ? new Date(currentUserInfo.birthday).toISOString().split('T')[0]
+                    : '',
                 genre: currentUserInfo.genre || '',
             });
         }
@@ -40,44 +38,27 @@ export const EditProfile = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData(prevData => ({
-            ...prevData,
-            [name]: value
-        }));
+        setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
     const handleAvatarExportedFromCreator = (avatarUrl) => {
-        setFormData(prevData => ({
-            ...prevData,
-            avatar: avatarUrl
-        }));
+        setFormData((prev) => ({ ...prev, avatar: avatarUrl }));
         setIsCreatingAvatar(false);
-        setSuccessMessage("Avatar created! Remember to click 'Save Changes' to update your profile.");
+        toast.success("Avatar created! Remember to click 'Save Changes' to update your profile.", { duration: 3000 });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        setError(null);
-        setSuccessMessage(null);
-
 
         try {
             const updatedUserInfo = await updateProfile(formData);
-
-            dispatch({
-                type: 'UPDATE_USER_INFO',
-                payload: updatedUserInfo
-            });
-
-            setSuccessMessage("Profile updated successfully!");
-            setTimeout(() => {
-                navigate(`/profile/${userId}`);
-            }, 1500);
-
+            dispatch({ type: 'UPDATE_USER_INFO', payload: updatedUserInfo });
+            toast.success('Profile updated successfully!', { duration: 3000 });
+            setTimeout(() => navigate(`/profile/${userId}`), 1500);
         } catch (err) {
-            console.error("Failed to update profile:", err);
-            setError(err.message || "Failed to update profile.");
+            console.error('Failed to update profile:', err);
+            toast.error(err.message || 'Failed to update profile.', { duration: 4000 });
         } finally {
             setLoading(false);
         }
@@ -85,7 +66,7 @@ export const EditProfile = () => {
 
     if (!currentUserInfo) {
         return (
-            <div className="flex justify-center items-center h-screen" style={{ color: "var(--color-white)" }}>
+            <div className="flex justify-center items-center h-screen" style={{ color: 'var(--color-white)' }}>
                 <p>Loading profile data or no user info available. Please ensure you are logged in.</p>
                 <Button label="Go to Login" onClick={() => navigate('/login')} />
             </div>
@@ -95,7 +76,7 @@ export const EditProfile = () => {
     return (
         <>
             {!isCreatingAvatar ? (
-                <div className="mx-auto p-4 sm:p-6 md:p-8 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl" style={{ color: "var(--color-white)", zIndex: 10 }}>
+                <div className="mx-auto p-4 sm:p-6 md:p-8 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl" style={{ color: 'var(--color-white)', zIndex: 10 }}>
                     <h1 className="text-3xl sm:text-4xl font-extrabold mb-8 text-center">Edit Profile</h1>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
@@ -105,9 +86,7 @@ export const EditProfile = () => {
                         </div>
 
                         <div>
-                            <label htmlFor="userName" className="block text-sm font-medium">
-                                Username
-                            </label>
+                            <label htmlFor="userName" className="block text-sm font-medium">Username</label>
                             <input
                                 type="text"
                                 id="userName"
@@ -116,14 +95,12 @@ export const EditProfile = () => {
                                 onChange={handleChange}
                                 required
                                 className="mt-1 block w-full rounded-md shadow-sm p-2"
-                                style={{ backgroundColor: "var(--color-primary)", color: "var(--color-white)" }}
+                                style={{ backgroundColor: 'var(--color-primary)', color: 'var(--color-white)' }}
                             />
                         </div>
 
                         <div>
-                            <label htmlFor="birthday" className="block text-sm font-medium">
-                                Birthday
-                            </label>
+                            <label htmlFor="birthday" className="block text-sm font-medium">Birthday</label>
                             <input
                                 type="date"
                                 id="birthday"
@@ -131,21 +108,19 @@ export const EditProfile = () => {
                                 value={formData.birthday}
                                 onChange={handleChange}
                                 className="mt-1 block w-full rounded-md shadow-sm p-2"
-                                style={{ backgroundColor: "var(--color-primary)", color: "var(--color-white)" }}
+                                style={{ backgroundColor: 'var(--color-primary)', color: 'var(--color-white)' }}
                             />
                         </div>
 
                         <div>
-                            <label htmlFor="genre" className="block text-sm font-medium">
-                                Genre
-                            </label>
+                            <label htmlFor="genre" className="block text-sm font-medium">Genre</label>
                             <select
                                 id="genre"
                                 name="genre"
                                 value={formData.genre}
                                 onChange={handleChange}
                                 className="mt-1 block w-full rounded-md shadow-sm p-2"
-                                style={{ backgroundColor: "var(--color-primary)", color: "var(--color-white)" }}
+                                style={{ backgroundColor: 'var(--color-primary)', color: 'var(--color-white)' }}
                             >
                                 <option value="">Select Genre</option>
                                 <option value="male">Male</option>
@@ -154,9 +129,6 @@ export const EditProfile = () => {
                                 <option value="prefer-not-to-say">Prefer not to say</option>
                             </select>
                         </div>
-
-                        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-                        {successMessage && <p className="text-green-500 text-sm mt-2">{successMessage}</p>}
 
                         <div className="flex justify-between gap-4 mt-8">
                             <Button
@@ -167,7 +139,7 @@ export const EditProfile = () => {
                                 type="button"
                             />
                             <Button
-                                label={loading ? "Updating..." : "Save Changes"}
+                                label={loading ? 'Updating...' : 'Save Changes'}
                                 variant="accent"
                                 size="responsive"
                                 type="submit"

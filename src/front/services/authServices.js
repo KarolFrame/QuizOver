@@ -32,7 +32,7 @@ export const loadSession = () => {
   try {
     userInfo = JSON.parse(userInfoString);
   } catch (e) {
-    console.error("Error al parsear user-info:", e);
+    console.error("Error parsing user info:", e);
     localStorage.removeItem("user-info");
     return null;
   }
@@ -45,9 +45,7 @@ export const loadSession = () => {
   };
 };
 
-
 export const clearLocalStorage = (keys) => {
-
   keys.forEach(function(key) {
     localStorage.removeItem(key);
   });
@@ -59,50 +57,47 @@ export const logOut = (options) => {
   if (options && options.redirectTo) {
     window.location.href = options.redirectTo;
   }
-  
 };
 
-export const persistUserSesion = (data) => {
-
+export const persistUserSession = (data) => {
   localStorage.setItem("jwt-token", data.token);
   localStorage.setItem("user-email", data.email);
   localStorage.setItem("user-id", data.user_id);
   localStorage.setItem("user-info", JSON.stringify(data.user_info));
   localStorage.setItem("user-friends", JSON.stringify(data.friends));
-
 }
 
 export const Login = async (email, password) => {
-  try{
-  const resp = await fetch(`${BACKURL}/token`, {
-    method: "POST",
-    headers:{ "Content-Type": "application/json"},
-    body: JSON.stringify({ email, password }),
-  });
+  try {
+    const resp = await fetch(`${BACKURL}/token`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
 
-  if (resp.status === 401) {
+    if (resp.status === 401) {
+      const data = await resp.json();
+      // NOTE: No longer using alert; throwing an error with the message
+      throw new Error(data.msg || "Invalid credentials");
+    }
+
+    if (resp.status === 400) {
+      throw new Error("Invalid email or password format");
+    }
+
+    if (!resp.ok) {
+      throw new Error("Unknown error during login");
+    }
+
     const data = await resp.json();
-    // CAMBIO: Ya no usamos alert, lanzamos el error con el mensaje
-    throw new Error(data.msg || "Credenciales incorrectas");
-  }
+    console.log("Data received in authService (Login):", data);
+    persistUserSession(data);
 
-  if (resp.status === 400) {
-    throw new Error("Formato de email o password inválido");
-  }
-
-  if (!resp.ok) {
-    throw new Error("Error desconocido al intentar iniciar sesión");
-  }
-
-  const data = await resp.json();
-  console.log("Data recibida en authService (Login):", data);
-  persistUserSesion(data)
-
-  if (Array.isArray(data.friends)) {
-    data.friends = Object.fromEntries(
-      data.friends.map(friend => [friend.id, friend])
-    );
-  }
+    if (Array.isArray(data.friends)) {
+      data.friends = Object.fromEntries(
+        data.friends.map(friend => [friend.id, friend])
+      );
+    }
 
     return data;
   } catch (error) {
@@ -112,24 +107,21 @@ export const Login = async (email, password) => {
 }
 
 const redirectToLogin = () => {
-  clearLocalStorage(STORAGE_KEYS)
+  clearLocalStorage(STORAGE_KEYS);
   window.location.href = "/login";
 }
-
 
 export const getAuthToken = () => {
   const token = localStorage.getItem("jwt-token");
 
-  if (token) { return token; }
-  else {
-    
-    // dispatch event to say we are logged out
+  if (token) {
+    return token;
+  } else {
+    // dispatch event to indicate logout
     logOut();
-
   }
-  return 
+  return;
 }
-
 
 export const fetchBackend = async (url, config) => {
   const token = getAuthToken();
@@ -139,7 +131,7 @@ export const fetchBackend = async (url, config) => {
     headers: {
       ...config.headers,
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,  
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(config.body),
   });
@@ -148,11 +140,9 @@ export const fetchBackend = async (url, config) => {
 
   if (response.ok) {
     return jsonResponse;
+  } else if (response.status === 402) {
+    logOut();
+  } else {
+    throw new Error(`Error fetching from backend: ${response.status}`);
   }
-  else if (resp.status === 402 ){
-    logOut()
-  }
-  else {
-    throw `Error fetching from backend: ${response.status}`;
-  }
-}
+};
