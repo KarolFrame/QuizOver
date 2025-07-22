@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { Login } from '../services/authServices';
 import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
 
 export const LoginForm = () => {
     const [email, setEmail] = useState(localStorage.getItem("user-email") || "");
@@ -34,10 +35,23 @@ export const LoginForm = () => {
                 },
             })
 
+            // Notificación de éxito
+            toast.success('¡Inicio de sesión exitoso!', {
+                description: 'Bienvenido de vuelta',
+                duration: 2500,
+            });
+
             navigate("/dashboard");
 
         } catch (error) {
             console.error("error login:", error.message);
+            
+            // Notificación de error en lugar de dispatch
+            toast.error(error.message || "Error al iniciar sesión", {
+                description: 'Por favor verifica tus credenciales',
+                duration: 4000,
+            });
+            
             dispatch({ type: "SET_MESSAGE", payload: error.message || "Error al iniciar sesión." });
         }
     };

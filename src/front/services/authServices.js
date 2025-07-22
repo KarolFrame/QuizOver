@@ -82,8 +82,8 @@ export const Login = async (email, password) => {
 
   if (resp.status === 401) {
     const data = await resp.json();
-    alert(data.msg || "Credenciales incorrectas");
-    throw new Error("Unauthorized");
+    // CAMBIO: Ya no usamos alert, lanzamos el error con el mensaje
+    throw new Error(data.msg || "Credenciales incorrectas");
   }
 
   if (resp.status === 400) {
