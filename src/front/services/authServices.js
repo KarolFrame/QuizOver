@@ -77,7 +77,6 @@ export const Login = async (email, password) => {
 
     if (resp.status === 401) {
       const data = await resp.json();
-      // NOTE: No longer using alert; throwing an error with the message
       throw new Error(data.msg || "Invalid credentials");
     }
 
@@ -117,7 +116,6 @@ export const getAuthToken = () => {
   if (token) {
     return token;
   } else {
-    // dispatch event to indicate logout
     logOut();
   }
   return;

@@ -42,9 +42,8 @@ export const Layout = () => {
         closeButton
         expand={false}
         toastOptions={{
-          // ESTILO BASE PARA TODOS LOS TOASTS (sin "default")
           style: {
-            background: 'rgba(59, 65, 114, 0.95)',  // azul semitransparente
+            background: 'rgba(59, 65, 114, 0.95)',
             color: '#ede9f1',
             border: '2px solid rgba(63, 159, 254, 0.3)',
             borderRadius: '24px',
@@ -54,23 +53,22 @@ export const Layout = () => {
             backdropFilter: 'blur(10px)',
             boxShadow: '0 10px 40px rgba(0, 0, 0, 0.3), inset 0 0 20px rgba(63, 159, 254, 0.1)',
           },
-          // Para cada tipo, sólo cambiamos la "x"
           success: {
             iconTheme: {
               primary: '#ede9f1',
-              secondary: '#3f9ffe',  // "x" azul
+              secondary: '#3f9ffe',
             },
           },
           error: {
             iconTheme: {
               primary: '#ede9f1',
-              secondary: '#d259a1',  // "x" rosa
+              secondary: '#d259a1',
             },
           },
           warning: {
             iconTheme: {
               primary: '#ede9f1',
-              secondary: '#f9bf14',  // "x" amarilla
+              secondary: '#f9bf14',
             },
           },
         }}
