@@ -9,6 +9,7 @@ import { AnswerAnimReaction } from "../components/AnswerAnimReaction.jsx";
 import { GameEnd } from "./GameEnd.jsx";
 import { Button } from "../components/Button.jsx";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'sonner';
 
 const HAPPY_FRAMES = [0, 5, 6, 8, 10, 11, 12, 13, 14, 15];
 const ANGRY_FRAMES = [1, 2, 3, 4, 7, 9, 16, 17, 18, 19];
@@ -23,6 +24,7 @@ export const InGame = () => {
     const [reaction, setReaction] = useState(false);
     const [frame, setFrame] = useState(0);
     const [shake, setShake] = useState(false);
+    const [showExitConfirmation, setShowExitConfirmation] = useState(false);
     const navigate = useNavigate();
 
     const loadNewQuestion = async () => {
@@ -40,6 +42,77 @@ export const InGame = () => {
         called.current = true;
         loadNewQuestion();
     }, []);
+    const showExitConfirmationToast = () => {
+        toast.dismiss();
+
+        toast('', {
+            duration: Infinity,
+            closeButton: false,
+            jsx: (
+                <div className="flex flex-col items-center text-center w-full">
+                    <div className="mb-6">
+                        <h3 className="text-lg font-bold text-white mb-2">
+                            Are you sure you want to quit the game?
+                        </h3>
+                        <p className="text-gray-300 text-sm">
+                            If you quit now, you will lose all progress from the current match. Time keeps running...
+                        </p>
+                    </div>
+                    <div className="flex gap-3 w-full">
+                        <button
+                            onClick={() => {
+                                toast.dismiss();
+                                toast.success('Great! Let\'s keep playing', {
+                                    description: 'The game continues...',
+                                    duration: 2000
+                                });
+                            }}
+                            className="flex-1 px-6 py-3 bg-blue-500 hover:bg-blue-400 text-white font-semibold rounded-lg transition-colors duration-200"
+                        >
+                            Keep playing
+                        </button>
+                        <button
+                            onClick={() => {
+                                toast.dismiss();
+                                executeExitGame();
+                            }}
+                            className="flex-1 px-6 py-3 bg-red-600 hover:bg-red-500 text-white font-semibold rounded-lg transition-colors duration-200"
+                        >
+                            Yes, quit
+                        </button>
+                    </div>
+                </div>
+            )
+        });
+    };
+
+    useEffect(() => {
+        const handleBeforeUnload = (e) => {
+            if (hearts > 0 && questionAndAnswers) {
+                e.preventDefault();
+                showExitConfirmationToast();
+                e.returnValue = '';
+                return '';
+            }
+        };
+
+        const handlePopState = (e) => {
+            if (hearts > 0 && questionAndAnswers) {
+                e.preventDefault();
+                showExitConfirmationToast();
+                window.history.pushState(null, null, window.location.pathname);
+            }
+        };
+        window.history.pushState(null, null, window.location.pathname);
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        window.addEventListener('popstate', handlePopState);
+
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+            window.removeEventListener('popstate', handlePopState);
+        };
+    }, [hearts, questionAndAnswers]);
 
     const triggerShake = () => {
         setShake(true);
@@ -81,8 +154,12 @@ export const InGame = () => {
         }, 2000);
     };
 
+    const executeExitGame = () => {
+        navigate("/dashboard");
+    };
+
     const handleExitGame = () => {
-        navigate("/");
+        showExitConfirmationToast();
     };
 
     return (
