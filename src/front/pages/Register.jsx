@@ -5,8 +5,8 @@ import useGlobalReducer from "../hooks/useGlobalReducer";
 import { LoopingRewindVideo } from "../components/HeaderVideo.jsx";
 import { AvatarCreatorQO } from "../components/AvatarCreatorQO.jsx";
 import { Button } from "../components/Button.jsx";
-import { persistUserSession } from "../services/authServices.js"; // corrected import
-import { toast } from "sonner"; // ← Import Sonner
+import { persistUserSession } from "../services/authServices.js";
+import { toast } from "sonner";
 
 export const Register = () => {
     const { dispatch } = useGlobalReducer();
@@ -15,13 +15,9 @@ export const Register = () => {
     const handleRegister = async (username, email, password) => {
         try {
             const data = await register(username, email, password);
-
-            // Persist session with correct function
             persistUserSession(data);
 
             dispatch({ type: "REGISTER_SUCCESS", payload: data });
-
-            // Success toast
             toast.success("Registration successful!", {
                 description: "Welcome aboard! You’re now logged in.",
                 duration: 3000,
@@ -30,8 +26,6 @@ export const Register = () => {
             navigate("/dashboard");
         } catch (error) {
             console.error("Register error:", error.message);
-
-            // Error toast
             toast.error(error.message || "Registration failed", {
                 description: "Please check your details and try again.",
                 duration: 4000,
@@ -47,10 +41,6 @@ export const Register = () => {
                         videoSrc="/video/header_video2.mp4"
                         handleRegister={handleRegister}
                     />
-                </div>
-                {/* Si en el futuro usas un formulario independiente, puedes pasar handleRegister ahí: */}
-                {/* <RegisterForm onSubmit={handleRegister} /> */}
-            </div>
         </>
     );
 };
