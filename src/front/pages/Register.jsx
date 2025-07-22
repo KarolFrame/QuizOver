@@ -41,6 +41,8 @@ export const Register = () => {
                         videoSrc="/video/header_video2.mp4"
                         handleRegister={handleRegister}
                     />
+                </div>
+            </div>
         </>
     );
 };
