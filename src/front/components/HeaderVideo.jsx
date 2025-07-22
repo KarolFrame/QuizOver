@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { VideoPet } from './VideoPet.jsx';
-import { HomeSelector } from './HomeSelector.jsx';
 import { RegisterForm } from './RegisterForm.jsx';
 import { motion } from 'motion/react';
 
@@ -18,7 +17,6 @@ export const LoopingRewindVideo = ({ videoSrc, handleRegister }) => {
     const videoRef = useRef(null);
     const [fadeOut, setFadeOut] = useState(false);
     const [showVideoPet, setShowVideoPet] = useState(false);
-    const [showHomeSelector, setShowHomeSelector] = useState(false);
     const [hasFaded, setHasFaded] = useState(false);
     const [isIdle, setIsIdle] = useState(false);
 

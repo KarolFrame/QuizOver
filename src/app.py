@@ -272,42 +272,46 @@ def calculate_xp_for_next_level(current_xp):
     return 1000
 
 
-@app.route("/user/profile", methods=["GET", "PUT"])
+@app.route("/user/profile", methods=["GET"])
 @jwt_required()
-def handle_user_profile():
+def get_user_profile():
     current_user_id = get_jwt_identity()
     user = User.query.get(current_user_id)
 
-    if not user:
+    if not user:    
         return jsonify({"msg": "User not found"}), 404
 
-    if request.method == "GET":
-        return jsonify(user.serialize()), 200
+    return jsonify(user.serialize()), 200
 
-    elif request.method == "PUT":
-        data = request.get_json()
 
-        if not user.user_info:
-            return jsonify({"msg": "User info not found for this user"}), 404
+@app.route("/user/profile", methods=["PUT"])
+@jwt_required()
+def update_user_profile():
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    data = request.get_json()
 
-        if 'userName' in data:
-            user.user_info.userName = data['userName']
-        if 'avatar' in data:
-            user.user_info.avatar = data['avatar']
-        if 'birthday' in data:
+    if not user.user_info:
+        return jsonify({"msg": "User info not found for this user"}), 404
 
-            try:
-                from datetime import datetime
-                user.user_info.birthday = datetime.strptime(
-                    data['birthday'], '%Y-%m-%d')
-            except ValueError:
-                return jsonify({"msg": "Invalid birthday format. Use YYYY-MM-DD"}), 400
-        if 'genre' in data:
-            user.user_info.genre = data['genre']
+    if 'userName' in data:
+        user.user_info.userName = data['userName']
+    if 'avatar' in data:
+        user.user_info.avatar = data['avatar']
+    if 'birthday' in data:
 
-        db.session.commit()
+        try:
+            from datetime import datetime
+            user.user_info.birthday = datetime.strptime(
+                data['birthday'], '%Y-%m-%d')
+        except ValueError:
+            return jsonify({"msg": "Invalid birthday format. Use YYYY-MM-DD"}), 400
+    if 'genre' in data:
+        user.user_info.genre = data['genre']
 
-        return jsonify({"msg": "Profile updated successfully", "user_info": user.user_info.serialize()}), 200
+    db.session.commit()
+
+    return jsonify({"msg": "Profile updated successfully", "user_info": user.user_info.serialize()}), 200
 
 
 @app.route("/users/<int:user_id>", methods=["GET"])

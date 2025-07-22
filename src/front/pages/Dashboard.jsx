@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { VideoPet } from "../components/VideoPet.jsx";
-import { getGlobalRanking } from "../services/rankingService.js";
-import { getUserProfileById } from "../services/profileService";
 
 export const Dashboard = () => {
   const [videoIsPlaying, setVideoIsPlaying] = useState(true);
@@ -37,7 +35,6 @@ export const Dashboard = () => {
               className="grid grid-cols-1 md:grid-cols-3 md:gap-6 max-w-[90%] md:max-w-[80%]"
               style={{ zIndex: 10 }}
             >
-              {/* Column 1 (1x) */}
               <div className="flex flex-col gap-4 w-full col-span-1 mb-5">
                 <motion.div
                   className="w-full"
@@ -74,7 +71,6 @@ export const Dashboard = () => {
                 </motion.div>
               </div>
 
-              {/* Column 2 (2x) */}
               <div className="flex flex-col gap-4 w-full col-span-2">
                 <motion.div
                   className="w-full"
