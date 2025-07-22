@@ -5,8 +5,8 @@ import useGlobalReducer from "../hooks/useGlobalReducer";
 import { LoopingRewindVideo } from "../components/HeaderVideo.jsx";
 import { AvatarCreatorQO } from "../components/AvatarCreatorQO.jsx";
 import { Button } from "../components/Button.jsx";
-import { persistUserSesion } from "../services/authServices.js";
-
+import { persistUserSession } from "../services/authServices.js";
+import { toast } from "sonner";
 
 export const Register = () => {
     const { dispatch } = useGlobalReducer();
@@ -15,25 +15,32 @@ export const Register = () => {
     const handleRegister = async (username, email, password) => {
         try {
             const data = await register(username, email, password);
-
-            persistUserSesion(data);
+            persistUserSession(data);
 
             dispatch({ type: "REGISTER_SUCCESS", payload: data });
+            toast.success("Registration successful!", {
+                description: "Welcome aboard! You’re now logged in.",
+                duration: 3000,
+            });
 
-            alert(data.msg);
             navigate("/dashboard");
         } catch (error) {
-            alert(error.message || "Error al registrarse");
             console.error("Register error:", error.message);
+            toast.error(error.message || "Registration failed", {
+                description: "Please check your details and try again.",
+                duration: 4000,
+            });
         }
     };
 
-    return (<>
-        <div className=" d-flex flex-column gap-0 text-center" style={{ zIndex: 10 }}>
-            <div className="flex justify-center items-center">
-                <LoopingRewindVideo videoSrc="/video/header_video2.mp4" handleRegister={handleRegister} />
-            </div>
-        </div>
-    </>
+    return (
+        <>
+            <div className="d-flex flex-column gap-0 text-center" style={{ zIndex: 10 }}>
+                <div className="flex justify-center items-center">
+                    <LoopingRewindVideo
+                        videoSrc="/video/header_video2.mp4"
+                        handleRegister={handleRegister}
+                    />
+        </>
     );
 };

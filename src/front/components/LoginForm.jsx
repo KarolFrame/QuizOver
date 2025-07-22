@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { Login } from '../services/authServices';
 import { Link } from 'react-router-dom';
+import { toast } from 'sonner';
 
 export const LoginForm = () => {
     const [email, setEmail] = useState(localStorage.getItem("user-email") || "");
@@ -32,13 +33,29 @@ export const LoginForm = () => {
                     friends: data.friends || {},
                     user_info: data.user_info || {},
                 },
-            })
+            });
+
+            // Success notification
+            toast.success('Login successful!', {
+                description: 'Welcome back.',
+                duration: 2500,
+            });
 
             navigate("/dashboard");
 
         } catch (error) {
-            console.error("error login:", error.message);
-            dispatch({ type: "SET_MESSAGE", payload: error.message || "Error al iniciar sesión." });
+            console.error("Login error:", error.message);
+
+            // Error notification
+            toast.error(error.message || "Login error", {
+                description: 'Please verify your credentials.',
+                duration: 4000,
+            });
+
+            dispatch({
+                type: "SET_MESSAGE",
+                payload: error.message || "Login error.",
+            });
         }
     };
 
@@ -49,23 +66,23 @@ export const LoginForm = () => {
                 <form className='flex flex-col bg-primary' onSubmit={handleSubmit}>
                     <input
                         type="email"
-                        placeholder='Type your email'
+                        placeholder='Enter your email'
                         required
                         value={email}
-                        onChange={event => setEmail(event.target.value)}
+                        onChange={e => setEmail(e.target.value)}
                     />
                     <input
                         type="password"
-                        placeholder='Type your password'
+                        placeholder='Enter your password'
                         required
                         value={password}
-                        onChange={event => setPassword(event.target.value)}
+                        onChange={e => setPassword(e.target.value)}
                     />
                     <Button label="Log In" variant="accent" />
                 </form>
                 <Link to="/register">
                     <span className="font-normal text-gray-400 underline">
-                        Don't have an account yet? Sign up
+                        Don’t have an account yet? Sign up
                     </span>
                 </Link>
             </div>
