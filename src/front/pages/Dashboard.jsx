@@ -17,13 +17,14 @@ export const Dashboard = () => {
     return () => clearTimeout(timer);
   }, []);
 
+
   return (
     <>
-      <div className="flex flex-col min-h-screen md:justify-center pt-2 md:pt-0">
+      <div className="flex flex-col h-screen overflow-auto  pt-2 md:pt-20">
         {!videoIsPlaying && currentUserProfile && (
           <div className="flex flex-col items-center justify-center">
             <motion.div
-              className="flex flex-col items-center justify-center w-full md:w-[50%] h-[70%] gap-4"
+              className="flex flex-col items-center justify-center w-full md:w-[50%] h-[100%] gap-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.1, delay: 0.2 }}
@@ -32,7 +33,7 @@ export const Dashboard = () => {
             </motion.div>
 
             <div
-              className="grid grid-cols-1 md:grid-cols-3 md:gap-6 max-w-[90%] md:max-w-[80%]"
+              className="grid grid-cols-1 md:grid-cols-3 p-2 md:gap-6 max-w-[100%] md:max-w-[80%]"
               style={{ zIndex: 10 }}
             >
               <div className="flex flex-col gap-4 w-full col-span-1 mb-5">
@@ -110,7 +111,7 @@ export const Dashboard = () => {
           </div>
         )}
 
-        <div className="flex justify-center mt-10">
+        <div className="flex justify-center mt-2 md:mt-4">
           <VideoPet />
         </div>
       </div>
