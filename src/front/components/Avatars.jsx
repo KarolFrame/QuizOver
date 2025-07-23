@@ -7,7 +7,7 @@ export const Avatars = ({
   showDecorations = true,
   scrollable = true,
   height = '250px',
-  containerWidth = "w-[100%]",
+  containerWidth = "md:w-[100%]",
   inGlobalRankingPage = false
 }) => {
   const borderImages = {
@@ -50,16 +50,16 @@ export const Avatars = ({
                 className={`relative aspect-square
     ${inGlobalRankingPage
                     ? (showDecorations && pos === 1 ? 'w-32 md:w-44' : 'w-20 md:w-24')
-                    : (showDecorations && pos === 1 ? 'w-44 md:w-56' : 'w-32 md:w-40')
+                    : (showDecorations && pos === 1 ? 'w-44 md:w-56' : 'w-32 md:w-24')
                   }
   `}
               >
                 {id ? (
-                  <Link to={`/profile/${id}`} className="block rounded-full flex items-center justify-center w-full h-full">
+                  <Link to={`/profile/${id}`} className="block rounded-full flex items-center justify-center md:w-full h-full">
                     <img
                       src={avatar}
                       alt={`${name}'s avatar`}
-                      className="rounded-full z-0"
+                      className="rounded-full z-0 md:w-100 w-70"
                       style={!inGlobalRankingPage ? { width: '70%', height: '70%', objectFit: 'cover' } : { width: '100%', height: '100%', objectFit: 'cover' }}
                     />
                   </Link>

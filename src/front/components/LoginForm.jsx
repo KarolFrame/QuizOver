@@ -61,8 +61,8 @@ export const LoginForm = () => {
 
     return (
         <>
-            <h1 className='text-4xl font-bold text-white'>Welcome back!</h1>
-            <div className='flex flex-col justify-center'>
+            <div className='flex flex-col items-center justify-center'>
+                <h1 className='text-4xl font-bold text-white'>Welcome back!</h1>
                 <form className='flex flex-col bg-primary' onSubmit={handleSubmit}>
                     <input
                         type="email"

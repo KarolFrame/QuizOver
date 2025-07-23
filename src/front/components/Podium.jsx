@@ -10,7 +10,7 @@ export const Podium = ({ data }) => {
   }, [target]);
 
   return (
-    <div className="podium w-full max-w-md mx-auto mb-8">
+    <div className="podium w-90 md:w-full p-2 max-w-md mx-auto mb-8">
       <div className="bar second" style={{ height: `${h[1]}%` }} />
       <div className="bar first" style={{ height: `${h[0]}%` }} />
       <div className="bar third" style={{ height: `${h[2]}%` }} />

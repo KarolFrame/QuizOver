@@ -13,7 +13,7 @@ export const Lista = ({ entries }) => {
   const star = "/images/star.png"
 
   return (
-    <div className="w-full max-w-md mx-auto mb-8">
+    <div className="w-90 md:w-100 max-w-md mx-auto mb-8">
       <ul className="space-y-2">
         {list.map(({ position, name, score, avatar, id }, index) => (
           <motion.li

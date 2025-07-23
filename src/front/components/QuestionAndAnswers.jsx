@@ -53,12 +53,14 @@ export const QuestionAndAnswers = ({ question, option1, option2, image, onAnswer
 
   return (
     <>
-      <div className="w-[350px] bg-primary rounded-[20px] p-3">
-        <h1 className="text-(--color-white) font-[500] text-xl">{question}</h1>
+      <div className="bg-primary rounded-[20px] p-3">
+        <h1 className="md:p-5 p-2  w-full text-white font-[500] text-xl">{question}</h1>
       </div>
 
       <motion.img
-        className="max-w-[350px] max-h-[200px] w-full h-auto rounded-[20px]"
+        className="rounded-[20px]
+        max-w-[350px] md:max-w-[500px] lg:max-w-[700px]
+        max-h-[200px] md:max-h-[300px] lg:max-h-[400px] p-3"
         src={image}
         drag="x"
         style={{ x, rotate }}
@@ -68,12 +70,13 @@ export const QuestionAndAnswers = ({ question, option1, option2, image, onAnswer
         dragElastic={0.7}
         whileTap={{ cursor: "grabbing" }}
       />
+      <span className="text-white">Swipe To answer!</span>
 
-      <div className="flex flex-row mx-5 text-(--color-white) text-xl gap-5">
-        <p className="bg-primary rounded-[20px] p-2 flex-1 flex items-center justify-center text-center w-[160px]">
+      <div className=" w-90 flex flex-row mx-5 text-white) text-xl gap-5">
+        <p className="bg-info w-full rounded-[20px] p-2 flex-1 flex items-center justify-center text-center w-[160px]">
           {options[0]}
         </p>
-        <p className="bg-primary rounded-[20px] p-2 flex-1 flex items-center justify-center text-center w-[160px]">
+        <p className="bg-yellow rounded-[20px] p-2 flex-1 flex items-center justify-center text-center w-[160px]">
           {options[1]}
         </p>
       </div>

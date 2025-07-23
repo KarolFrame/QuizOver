@@ -6,13 +6,14 @@ export const Footer = () => (
     className="footer mt-auto py-2 text-center justify-center flex flex-rox gap-5"
     initial={{ opacity: 0, y: 80 }}
     animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: .5, delay: 2, ease: "easeOut" }}
+    transition={{ duration: .5, delay: 1, ease: "easeOut" }}
   >
     <Link to="/about-us">
       <p>About Us</p>
     </Link>
+    |
     <Link to="/ranking/global">
-      <p>Global Ranking</p>
+      <p>© QuizOver 2025</p>
     </Link>
   </motion.footer>
 );

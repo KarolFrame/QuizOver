@@ -50,7 +50,7 @@ export default function UserProfile() {
       <div className="flex flex-col items-center mb-6 sm:mb-8">
         <Avatar userId={user.id} globalRanking={user.globalRank} />
         <h2
-          className="mb-1 text-2xl sm:text-3xl font-extrabold"
+          className="lilita-one-regular mb-1 text-2xl sm:text-3xl font-extrabold"
           style={{ color: "var(--color-white)" }}
         >
           {user.username}
@@ -93,13 +93,13 @@ export default function UserProfile() {
         </div>
       </div>
       {!isCurrentUserProfile ? (
-        isFriend ? <p>{user.username} is a friend!</p> :
+        isFriend ? <p className="lilita-one-regular text-xl">{user.username} is a friend!</p> :
           <div className="flex gap-3 justify-between">
             <Button label="Add Friend" size="responsive" variant="accent" className="grow" onClick={() => handleAddFriend(userId)} />
           </div>
       ) : (
         <>
-          <div className="m-5"><MyFriendsWidget /></div>
+          <div className=""><MyFriendsWidget /></div>
           <div className="flex justify-end">
             <LogoutButton />
           </div>
