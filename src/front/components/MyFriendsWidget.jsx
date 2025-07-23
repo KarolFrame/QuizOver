@@ -64,7 +64,7 @@ export const MyFriendsWidget = () => {
   }
 
   return (
-    <div className="flex flex-column justify-center items-center">
+    <div className="flex flex-column w-90 justify-center items-center">
       <div
         className="p-4 rounded-lg mb-6 overflow-hidden bg-primary"
         style={{
@@ -88,7 +88,7 @@ export const MyFriendsWidget = () => {
             <p>You don’t have any friends yet :(</p>
           </div>
         )}
-        <div className="flex justify-end">
+        <div className="flex justify-end mt-4">
           <Link to="/my-friends">
             <Button label="See all" variant="accent" />
           </Link>

@@ -164,7 +164,7 @@ export const InGame = () => {
 
     return (
         <div className="flex flex-col items-center justify-center m-5">
-            <div className="flex flex-col max-w-[50%] items-center justify-center">
+            <div className="flex flex-col max-w-[100%] items-center justify-center">
                 <div className={`text-center flex flex-col justify-center items-center gap-3 ${shake ? 'shake' : ''} hv-100`} style={{ zIndex: 10 }}>
                     {reaction &&
                         <AnswerAnimReaction frameIndex={frame} />}
@@ -173,7 +173,7 @@ export const InGame = () => {
                             <div className="self-start mx-5 " style={{ zIndex: 10 }}>
                                 <Button
                                     label="← Exit"
-                                    variant="danger"
+                                    variant="ghost"
                                     size="responsive"
                                     onClick={handleExitGame}
                                 />

@@ -19,7 +19,7 @@ export const MyFriends = () => {
     return (<>
         <div className="flex flex-col items-center p-4" style={{ zIndex: 10 }}>
             <header className="w-full max-w-md text-center mb-6">
-                <h1 className="text-white font-semibold text-4xl mb-2">My Friends</h1>
+                <h1 className="lilita-one-regular text-white font-semibold text-4xl mb-2">My Friends</h1>
             </header>
             {transformedFriendsList.length > 0 ? (
                 <Lista entries={transformedFriendsList} />

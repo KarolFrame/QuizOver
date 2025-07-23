@@ -28,7 +28,7 @@ export const Dashboard = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.1, delay: 0.2 }}
             >
-              <h1 className="text-lg md:text-4xl font-bold text-white pb-10">Are you ready?</h1>
+              <h1 className="lilita-one-regular text-3xl md:text-4xl font-bold text-white pb-10">Are you ready?</h1>
             </motion.div>
 
             <div

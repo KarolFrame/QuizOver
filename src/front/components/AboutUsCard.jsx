@@ -17,7 +17,7 @@ export const AboutUsCard = ({ name, description, image, github, linkedin, delay 
                 whileHover={{ scale: 1.03 }}>
                 <div className='flex justify-center flex-col bg-primary rounded-[16px] gap-1 p-5'>
                     <img src={image} className="rounded-[200px]" />
-                    <h1 className="text-center mt-2 align-middle text-(--color-white) uppercase font-[800] text-2xl">{name}</h1>
+                    <h1 className="lilita-one-regular text-center mt-2 align-middle text-(--color-white) uppercase font-[800] text-2xl">{name}</h1>
                     <div className="flex flex-row justify-center items-center gap-4">
                     </div>
                     <p className="text-(--color-white)  mt-4 mb-4 p-3 rounded-[20px] text-left">{description}</p>

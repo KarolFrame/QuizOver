@@ -32,7 +32,9 @@ export const ProgressInGame = ({ onTimeOut }) => {
     };
 
     return (
-        <div className="w-[350px] bg-primary rounded-[20px] p-3">
+        <div className=" w-full h-auto rounded-[20px]
+        max-w-[350px] md:max-w-[500px]
+        max-h-[200px] md:max-h-[300px] ">
             <div className="flex flex-row justify-between items-center mx-5 text-xl text-white">
                 <div className="flex items-center gap-2">
                     <img src="/images/star.png" alt="star" className="w-6 h-6" />
@@ -46,7 +48,7 @@ export const ProgressInGame = ({ onTimeOut }) => {
                     {renderHearts()}
                 </div>
             </div>
-            <div className="progress m-3" key={points}>
+            <div className="progress m-3 bg-" key={points}>
                 <div className="progress-value"></div>
             </div>
         </div>

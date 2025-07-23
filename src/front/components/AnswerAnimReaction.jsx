@@ -12,7 +12,7 @@ const getSpritePosition = (index) => {
 
 export const AnswerAnimReaction = ({ frameIndex, delay = 0 }) => {
     const isMobile = window.innerWidth < 768;
-    const targetScale = isMobile ? .2 : 0.5;
+    const targetScale = isMobile ? .5 : 0.5;
 
     return (
         <motion.div
