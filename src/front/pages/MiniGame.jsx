@@ -28,6 +28,7 @@ export const MiniGame = () => {
                 companyName: "QuizOver",
                 productName: "mazo.exe",
                 productVersion: "1.0",
+                matchWebGLToCanvasSize: false,
             };
 
             if (typeof window.createUnityInstance !== 'function') {
@@ -84,8 +85,8 @@ export const MiniGame = () => {
             >
                 <canvas
                     id="unity-canvas"
-                    width={960}
-                    height={600}
+                    width="960px"
+                    height="800px"
                     tabIndex={-1}
                 ></canvas>
             </div>
