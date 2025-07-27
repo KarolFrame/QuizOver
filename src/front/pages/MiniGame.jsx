@@ -86,7 +86,7 @@ export const MiniGame = () => {
                 <canvas
                     id="unity-canvas"
                     width="960px"
-                    height="800px"
+                    height="600px"
                     tabIndex={-1}
                 ></canvas>
             </div>
