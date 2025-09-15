@@ -201,7 +201,7 @@ def trivia_question():
 def global_ranking():
     try:
         results = get_global_ranking()
-        serialized_results = [result.serialize() for result in results]
+        serialized_results = [result.serialize_public() for result in results]
         return jsonify(serialized_results), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
