@@ -39,22 +39,14 @@ class User(db.Model):
         backref='friend_of'
     )
 
-    def serialize_public(self):
+    def serialize(self):
         return {
             "id": self.id,
+            "email": self.email,
             "experience_points": self.experience_points,
             "friends": [friend.id for friend in self.friends],
             "user_info": self.user_info.serialize() if (self.user_info) else None
-
         }
-
-    def serialize_private(self):
-        return       { 
-            "email": self.email,
-
-    }
-
-    
 
     def add_friend(self, other_user):
         if other_user not in self.friends:
